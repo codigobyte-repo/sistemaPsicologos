@@ -10,4 +10,9 @@ class University extends Model
     use HasFactory;
 
     protected $fillable = ['nombre', 'direccion'];
+
+    public function matriculados()
+    {
+        return $this->hasMany(Matriculado::class, 'nationalities_id');
+    }
 }

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TituloUniversitario extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nombre'];
+
+    public function matriculados()
+    {
+        return $this->hasMany(Matriculado::class, 'nationalities_id');
+    }
 }
