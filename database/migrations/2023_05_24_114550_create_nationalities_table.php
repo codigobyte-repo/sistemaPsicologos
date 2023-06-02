@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('nationalities', function (Blueprint $table) {
             $table->id();
             $table->string('pais')->nullable();
+            $table->string('nombre_excel')->nullable();
             $table->timestamps();
         });
     }

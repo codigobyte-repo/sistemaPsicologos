@@ -9,7 +9,7 @@ class Nationality extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pais'];
+    protected $fillable = ['pais', 'nombres_excel'];
 
     public function matriculados()
     {

@@ -14,25 +14,70 @@ class DistritoRevistaSeeder extends Seeder
     public function run(): void
     {
         $distritos = [
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            '10',
-            '11',
-            '12',
-            '13'
+            [ 
+                'codigo' => '1',
+                'nombre' => 'Distrito 1'
+            ],
+            [ 
+                'codigo' => '2',
+                'nombre' => 'Distrito 2'
+            ],
+            [ 
+                'codigo' => '3',
+                'nombre' => 'Distrito 3'
+            ],
+            [ 
+                'codigo' => '4',
+                'nombre' => 'Distrito 4'
+            ],
+            [ 
+                'codigo' => '5',
+                'nombre' => 'Distrito 5'
+            ],
+            [ 
+                'codigo' => '6',
+                'nombre' => 'Distrito 6'
+            ],
+            [ 
+                'codigo' => '7',
+                'nombre' => 'Distrito 7'
+            ],
+            [ 
+                'codigo' => '8',
+                'nombre' => 'Distrito 8'
+            ],
+            [ 
+                'codigo' => '9',
+                'nombre' => 'Distrito 9'
+            ],
+            [ 
+                'codigo' => '10',
+                'nombre' => 'Distrito 10'
+            ],
+            [ 
+                'codigo' => '11',
+                'nombre' => 'Distrito 11'
+            ],
+            [ 
+                'codigo' => '12',
+                'nombre' => 'Distrito 12'
+            ],
+            [ 
+                'codigo' => '13',
+                'nombre' => 'Distrito 13'
+            ],
+            [ 
+                'codigo' => '14',
+                'nombre' => 'Distrito 14'
+            ],
+            [ 
+                'codigo' => '15',
+                'nombre' => 'Distrito 15'
+            ],
         ];
 
         foreach ($distritos as $distrito) {
-            DistritoRevista::create([
-                'codigo' => $distrito
-            ]);
+            DistritoRevista::create($distrito);
         }
     }
 }

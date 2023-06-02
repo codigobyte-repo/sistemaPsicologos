@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('matricula')->nullable();
             $table->unsignedBigInteger('distrito_matriculas_id');
             $table->unsignedBigInteger('distrito_revistas_id');
-            $table->enum('genero', [Matriculado::MASCULINO, Matriculado::FEMENINO])->nullable();
+            $table->enum('genero', [Matriculado::GENERO_MASCULINO, Matriculado::GENERO_FEMENINO])->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->enum('estado_observacion', [Matriculado::RECEPCIONADO, Matriculado::OTRO])->nullable();
             $table->unsignedBigInteger('situacion_revistas_id');
             $table->unsignedBigInteger('situacion_revista_motivos_id');
             $table->date('situacion_de_revista_fecha')->nullable();
             $table->unsignedBigInteger('nationalities_id');
-            $table->enum('tipo_documento', [Matriculado::DNI, Matriculado::LE, Matriculado::LC])->default(Matriculado::DNI)->nullable();
+            $table->enum('tipo_documento', [Matriculado::DNI, Matriculado::LE, Matriculado::LC, Matriculado::CI])->default(Matriculado::DNI)->nullable();
             $table->string('documento_nro')->nullable();
             $table->string('cuit')->nullable();
             $table->string('domicilio_particular', 256)->nullable();

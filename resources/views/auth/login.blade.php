@@ -15,13 +15,18 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            <div class="mb-4">
+                <x-label for="matricula" label="Matricula" />
+                <x-input id="matricula" class="block mt-1 w-full" type="text" name="matricula" :value="old('matricula')" pattern="[0-9]+" autofocus autocomplete="tel" />
+            </div>
+
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-label for="email" label="{{ __('Email') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autocomplete="username" />
             </div>
 
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
+                <x-label for="password" label="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
@@ -39,7 +44,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-4">
+                <x-button type="submit" class="ml-4">
                     {{ __('Log in') }}
                 </x-button>
             </div>

@@ -20,11 +20,14 @@ class SituacionRevistasMotivosSeeder extends Seeder
             'ARTICULO 56 I E',
             'FALTA DE PAGO',
             'RADICA FUERA DE LA PROVINCIA',
+            'RADICA FUERA DEL PAIS',
             'NO EJERCE EN LA PROVINCIA DE BS AS',
             'FALLECIMIENTO',
             'RAZONES DE SALUD',
-            'MATRICULACION INICIAL'
-
+            'MATRICULACION INICIAL',
+            'CESE DE EJERCICIO PROFESIONAL',
+            'INHABILITACION POR TRIBUNAL DE DISCIPLINA',
+            'DECISION TRIBUNAL DISCIPLINA'
         ];
 
         foreach ($situaciones as $situacion) {

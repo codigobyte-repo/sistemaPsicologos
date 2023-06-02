@@ -10,8 +10,8 @@ class Matriculado extends Model
     use HasFactory;
 
     /* genero */
-    const MASCULINO = 1;
-    const FEMENINO = 2;
+    const GENERO_MASCULINO = 1;
+    const GENERO_FEMENINO = 2;
 
     /* estado_observacion */
     const RECEPCIONADO = 1;
@@ -21,6 +21,7 @@ class Matriculado extends Model
     const DNI = 1;
     const LE = 2;
     const LC = 3;
+    const CI = 4;
 
     /* categoria */
     const A = 1;
