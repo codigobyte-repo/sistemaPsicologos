@@ -15,6 +15,9 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ url('admin/dashboard') }}" :active="request()->routeIs('dashboard')">
+                        Administrador
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -100,6 +103,10 @@
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ url('admin/dashboard') }}">
+                                Administrador
                             </x-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

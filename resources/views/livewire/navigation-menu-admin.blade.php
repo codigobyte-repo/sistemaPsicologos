@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-gray-800 border-b border-gray-600">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -12,13 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" colorTexto="white">
                         Inicio
                     </x-nav-link>
-                    <x-nav-link href="{{ route('matriculados') }}" :active="request()->routeIs('matriculados')">
+                    <x-nav-link href="{{ url('admin/matriculados') }}" :active="request()->routeIs('matriculados')" colorTexto="white">
                         Matriculados
                     </x-nav-link>
-                    {{-- <x-nav-link href="{{ url('admin/importarExcel') }}">
+                    {{-- <x-nav-link href="{{ url('admin/importarExcel') }}" colorTexto="white">
                         IMPORTAR EXCEL
                     </x-nav-link> --}}
                     
@@ -149,7 +149,7 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 Inicio
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('matriculados') }}" :active="request()->routeIs('matriculados')">
+            <x-responsive-nav-link href="{{ url('admin/matriculados') }}" :active="request()->routeIs('matriculados')">
                 Matriculados
             </x-responsive-nav-link>
         </div>

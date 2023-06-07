@@ -2,17 +2,20 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\MatriculadoExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Matriculado;
 use Carbon\Carbon;
 use Illuminate\Support\HtmlString;
+use Maatwebsite\Excel\Facades\Excel;
+use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class MatriculadosTable extends DataTableComponent
 {
     protected $model = Matriculado::class;
-
 
     public function configure(): void
     {
@@ -285,6 +288,59 @@ class MatriculadosTable extends DataTableComponent
 
     public function deleteSelected()
     {
-        dd('selected');
+        if($this->getSelected()) {
+            $this->emit('error', 'No hay registros seleccionados');
+            /* Matriculado::whereIn('id', $this->getSelected())->delete(); */
+            $this->clearSelected();
+        }else{
+            $this->emit('error', 'No hay registros seleccionados');
+        }
+    }
+
+    public function exportSelected()
+    {
+        if($this->getSelected()){
+			
+            /* Limpia las selecciones */
+            /* $this->clearSelected(); */
+
+			//Buscamos los matriculados en la db
+            $matriculados = Matriculado::whereIn('id', $this->getSelected())->get();
+
+			//Usamos la funcionalidad de laravel excel
+            return Excel::download(new MatriculadoExport($matriculados), 'Matriculados.xlsx');
+
+        }else{
+            //exportamos lo que se esté viendo
+            return Excel::download(new MatriculadoExport($this->getRows()), 'Matriculados.xlsx');
+        }   
+    }
+
+    public function filters(): array
+    {
+        return [
+            SelectFilter::make('Situación de Revista')
+                ->options([
+                    '' => 'Todos',
+                    '1' => 'VIGENTE',
+                    '2' => 'CANCELADO',
+                    '3' => 'SUSPENDIDA'
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value != '') {
+                        $query->where('situacion_revistas_id', $value);
+                    }
+                }),
+            
+            DateFilter::make('Fecha de Matriculación, desde:')
+                ->filter(function ($query, $value) {
+                    $query->whereDate('fecha_matriculacion', '>=', $value);
+                }),
+
+            DateFilter::make('Fecha de Matriculación, hasta:')
+                ->filter(function ($query, $value) {
+                    $query->whereDate('fecha_matriculacion', '<=', $value);
+                }),
+        ];
     }
 }
