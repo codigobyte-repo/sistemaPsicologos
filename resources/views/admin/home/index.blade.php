@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
+        <h2 class="font-semibold text-xl text-gray-600 dark:text-white leading-tight">
             Ruta Inicio administrador Test
         </h2>
     </x-slot>

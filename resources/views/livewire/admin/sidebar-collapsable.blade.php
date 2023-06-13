@@ -1,4 +1,4 @@
-<div class="bg-gray-950 rounded p-3 shadow-lg absolute z-50" @mouseover="isOpen = true" @mouseleave="isOpen = false" x-data="{ isOpen: false }">
+<div class="bg-gray-950 rounded p-3 shadow-lg absolute z-50" x-bind:class="{ 'w-60': isOpen || isButtonClicked }" @mouseover="isOpen = true" @mouseleave="isOpen = false" x-data="{ isOpen: false, isButtonClicked: false }">
 
     <button class="text-gray-300 mb-4 p-2 rounded-md bg-gray-500 hover:bg-gray-600" @click="isOpen = !isOpen">
         <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -8,6 +8,7 @@
 
     <ul class="space-y-2 text-sm">
 
+        <li x-show="isOpen" class="py-1 pl-1 text-gray-500 uppercase text-xs tracking-wide">PANEL</li>
         <li>
             <a href="{{ url('admin/dashboard') }}" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline {{ request()->routeIs('admin.dashboard') ? 'bg-gray-800' : '' }}">
                 <span class="text-gray-300">
@@ -19,6 +20,9 @@
             </a>
         </li>
 
+        <div class="border-b border-gray-100"></div>
+
+        <li x-show="isOpen" class="py-1 pl-1 text-gray-500 uppercase text-xs tracking-wide">MATRICULADOS</li>
         <li>
             <a href="{{ url('admin/matriculados') }}" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline {{ request()->routeIs('admin.matriculados') ? 'bg-gray-800' : '' }}">
                 <span class="text-gray-300">
@@ -26,9 +30,33 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                     </svg>
                 </span>
-                <span x-show="isOpen">Matriculados</span>
+                <span x-show="isOpen">Listado de matriculados</span>
             </a>
+            <ul>
+                <li x-show="isOpen" class="{{ request()->routeIs('admin.matriculados.create') ? 'bg-gray-800 rounded-md' : '' }}">
+                    <a href="{{ url('admin/matriculados/create') }}" x-bind:class="{ 'm-4': isOpen }" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline">
+                        <span class="text-gray-300">
+                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                            </svg>                              
+                        </span>
+                        <span>Nuevo Matriculado</span>
+                    </a>
+                </li>
+                <li x-show="isOpen">
+                    <a href="#" x-bind:class="{ 'm-4': isOpen }" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline">
+                        <span class="text-gray-300">
+                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                            </svg>                                                            
+                        </span>
+                        <span>Editar Matriculado</span>
+                    </a>
+                </li>
+            </ul>
         </li>
+
+        <div class="border-b border-gray-100 py-10"></div>
         
         <li>
             <a href="#" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline">
@@ -37,7 +65,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
                     </svg>
                 </span>
-                <span x-show="isOpen">Settings</span>
+                <span x-show="isOpen">Configuraciones</span>
             </a>
         </li>
         <li>
@@ -47,18 +75,21 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </span>
-                <span x-show="isOpen">Change password</span>
+                <span x-show="isOpen">Datos Personales</span>
             </a>
         </li>
         <li>
-            <a href="#" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline">
-                <span class="text-gray-300">
+            <form method="POST" action="{{ route('logout') }}" x-data>
+                @csrf
+
+                <a href="{{ route('logout') }}" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline"
+                    @click.prevent="$root.submit();">
                     <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                </span>
-                <span x-show="isOpen">Logout</span>
-            </a>
+                    <span x-show="isOpen">Cerrar sesión</span>
+                </a>
+            </form> 
         </li>
         
     </ul>

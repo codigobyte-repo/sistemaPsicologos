@@ -272,7 +272,7 @@ class MatriculadosTable extends DataTableComponent
             'nationality', 'tituloUniversitario', 'university');
     }
 
-    /* Funcion pérsonalizada que sirve para porne run icono en los espacios vacios */
+    /* Funcion pérsonalizada que sirve para porner un icono en los espacios vacios */
     public function formatIcon($value)
     {
         if ($value === null) {

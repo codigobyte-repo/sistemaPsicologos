@@ -13,37 +13,51 @@
 
         <link rel="shortcut icon" href="{{asset('assets/images/logo-icon-16x16.png')}}" type="image/x-icon">
 
+        {{-- WIEREUI --}}
+        @wireUiScripts
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        @stack('css')
 
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" x-data="{ darkMode: false }" x-init="
+        if (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        localStorage.setItem('darkMode', JSON.stringify(true));
+        }
+        darkMode = JSON.parse(localStorage.getItem('darkMode'));
+        $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" x-cloak>
+            <div x-bind:class="{'dark' : darkMode === true}">
+
         <x-banner />
 
-        @livewire('navigation-menu-admin')
+        <x-notifications />
+        
+        <div class="min-h-screen bg-white dark:bg-gray-950">
 
-        <div class="min-h-screen bg-gray-950">
+            @livewire('navigation-menu-admin')
             
-            <div class="flex bg-gray-100" x-data="{ isOpen: false }">
+            <div class="flex bg-white" x-data="{ isOpen: false }">
                 
-                <div class="w-16 bg-gray-950 p-1 shadow-lg transition-all ease-in-out duration-500 relative" :class="{ 'w-16': !isOpen }">
+                <div class="hidden md:block w-16 bg-white dark:bg-gray-950 p-1 transition-all ease-in-out duration-500 relative" :class="{ 'w-16': !isOpen }">
                     @livewire('admin.sidebar-collapsable')
                 </div>
                 
 
-                <div class="flex-1 bg-gray-950 p-1 shadow-lg transition-all ease-in-out duration-500" style="width: calc(100% - 4rem);">
+                <div class="flex-1 dark:bg-gray-950 p-1 transition-all ease-in-out duration-500" style="width: calc(100% - 4rem);">
 
                     @if (isset($header))
-                        <header class="bg-gray-800 rounded shadow mb-1">
+                        <header class="bg-gray-100 dark:bg-gray-800 rounded shadow mb-1">
                             <div class="w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
                                 {{ $header }}
                             </div>
                         </header>
                     @endif
 
-                    <div class="p-4 bg-gray-600 rounded">
+                    <div class="p-4 bg-white dark:bg-gray-600 rounded">
                         {{$slot}}
                     </div>
                 </div>
@@ -67,5 +81,8 @@
                 })
             })
         </script>
+
+        @stack('js')
+
     </body>
 </html>
