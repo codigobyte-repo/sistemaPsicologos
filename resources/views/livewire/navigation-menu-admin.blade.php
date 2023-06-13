@@ -15,31 +15,22 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" colorTexto="white">
                         Inicio
                     </x-nav-link>
-                    {{-- <x-nav-link href="{{ url('admin/matriculados') }}" :active="request()->routeIs('matriculados')" colorTexto="white">
-                        Matriculados
-                    </x-nav-link> --}}
 
-                    <div class="ml-3 relative" x-data="{ dropdown: false }">
-                        <div>
-                          <button x-on:click="dropdown = ! dropdown" type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="false">
-                            <span class="sr-only">Open user menu</span>
-                            Matriculados
-                          </button>
-                        </div>
-                        <div x-show="dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                          <!-- Active: "bg-gray-100", Not Active: "" -->
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                      
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                      
-                          <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                        </div>
-                    </div>
-
-                    
                     {{-- <x-nav-link href="{{ url('admin/importarExcel') }}" colorTexto="white">
                         IMPORTAR EXCEL
                     </x-nav-link> --}}
+
+                    <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:click.away="dropdown = false">
+                        <div>
+                            <x-nav-link x-on:click="dropdown = ! dropdown" colorTexto="white" class="cursor-pointer pb-5">
+                                Matriculados <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </x-nav-link>
+                        </div>
+                        <div x-show="dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                          <a href="{{ url('admin/matriculados') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Matriculados</a>
+                          <a href="{{ url('admin/matriculados/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nuevo Matriculado</a>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
