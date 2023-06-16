@@ -289,8 +289,8 @@ class MatriculadosTable extends DataTableComponent
     public function deleteSelected()
     {
         if($this->getSelected()) {
-            $this->emit('error', 'No hay registros seleccionados');
-            /* Matriculado::whereIn('id', $this->getSelected())->delete(); */
+            Matriculado::whereIn('id', $this->getSelected())->delete();
+            $this->emit('delete', 'Registro de matriculación eliminado correctamente');
             $this->clearSelected();
         }else{
             $this->emit('error', 'No hay registros seleccionados');

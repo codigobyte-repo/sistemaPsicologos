@@ -2,7 +2,7 @@
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
 
-        @if (session()->has('message'))
+        {{-- @if (session()->has('message'))
             <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 7000)" x-show="show" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded my-6 relative" role="alert">
                 <strong class="font-bold">Mensaje:</strong>
                 <span class="block sm:inline">{{ session('message') }}</span>
@@ -13,7 +13,7 @@
                     </svg>
                 </span>
             </div>
-        @endif
+        @endif --}}
 
         <div class="overflow-hidden sm:rounded-lg">
             <form wire:submit.prevent="save" class="bg-gray-300 dark:bg-gray-800 p-6">
@@ -32,14 +32,16 @@
                             />
                     </div>
 
-                    <div class="col-span-12 md:col-span-6">
+                    {{-- <div class="col-span-12 md:col-span-6">
                         <x-input type="text" 
                             wire:model="matricula"
                             icon="newspaper"
                             placeholder="Ingrese la matrícula del usuario"
                             right-icon="pencil"
+                            hint="Sólo números sin puntos ni guiones"
+                            class="input-mask"
                             label="Número matrícula"/>
-                    </div>
+                    </div> --}}
 
                     <div class="col-span-12 md:col-span-6">
                         <x-select
@@ -147,24 +149,28 @@
                     </div>
                     
                     <div class="col-span-12 sm:col-span-4">
-                        <x-inputs.maskable type="text" 
+                        <x-input type="text" 
                             icon="identification"
                             right-icon="pencil"
                             placeholder="Ingrese documento identificador"
                             wire:model="documento_nro" 
                             label="Número Documento"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
                     
                     <div class="col-span-12 sm:col-span-4">
-                        <x-inputs.maskable type="text"
+                        <x-input type="text"
                             icon="identification"
                             right-icon="pencil"
                             placeholder="Ingrese cuit identificador"
                             wire:model="cuit" 
                             label="CUIT"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
 
@@ -289,42 +295,50 @@
                     <h1 class="text-gray-400 mx-auto dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">Teléfonos</h1>
                     
                     <div class="col-span-12 md:col-span-6">
-                        <x-inputs.maskable type="text" 
+                        <x-input type="text" 
                             wire:model="domicilio_profesional_telefonos"
                             icon="phone"
                             right-icon="pencil"
                             label="Teléfono Domicilio Profesional"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-inputs.maskable type="text" 
+                        <x-input type="text" 
                             wire:model="domicilio_profesional_telefonos_alternativo"
                             icon="phone"
                             right-icon="pencil"
                             label="Teléfono Domicilio Profesional Alternativo"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-inputs.maskable type="text" 
+                        <x-input type="text" 
                             wire:model="domicilio_particular_telefonos"
                             icon="phone"
                             right-icon="pencil"
                             label="Teléfono Domicilio Particular"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-inputs.maskable type="text" 
+                        <x-input type="text" 
                             wire:model="domicilio_particular_telefonos_alternativo"
                             icon="phone"
                             right-icon="pencil"
                             label="Teléfono Domicilio Particular Alternativo"
-                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            {{-- validador javascript de sólo números --}}
+                            class="input-mask"
                             />
                     </div>
 
@@ -469,34 +483,38 @@
                 
             </form>
         </div>
-
-        @if (session()->has('message'))
-            <script>
-                Swal.fire({
-                    title: 'Mensaje',
-                    text: '{{ session('message') }}',
-                    icon: 'success',
-                    timer: 3000,
-                    timerProgressBar: true,
-                    showConfirmButton: false
-                });
-            </script>
-        @endif
     </div>
 
-    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> --}}
-    <script src="{{asset('assets/plugins/ckeditor5-build-classic/ckeditor.js')}}"></script>
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#ckeditor' ),{
-                toolbar: [ 'bold', 'italic' ], // solo las opciones que deseas
-                image: false, // deshabilita la carga de imágenes
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-
     
+    {{-- @push('js') --}}
+        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> --}}
+        {{-- <script src="{{asset('assets/plugins/ckeditor5-build-classic/ckeditor.js')}}"></script>
+        <script>
+            ClassicEditor
+                .create( document.querySelector( '#ckeditor' ),{
+                    toolbar: [ 'bold', 'italic' ], // solo las opciones que deseas
+                    image: false, // deshabilita la carga de imágenes
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
+        </script> --}}
+    
+
+        {{-- <script>
+            const inputs = document.querySelectorAll('.input-mask');
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function (event) {
+                    let value = event.target.value;
+                    value = value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+                    value = value.substring(0, 20); // Limitar a 20 caracteres
+
+                    event.target.value = value;
+                });
+            });
+        </script> --}}
+
+    {{-- @endpush --}}
 
 </div>

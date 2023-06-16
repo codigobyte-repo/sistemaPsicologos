@@ -101,7 +101,6 @@ class FormMatriculado extends Component
     {
         $this->validate([
             'fecha_matriculacion' => 'required',
-            'matricula' => 'required',
             'distrito_matriculas_id' => 'required',
             'distrito_revistas_id' => 'required',
             'genero' => 'required',
@@ -127,7 +126,6 @@ class FormMatriculado extends Component
 
         Matriculado::create([
             'fecha_matriculacion' => $this->fecha_matriculacion,
-            'matricula' => $this->matricula,
             'distrito_matriculas_id' => $this->distrito_matriculas_id,
             'distrito_revistas_id' => $this->distrito_revistas_id,
             'genero' => $this->genero,
@@ -169,6 +167,7 @@ class FormMatriculado extends Component
             'registrado_folio' => $this->registrado_folio,
             'categoria' => $this->categoria,
             'observaciones' => $this->observaciones,
+            'matricula' => $this->user->matricula,
             'users_id' => $this->user->id,
         ]);
 

@@ -13,6 +13,11 @@ class NuevoMatriculado extends Component
     public $correo_electronico;
     public $numero_matriculado;
 
+    public function render()
+    {
+        return view('livewire.nuevo-matriculado');
+    }
+
     public function save()
     {
         // Validar los datos
@@ -36,11 +41,7 @@ class NuevoMatriculado extends Component
         $userId = $user->id;
 
         
-        session()->flash('message', 'Usuario creado correctamente.');
+        /* session()->flash('message', 'Usuario creado correctamente.'); */
         return redirect()->route('admin.matriculados.form', [$userId]);
-    }
-    public function render()
-    {
-        return view('livewire.nuevo-matriculado');
     }
 }

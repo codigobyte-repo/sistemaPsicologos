@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-gray-800 border-b border-gray-600">
+<nav x-data="{ open: false }" class="bg-violet-500 border-violet-500 dark:bg-gray-800 border-b dark:border-gray-600">
     <!-- Primary Navigation Menu -->
     <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -20,18 +20,33 @@
                         IMPORTAR EXCEL
                     </x-nav-link> --}}
 
-                    <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:click.away="dropdown = false">
+                    <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false">
                         <div>
-                            <x-nav-link x-on:click="dropdown = ! dropdown" colorTexto="white" class="cursor-pointer pb-5">
-                                Matriculados <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </x-nav-link>
+                          <x-nav-link x-on:click="dropdown = !dropdown" colorTexto="white" class="cursor-pointer">
+                            Matriculados
+                            <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                          </x-nav-link>
                         </div>
-                        <div x-show="dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                          <a href="{{ url('admin/matriculados') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Matriculados</a>
-                          <a href="{{ url('admin/matriculados/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-gray-600 focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nuevo Matriculado</a>
+                        <div x-show="dropdown" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                          <a href="{{ url('admin/matriculados') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Matriculados</a>
+                          <a href="{{ url('admin/matriculados/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nuevo Matriculado</a>
                         </div>
                     </div>
-                    
+
+                    <div class="mt-4 relative">
+                        <x-dropdown align="left">
+                            <x-slot name="trigger">
+                                <x-button label="Opciones" rounded secondary />
+                            </x-slot>
+                        
+                            <x-dropdown.item label="Activador" />
+                            <x-dropdown.item separator label="Configuraciones" />
+                            <x-dropdown.item separator label="Procesos" />
+                        </x-dropdown>
+                    </div>
+
                 </div>
             </div>
 
@@ -121,8 +136,8 @@
                 </div>
 
                 <!-- DROPDOWN USUARIO Y CERRAR SESION -->
-                <div class="ml-3 relative" x-data="{ dropdown: false }">
-                    <x-dropdown align="right" width="48">
+                <div class="ml-3 relative">
+                    <x-dropdown align="right">
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
                                 <button x-on:click="dropdown = ! dropdown" type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
@@ -135,34 +150,22 @@
                             </span>
                         </x-slot>
 
-                        <div x-show="dropdown" name="content">
-                            <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
-                            </div>
-
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                        <x-dropdown.header label="ADMINISTRAR CUENTA">
+                            <x-dropdown.item href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-dropdown-link>
-                            @endif
-
-                            <div class="border-t border-gray-200"></div>
+                            </x-dropdown.item>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
-                                <x-dropdown-link href="{{ route('logout') }}"
+                                <x-dropdown.item href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
-                                </x-dropdown-link>
+                                </x-dropdown.item>
                             </form>
-                        </div>
+                        </x-dropdown.header>
+
                     </x-dropdown>
                 </div>
             </div>
@@ -181,14 +184,6 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                Inicio
-            </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ url('admin/matriculados') }}" :active="request()->routeIs('matriculados')">
-                Matriculados
-            </x-responsive-nav-link>
-        </div>
 
         <div class="mr-2">
             <button type="button" x-bind:class="darkMode ? 'bg-indigo-500' : 'bg-gray-200'"
@@ -220,6 +215,31 @@
                     </span>
                 </span>
             </button>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                Inicio
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ url('admin/matriculados') }}" :active="request()->routeIs('matriculados')">
+                Matriculados
+            </x-responsive-nav-link>
+
+            <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }">
+                <div>
+                  <x-nav-link x-on:click="dropdown = !dropdown" colorTexto="white" class="cursor-pointer">
+                    Matriculados
+                    <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                  </x-nav-link>
+                </div>
+                <div x-show="dropdown" class="origin-top-left absolute left-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                  <a href="{{ url('admin/matriculados') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Matriculados</a>
+                  <a href="{{ url('admin/matriculados/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nuevo Matriculado</a>
+                </div>
+            </div>
+
         </div>
 
         <!-- Responsive Settings Options -->
