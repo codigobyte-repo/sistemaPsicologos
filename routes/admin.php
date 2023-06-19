@@ -8,7 +8,7 @@ Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard
 
 /* Funcionalidad para IMPORTAR EXCEL */
 /* Deshabilitada para no pisar por equivocación los datos que ya están cargados */
-/* Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados']); */
+Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados']);
 
 
 Route::get('matriculados', [MatriculadoController::class, 'index'])->name('admin.matriculados');

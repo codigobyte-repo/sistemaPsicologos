@@ -64,9 +64,15 @@ class FormMatriculado extends Component
 
     public function updatedDomicilioParticularLocalidad($localidad)
     {
-        /* $this->municipios = Area::where('location', $localidad)->get(); */
-        $localidadId = Location::where('location', $localidad)->value('id');
-        $this->municipios = Area::where('location_id', $localidadId)->get();
+        /* $localidadId = Location::where('location', $localidad)->value('id');
+        $this->municipios = Area::where('location_id', $localidadId)->get(); */
+        $location = Location::where('location', $localidad)->first();
+
+        if ($location) {
+            $this->municipios = $location->areas;
+        } else {
+            $this->municipios = [];
+        }
     }
 
     public function updatedDomicilioParticularMunicipio($area)
@@ -79,9 +85,13 @@ class FormMatriculado extends Component
 
     public function updatedDomicilioProfesionalLocalidad($localidad)
     {
-        /* $this->municipiosProfesional = Area::where('location', $localidad)->get(); */
-        $localidadId = Location::where('location', $localidad)->value('id');
-        $this->municipiosProfesional = Area::where('location_id', $localidadId)->get();
+        $location = Location::where('location', $localidad)->first();
+
+        if ($location) {
+            $this->municipiosProfesional = $location->areas;
+        } else {
+            $this->municipiosProfesional = [];
+        }
     }
 
     public function updatedDomicilioProfesionalMunicipio($area)

@@ -36,7 +36,8 @@ class MatriculadoController extends Controller
 
     public function form($userId)
     {
+        $municipios = "";
         $user = User::findOrFail($userId);
-        return view('admin.matriculados.form', compact('user'));
+        return view('admin.matriculados.form', compact('user', 'municipios'));
     }
 }

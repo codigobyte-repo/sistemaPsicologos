@@ -12,6 +12,7 @@ use App\Models\SituacionRevistaMotivo;
 use App\Models\TituloUniversitario;
 use App\Models\University;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SelectController extends Controller
 {
@@ -20,9 +21,12 @@ class SelectController extends Controller
     {
         $search = $request->search;
 
-        $distritosMatriculas = DistritoMatricula::where('nombre', 'like', "%{$search}%")
-                                                ->orWhere('codigo', 'like', "%{$search}%")
-                                                ->get();
+        $distritosMatriculas = Cache::remember('distritosMatriculas:' . $search, 60, function () use ($search) {
+            return DistritoMatricula::where(function ($query) use ($search) {
+                $query->where('nombre', 'like', "%{$search}%")
+                    ->orWhere('codigo', 'like', "%{$search}%");
+            })->get();
+        });
 
         return response()->json($distritosMatriculas);
     }
@@ -30,9 +34,13 @@ class SelectController extends Controller
     public function distritosRevistas(Request $request)
     {
         $search = $request->search;
-        $distritosRevistas = DistritoRevista::where('nombre', 'like', "%{$search}%")
-                                            ->orWhere('codigo', 'like', "%{$search}%")
-                                            ->get();
+
+        $distritosRevistas = Cache::remember('distritosRevistas:' . $search, 60, function () use ($search) {
+            return DistritoRevista::where(function ($query) use ($search) {
+                $query->where('nombre', 'like', "%{$search}%")
+                    ->orWhere('codigo', 'like', "%{$search}%");
+            })->get();
+        });
 
         return response()->json($distritosRevistas);
     }
@@ -40,7 +48,10 @@ class SelectController extends Controller
     public function situacionesRevistas(Request $request)
     {
         $search = $request->search;
-        $situacionesRevistas = SituacionRevista::where('nombre', 'like', "%{$search}%")->get();
+
+        $situacionesRevistas = Cache::remember('situacionesRevistas:' . $search, 60, function () use ($search) {
+            return SituacionRevista::where('nombre', 'like', "%{$search}%")->get();
+        });
 
         return response()->json($situacionesRevistas);
     }
@@ -48,7 +59,10 @@ class SelectController extends Controller
     public function motivosSituacionRevista(Request $request)
     {
         $search = $request->search;
-        $motivosSituacionRevista = SituacionRevistaMotivo::where('nombre', 'like', "%{$search}%")->get();
+
+        $motivosSituacionRevista = Cache::remember('motivosSituacionRevista:' . $search, 60, function () use ($search) {
+            return SituacionRevistaMotivo::where('nombre', 'like', "%{$search}%")->get();
+        });
 
         return response()->json($motivosSituacionRevista);
     }
@@ -56,15 +70,21 @@ class SelectController extends Controller
     public function nationalities(Request $request)
     {
         $search = $request->search;
-        $nationalities = Nationality::where('pais', 'like', "%{$search}%")->get();
 
-        return response()->json($nationalities);
+        $nationalities = Cache::remember('nationalities:' . $search, 60, function () use ($search) {
+            return Nationality::where('pais', 'like', "%{$search}%")->get();
+        });
+
+        return response()->json($nationalities);        
     }
 
     public function titulosUniversitarios(Request $request)
     {
         $search = $request->search;
-        $titulosUniversitarios = TituloUniversitario::where('nombre', 'like', "%{$search}%")->get();
+        
+        $titulosUniversitarios = Cache::remember('titulosUniversitarios:' . $search, 60, function () use ($search) {
+            return TituloUniversitario::where('nombre', 'like', "%{$search}%")->get();
+        });
 
         return response()->json($titulosUniversitarios);
     }
@@ -72,23 +92,40 @@ class SelectController extends Controller
     public function universities(Request $request)
     {
         $search = $request->search;
-        $universities = University::where('nombre', 'like', "%{$search}%")->get();
+        $universities = Cache::remember('universities:' . $search, 60, function () use ($search) {
+            return University::where('nombre', 'like', "%{$search}%")->get();
+        });
 
         return response()->json($universities);
     }
 
     public function localidades(Request $request)
     {
-        $search = $request->search;
+        /* $search = $request->search;
         $localidades = Location::where('location', 'like', "%{$search}%")->get();
+
+        return response()->json($localidades); */
+        $search = $request->search;
+
+        $localidades = Cache::remember('localidades:' . $search, 60, function () use ($search) {
+            return Location::where('location', 'like', "%{$search}%")->get();
+        });
 
         return response()->json($localidades);
     }
 
     public function municipios(Request $request)
     {
-        $search = $request->search;
+        /* $search = $request->search;
         $municipios = Area::where('name', 'like', "%{$search}%")->get();
+
+        return response()->json($municipios); */
+        $search = $request->search;
+        $municipios = Cache::remember('municipios:' . $search, 60, function () use ($search) {
+            return Area::whereHas('location', function ($query) use ($search) {
+                $query->where('location', 'like', "%{$search}%");
+            })->get();
+        });
 
         return response()->json($municipios);
     }

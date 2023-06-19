@@ -32,17 +32,6 @@
                             />
                     </div>
 
-                    {{-- <div class="col-span-12 md:col-span-6">
-                        <x-input type="text" 
-                            wire:model="matricula"
-                            icon="newspaper"
-                            placeholder="Ingrese la matrícula del usuario"
-                            right-icon="pencil"
-                            hint="Sólo números sin puntos ni guiones"
-                            class="input-mask"
-                            label="Número matrícula"/>
-                    </div> --}}
-
                     <div class="col-span-12 md:col-span-6">
                         <x-select
                             label="Distrito de Matriculas"
