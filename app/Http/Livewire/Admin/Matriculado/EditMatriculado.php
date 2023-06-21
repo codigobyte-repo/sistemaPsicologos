@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Admin\Matriculado;
 
 use App\Models\Area;
 use App\Models\Location;
 use App\Models\Matriculado;
+use App\Models\Nationality;
 use Livewire\Component;
 
-class FormMatriculado extends Component
+class EditMatriculado extends Component
 {
     public $matriculado;
+
     public $fecha_matriculacion;
     public $matricula;
     public $distrito_matriculas_id;
@@ -55,11 +57,61 @@ class FormMatriculado extends Component
     public $municipiosProfesional = [];
     public $domicilio_profesional_codigo_postal;
 
-    public $user;
-
-    public function mount($user)
+    public function mount(Matriculado $matriculado)
     {
-        $this->user = $user;
+        $this->matriculado = $matriculado;
+
+        $this->fecha_matriculacion = $matriculado->fecha_matriculacion;
+        $this->matricula = $matriculado->matricula;
+        $this->distrito_matriculas_id = $matriculado->distrito_matriculas_id;
+        $this->distrito_revistas_id = $matriculado->distrito_revistas_id;
+        $this->genero = $matriculado->genero;
+        $this->fecha_nacimiento = $matriculado->fecha_nacimiento;
+        $this->estado_observacion = $matriculado->estado_observacion;
+        $this->situacion_revistas_id = $matriculado->situacion_revistas_id;
+        $this->situacion_revista_motivos_id = $matriculado->situacion_revista_motivos_id;
+        $this->situacion_de_revista_fecha = $matriculado->situacion_de_revista_fecha;
+        
+        $this->nationalities_id = $matriculado->nationalities_id;
+        
+        $this->tipo_documento = $matriculado->tipo_documento;
+        $this->documento_nro = $matriculado->documento_nro;
+        $this->cuit = $matriculado->cuit;
+        $this->domicilio_particular = $matriculado->domicilio_particular;
+        $this->domicilio_particular_telefonos = $matriculado->domicilio_particular_telefonos;
+        $this->domicilio_particular_telefonos_alternativo = $matriculado->domicilio_particular_telefonos_alternativo;
+        $this->domicilio_profesional_telefonos_alternativo = $matriculado->domicilio_profesional_telefonos_alternativo;
+        $this->domicilio_profesional = $matriculado->domicilio_profesional;
+        $this->domicilio_profesional_telefonos = $matriculado->domicilio_profesional_telefonos;
+        $this->titulo_universitarios_id = $matriculado->titulo_universitarios_id;
+        $this->universities_id = $matriculado->universities_id;
+        $this->fecha_expedicion_titulo = $matriculado->fecha_expedicion_titulo;
+        $this->fecha_ejercicio_desde = $matriculado->fecha_ejercicio_desde;
+        $this->fecha_terminacion_estudios = $matriculado->fecha_terminacion_estudios;
+        $this->actuacion_gp_cdd = $matriculado->actuacion_gp_cdd;
+        $this->actuacion_gp_cs = $matriculado->actuacion_gp_cs;
+        $this->actuacion_gp_tdd = $matriculado->actuacion_gp_tdd;
+        $this->actuacion_gp_tsd = $matriculado->actuacion_gp_tsd;
+        $this->registrado_tomo = $matriculado->registrado_tomo;
+        $this->registrado_folio = $matriculado->registrado_folio;
+        $this->categoria = $matriculado->categoria;
+        $this->observaciones = $matriculado->observaciones;
+        $this->users_id = $matriculado->users_id;
+
+        $this->domicilio_particular_localidad = $matriculado->domicilio_particular_localidad;
+        $locationParticular = Location::with('areas')->where('location', $matriculado->domicilio_particular_localidad)->first();
+        $this->municipios = $locationParticular ? $locationParticular->areas->toArray() : [];
+
+        $this->domicilio_particular_municipio = $matriculado->domicilio_particular_municipio;
+        $this->domicilio_particular_codigo_postal = $matriculado->domicilio_particular_codigo_postal;
+
+        $this->domicilio_profesional_localidad = $matriculado->domicilio_profesional_localidad;
+        $locationProfesional = Location::with('areas')->where('location', $matriculado->domicilio_profesional_localidad)->first();
+        $this->municipiosProfesional = $locationProfesional ? $locationProfesional->areas->toArray() : [];
+
+        $this->domicilio_profesional_municipio = $matriculado->domicilio_profesional_municipio;
+        $this->domicilio_profesional_codigo_postal = $matriculado->domicilio_profesional_codigo_postal;
+
     }
 
     public function updatedDomicilioParticularLocalidad($localidad)
@@ -102,12 +154,12 @@ class FormMatriculado extends Component
 
     public function render()
     {
-        return view('livewire.form-matriculado');
+        return view('livewire.admin.matriculado.edit-matriculado');
     }
 
     public function save()
     {
-        $this->validate([
+        $validatedData = $this->validate([
             'fecha_matriculacion' => 'required',
             'distrito_matriculas_id' => 'required',
             'distrito_revistas_id' => 'required',
@@ -132,52 +184,7 @@ class FormMatriculado extends Component
             'categoria' => 'required'
         ]);
 
-        Matriculado::create([
-            'fecha_matriculacion' => $this->fecha_matriculacion,
-            'distrito_matriculas_id' => $this->distrito_matriculas_id,
-            'distrito_revistas_id' => $this->distrito_revistas_id,
-            'genero' => $this->genero,
-            'fecha_nacimiento' => $this->fecha_nacimiento,
-            'estado_observacion' => $this->estado_observacion,
-            'situacion_revistas_id' => $this->situacion_revistas_id,
-            'situacion_revista_motivos_id' => $this->situacion_revista_motivos_id,
-            'situacion_de_revista_fecha' => $this->situacion_de_revista_fecha,
-            'nationalities_id' => $this->nationalities_id,
-            'tipo_documento' => $this->tipo_documento,
-            'documento_nro' => $this->documento_nro,
-            'cuit' => $this->cuit,
-            'domicilio_particular' => $this->domicilio_particular,
-            'domicilio_particular_codigo_postal' => $this->domicilio_particular_codigo_postal,
-
-            'domicilio_particular_localidad' => $this->domicilio_particular_localidad,
-            'domicilio_particular_municipio' => $this->domicilio_particular_municipio,
-
-            'domicilio_particular_telefonos' => $this->domicilio_particular_telefonos,
-            'domicilio_particular_telefonos_alternativo' => $this->domicilio_particular_telefonos_alternativo,
-            'domicilio_profesional_telefonos_alternativo' => $this->domicilio_profesional_telefonos_alternativo,
-            'domicilio_profesional' => $this->domicilio_profesional,
-            'domicilio_profesional_codigo_postal' => $this->domicilio_profesional_codigo_postal,
-
-            'domicilio_profesional_localidad' => $this->domicilio_profesional_localidad,
-            'domicilio_profesional_municipio' => $this->domicilio_profesional_municipio,
-
-            'domicilio_profesional_telefonos' => $this->domicilio_profesional_telefonos,
-            'titulo_universitarios_id' => $this->titulo_universitarios_id,
-            'universities_id' => $this->universities_id,
-            'fecha_expedicion_titulo' => $this->fecha_expedicion_titulo,
-            'fecha_ejercicio_desde' => $this->fecha_ejercicio_desde,
-            'fecha_terminacion_estudios' => $this->fecha_terminacion_estudios,
-            'actuacion_gp_cdd' => $this->actuacion_gp_cdd,
-            'actuacion_gp_cs' => $this->actuacion_gp_cs,
-            'actuacion_gp_tdd' => $this->actuacion_gp_tdd,
-            'actuacion_gp_tsd' => $this->actuacion_gp_tsd,
-            'registrado_tomo' => $this->registrado_tomo,
-            'registrado_folio' => $this->registrado_folio,
-            'categoria' => $this->categoria,
-            'observaciones' => $this->observaciones,
-            'matricula' => $this->user->matricula,
-            'users_id' => $this->user->id,
-        ]);
+        Matriculado::where('id', $this->matriculado->id)->update($validatedData);
 
         return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.');
     }

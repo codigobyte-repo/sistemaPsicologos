@@ -12,6 +12,7 @@ use Illuminate\Support\HtmlString;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 class MatriculadosTable extends DataTableComponent
 {
@@ -262,6 +263,14 @@ class MatriculadosTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
+
+                /* FUNCIONALIDAD QUE TIENE SU COMPLEJIDAD ANALIZAR DESPUÉS */
+            /* LinkColumn::make('Acciones')
+                ->title(fn() => 'Editar')
+                ->location(fn($row) => route('admin.matriculados.edit', ['matriculado' => $row->id]))
+                ->attributes(fn() => [
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                ]) */
         ];
     }
 
@@ -272,7 +281,7 @@ class MatriculadosTable extends DataTableComponent
             'nationality', 'tituloUniversitario', 'university');
     }
 
-    /* Funcion pérsonalizada que sirve para porner un icono en los espacios vacios */
+    /* Funcion pérsonalizada que sirve para poner un icono en los espacios vacios */
     public function formatIcon($value)
     {
         if ($value === null) {

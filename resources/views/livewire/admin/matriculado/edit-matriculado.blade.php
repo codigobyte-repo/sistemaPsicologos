@@ -2,19 +2,6 @@
 
     <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
 
-        {{-- @if (session()->has('message'))
-            <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 7000)" x-show="show" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded my-6 relative" role="alert">
-                <strong class="font-bold">Mensaje:</strong>
-                <span class="block sm:inline">{{ session('message') }}</span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <title>Salir</title>
-                        <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/>
-                    </svg>
-                </span>
-            </div>
-        @endif --}}
-
         <div class="overflow-hidden sm:rounded-lg">
             <form wire:submit.prevent="save" class="bg-gray-300 dark:bg-gray-800 p-6">
 
@@ -83,6 +70,7 @@
                             wire:model.defer="situacion_revistas_id" 
                         />
                     </div>
+                    
 
                     <div class="col-span-12 md:col-span-6">
                         <x-select 
@@ -145,7 +133,6 @@
                             wire:model.defer="documento_nro" 
                             label="Número Documento"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -158,7 +145,6 @@
                             wire:model.defer="cuit" 
                             label="CUIT"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -290,7 +276,6 @@
                             right-icon="pencil"
                             label="Teléfono Domicilio Profesional"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -302,7 +287,6 @@
                             right-icon="pencil"
                             label="Teléfono Domicilio Profesional Alternativo"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -314,7 +298,6 @@
                             right-icon="pencil"
                             label="Teléfono Domicilio Particular"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -326,7 +309,6 @@
                             right-icon="pencil"
                             label="Teléfono Domicilio Particular Alternativo"
                             hint="Sólo números sin puntos ni guiones"
-                            {{-- validador javascript de sólo números --}}
                             class="input-mask"
                             />
                     </div>
@@ -473,37 +455,5 @@
             </form>
         </div>
     </div>
-
-    
-    {{-- @push('js') --}}
-        {{-- <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script> --}}
-        {{-- <script src="{{asset('assets/plugins/ckeditor5-build-classic/ckeditor.js')}}"></script>
-        <script>
-            ClassicEditor
-                .create( document.querySelector( '#ckeditor' ),{
-                    toolbar: [ 'bold', 'italic' ], // solo las opciones que deseas
-                    image: false, // deshabilita la carga de imágenes
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-        </script> --}}
-    
-
-        {{-- <script>
-            const inputs = document.querySelectorAll('.input-mask');
-
-            inputs.forEach(input => {
-                input.addEventListener('input', function (event) {
-                    let value = event.target.value;
-                    value = value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-                    value = value.substring(0, 20); // Limitar a 20 caracteres
-
-                    event.target.value = value;
-                });
-            });
-        </script> --}}
-
-    {{-- @endpush --}}
 
 </div>

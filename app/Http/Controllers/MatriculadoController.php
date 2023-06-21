@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\UploadImportMatriculados;
+use App\Models\Matriculado;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
@@ -14,6 +15,11 @@ class MatriculadoController extends Controller
     public function index()
     {
         return view('admin.matriculados.index');
+    }
+
+    public function edit(Matriculado $matriculado)
+    {
+        return view('admin.matriculados.edit', compact('matriculado'));
     }
 
     /* Funcionalidad para Importar los matriculados */

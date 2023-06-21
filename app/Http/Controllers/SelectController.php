@@ -67,7 +67,7 @@ class SelectController extends Controller
         return response()->json($motivosSituacionRevista);
     }
 
-    public function nationalities(Request $request)
+    public function nationalities(Request $request, $id = null)
     {
         $search = $request->search;
 
@@ -75,7 +75,7 @@ class SelectController extends Controller
             return Nationality::where('pais', 'like', "%{$search}%")->get();
         });
 
-        return response()->json($nationalities);        
+        return response()->json($nationalities);     
     }
 
     public function titulosUniversitarios(Request $request)
