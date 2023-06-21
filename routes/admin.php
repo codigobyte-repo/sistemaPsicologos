@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\MatriculadoController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\UniversityController;
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
 
@@ -21,3 +22,8 @@ Route::get('matriculados/{matriculado}/edit', [MatriculadoController::class, 'ed
 Route::get('users', [UserController::class, 'index'])->name('admin.users.index');
 Route::get('users/create', [UserController::class, 'create'])->name('admin.users.create');
 Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+
+/* Universidades */
+Route::get('universidades', [UniversityController::class, 'index'])->name('admin.universidades.index');
+Route::get('universidades/create', [UniversityController::class, 'create'])->name('admin.universidades.create');
+Route::get('universidades/{university}/edit', [UniversityController::class, 'edit'])->name('admin.universidades.edit');

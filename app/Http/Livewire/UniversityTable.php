@@ -4,19 +4,20 @@ namespace App\Http\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
-use App\Models\User;
+use App\Models\University;
+use Carbon\Carbon;
 use Illuminate\Support\HtmlString;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
-class UserTable extends DataTableComponent
+class UniversityTable extends DataTableComponent
 {
-    protected $model = User::class;
+    protected $model = University::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
         $this->setBulkActions([
-            'deleteUser' => 'Eliminar',
+            'deleteUniversity' => 'Eliminar',
         ]);
     }
 
@@ -24,39 +25,38 @@ class UserTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
-            Column::make("Nombre/s", "name")
+                ->sortable()
+                ->collapseOnTablet(),
+            Column::make("Nombre", "nombre")
                 ->sortable()
                 ->searchable(),
-            Column::make("Apellido/s", "lastname")
+            Column::make("Direccion", "direccion")
                 ->sortable()
-                ->searchable(),
-            Column::make("Email", "email")
-                ->sortable()
-                ->searchable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Número matrícula", "matricula")
+
+            Column::make("Fecha de creación", "created_at")
                 ->sortable()
-                ->searchable()
                 ->format(function ($value) {
-                    return $this->formatIcon($value);
+                    $date = Carbon::parse($value);
+                    return $date->format('d/m/Y');
                 })->collapseOnTablet(),
+
             LinkColumn::make('Acciones')
                 ->title(fn() => 'Editar')
-                ->location(fn($row) => route('admin.users.edit', ['user' => $row->id]))
+                ->location(fn($row) => route('admin.universidades.edit', ['university' => $row->id]))
                 ->attributes(fn() => [
                     'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                 ])
         ];
     }
 
-    public function deleteUser()
+    public function deleteUniversity()
     {
         if($this->getSelected()) {
-            User::whereIn('id', $this->getSelected())->delete();
-            $this->emit('delete', 'Usuario eliminado correctamente');
+            University::whereIn('id', $this->getSelected())->delete();
+            $this->emit('delete', 'Universidad eliminada correctamente');
             $this->clearSelected();
         }else{
             $this->emit('error', 'No hay registros seleccionados');
