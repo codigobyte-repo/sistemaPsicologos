@@ -6,8 +6,9 @@ use App\Http\Controllers\MatriculadoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\SituacionRevistaController;
+use App\Http\Controllers\SituacionRevistaMotivoController;
 use App\Http\Controllers\UniversityController;
-use App\Models\Area;
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('admin.dashboard');
 
@@ -40,3 +41,13 @@ Route::get('localidades/{localidad}/edit', [LocationController::class, 'edit'])-
 Route::get('areas', [AreaController::class, 'index'])->name('admin.areas.index');
 Route::get('areas/create', [AreaController::class, 'create'])->name('admin.areas.create');
 Route::get('areas/{area}/edit', [AreaController::class, 'edit'])->name('admin.areas.edit');
+
+/* Situacion Revistas */
+Route::get('revistas', [SituacionRevistaController::class, 'index'])->name('admin.revistas.index');
+Route::get('revistas/create', [SituacionRevistaController::class, 'create'])->name('admin.revistas.create');
+Route::get('revistas/{revista}/edit', [SituacionRevistaController::class, 'edit'])->name('admin.revistas.edit');
+
+/* Situacion Revistas Motivos */
+Route::get('revistas-motivos', [SituacionRevistaMotivoController::class, 'index'])->name('admin.revistas-motivos.index');
+Route::get('revistas-motivos/create', [SituacionRevistaMotivoController::class, 'create'])->name('admin.revistas-motivos.create');
+Route::get('revistas-motivos/{motivo}/edit', [SituacionRevistaMotivoController::class, 'edit'])->name('admin.revistas-motivos.edit');

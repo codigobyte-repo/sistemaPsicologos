@@ -14,8 +14,9 @@ class SituacionRevistasMotivosSeeder extends Seeder
     public function run(): void
     {
         $situaciones = [
-            'RECEPCION DE TRASLADO',
+            'MATRICULACION INICIAL',
             'REINCORPORACION',
+            'RECEPCION DE TRASLADO',
             'JUBILACION',
             'ARTICULO 56 I E',
             'FALTA DE PAGO',
@@ -24,7 +25,6 @@ class SituacionRevistasMotivosSeeder extends Seeder
             'NO EJERCE EN LA PROVINCIA DE BS AS',
             'FALLECIMIENTO',
             'RAZONES DE SALUD',
-            'MATRICULACION INICIAL',
             'CESE DE EJERCICIO PROFESIONAL',
             'INHABILITACION POR TRIBUNAL DE DISCIPLINA',
             'DECISION TRIBUNAL DISCIPLINA'
