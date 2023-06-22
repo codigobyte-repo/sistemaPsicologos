@@ -50,6 +50,24 @@
                         </div>
                     </div>
 
+                    <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false">
+                        <div>
+                          <x-nav-link x-on:click="dropdown = !dropdown" colorTexto="white" class="cursor-pointer">
+                            Localidades & Municipios
+                            <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                          </x-nav-link>
+                        </div>
+                        <div x-show="dropdown" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                          <a href="{{ url('admin/localidades') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Localidades</a>
+                          <a href="{{ url('admin/localidades/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nueva Localidad</a>
+                          <div class="border-b border-gray-200"></div>
+                          <a href="{{ url('admin/areas') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Municipios</a>
+                          <a href="{{ url('admin/areas/create') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-1">Nuevo Municipio</a>
+                        </div>
+                    </div>
+
                     <div class="mt-4 relative">
                         <x-dropdown align="left">
                             <x-slot name="trigger">
