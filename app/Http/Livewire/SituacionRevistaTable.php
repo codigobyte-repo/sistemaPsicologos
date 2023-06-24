@@ -6,18 +6,27 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\SituacionRevista;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 class SituacionRevistaTable extends DataTableComponent
 {
+    use AuthorizesRequests;
+    
     protected $model = SituacionRevista::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setBulkActions([
-            'deleteSituacion' => 'Eliminar',
-        ]);
+
+        if (Gate::allows('Eliminar.Datatable.Revista')) {
+
+            $this->setBulkActions([
+                'deleteSituacion' => 'Eliminar',
+            ]);
+
+        }
     }
 
     public function columns(): array
@@ -38,7 +47,8 @@ class SituacionRevistaTable extends DataTableComponent
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.revistas.edit', ['revista' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                    'style' => !Gate::allows('admin.revistas.edit') ? 'display:none' : ''
                 ])
         ];
     }

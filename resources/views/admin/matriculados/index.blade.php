@@ -18,7 +18,7 @@
             </span>
         </div>
     @endif
-    
+
     @livewire('matriculados-table')
     
 </x-admin-layout>

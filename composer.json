@@ -15,6 +15,7 @@
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "*",
         "rappasoft/laravel-livewire-tables": "^2.14",
+        "spatie/laravel-permission": "^5.10",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {

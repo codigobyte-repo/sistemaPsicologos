@@ -6,18 +6,28 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\HtmlString;
 
 class UserTable extends DataTableComponent
 {
+    use AuthorizesRequests;
+    
     protected $model = User::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setBulkActions([
-            'deleteUser' => 'Eliminar',
-        ]);
+
+        if (Gate::allows('Eliminar.Datatable.Usuario')) {
+            
+            $this->setBulkActions([
+                'deleteUser' => 'Eliminar',
+            ]);
+
+        }
+        
     }
 
     public function columns(): array
@@ -47,7 +57,8 @@ class UserTable extends DataTableComponent
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.users.edit', ['user' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                    'style' => !Gate::allows('admin.users.edit') ? 'display:none' : ''
                 ])
         ];
     }

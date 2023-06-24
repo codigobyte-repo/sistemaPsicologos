@@ -6,19 +6,28 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\University;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\HtmlString;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 class UniversityTable extends DataTableComponent
 {
+    use AuthorizesRequests;
+    
     protected $model = University::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setBulkActions([
-            'deleteUniversity' => 'Eliminar',
-        ]);
+
+        if (Gate::allows('Eliminar.Datatable.Universidad')) {
+            
+            $this->setBulkActions([
+                'deleteUniversity' => 'Eliminar',
+            ]);
+
+        }
     }
 
     public function columns(): array
@@ -47,7 +56,8 @@ class UniversityTable extends DataTableComponent
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.universidades.edit', ['university' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                    'style' => !Gate::allows('admin.universidades.edit') ? 'display:none' : ''
                 ])
         ];
     }

@@ -8,15 +8,18 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Matriculado;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\HtmlString;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
-use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Illuminate\Support\Facades\Gate;
 
 class MatriculadosTable extends DataTableComponent
 {
     protected $model = Matriculado::class;
+
+    use AuthorizesRequests;
 
     public function configure(): void
     {
@@ -30,10 +33,12 @@ class MatriculadosTable extends DataTableComponent
         ]);
         $this->setPerPage(10);
 
-        $this->setBulkActions([
-            'deleteSelected' => 'Eliminar',
-            'exportSelected' => 'Exportar'
-        ]);
+        if (Gate::allows('Eliminar.Datatable.Matriculado')) {
+            $this->setBulkActions([
+                'deleteSelected' => 'Eliminar',
+                'exportSelected' => 'Exportar'
+            ]);
+        }
     }
 
     public function columns(): array
@@ -297,12 +302,14 @@ class MatriculadosTable extends DataTableComponent
 
     public function deleteSelected()
     {
-        if($this->getSelected()) {
-            Matriculado::whereIn('id', $this->getSelected())->delete();
-            $this->emit('delete', 'Registro de matriculación eliminado correctamente');
-            $this->clearSelected();
-        }else{
-            $this->emit('error', 'No hay registros seleccionados');
+        if($this->authorize('Eliminar.Datatable.Matriculado')){
+            if($this->getSelected()) {
+                Matriculado::whereIn('id', $this->getSelected())->delete();
+                $this->emit('delete', 'Registro de matriculación eliminado correctamente');
+                $this->clearSelected();
+            }else{
+                $this->emit('error', 'No hay registros seleccionados');
+            }
         }
     }
 

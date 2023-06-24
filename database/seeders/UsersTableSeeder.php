@@ -20,6 +20,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'maquino@codigobyte.com.ar',
             'matricula' => 1111,
             'password' => Hash::make('Maquino*2030'),
-        ]);
+        ])->assignRole('Administrador');
     }
 }

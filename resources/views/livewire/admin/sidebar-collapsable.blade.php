@@ -32,6 +32,7 @@
                 </span>
                 <span x-show="isOpen">Listado de matriculados</span>
             </a>
+            @can('admin.matriculados.create')
             <ul>
                 <li x-show="isOpen" class="{{ request()->routeIs('admin.matriculados.create') ? 'bg-violet-600 dark:bg-gray-800 rounded-md' : '' }}">
                     <a href="{{ url('admin/matriculados/create') }}" x-bind:class="{ 'm-4': isOpen }" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-violet-800 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline">
@@ -44,10 +45,11 @@
                     </a>
                 </li>
             </ul>
+            @endcan
         </li>
 
         <div class="border-b border-gray-100"></div>
-
+        
         <li x-show="isOpen" class="py-1 pl-1 text-white dark:text-gray-500 uppercase text-xs tracking-wide">USUARIOS</li>
         <li>
             <a href="{{ url('admin/users') }}" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-violet-800 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline {{ request()->routeIs('admin.users.index') ? 'bg-violet-600 dark:bg-gray-800' : '' }}">
@@ -58,18 +60,20 @@
                 </span>
                 <span x-show="isOpen">Listado de usuarios</span>
             </a>
-            <ul>
-                <li x-show="isOpen" class="{{ request()->routeIs('admin.users.create') ? 'bg-violet-600 dark:bg-gray-800 rounded-md' : '' }}">
-                    <a href="{{ url('admin/users/create') }}" x-bind:class="{ 'm-4': isOpen }" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-violet-800 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline">
-                        <span class="text-gray-300">
-                            <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
-                            </svg>                              
-                        </span>
-                        <span>Nuevo Usuario</span>
-                    </a>
-                </li>
-            </ul>
+            @can('admin.users.create')
+                <ul>
+                    <li x-show="isOpen" class="{{ request()->routeIs('admin.users.create') ? 'bg-violet-600 dark:bg-gray-800 rounded-md' : '' }}">
+                        <a href="{{ url('admin/users/create') }}" x-bind:class="{ 'm-4': isOpen }" class="flex items-center space-x-3 text-gray-300 p-2 rounded-md font-medium hover:bg-violet-800 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline">
+                            <span class="text-gray-300">
+                                <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                                </svg>                              
+                            </span>
+                            <span>Nuevo Usuario</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
         </li>
         
         <div class="border-b border-gray-100 py-10"></div>

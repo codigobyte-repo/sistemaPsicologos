@@ -6,18 +6,28 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Location;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 
 class LocationTable extends DataTableComponent
 {
+    use AuthorizesRequests;
+    
     protected $model = Location::class;
 
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-        $this->setBulkActions([
-            'deleteLocation' => 'Eliminar',
-        ]);
+
+        if (Gate::allows('Eliminar.Datatable.Localidad')) {
+            
+            $this->setBulkActions([
+                'deleteLocation' => 'Eliminar',
+            ]);
+
+        }
+        
     }
 
     public function columns(): array
@@ -41,7 +51,8 @@ class LocationTable extends DataTableComponent
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.localidades.edit', ['localidad' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                    'style' => !Gate::allows('admin.localidades.edit') ? 'display:none' : ''
                 ])
         ];
     }
