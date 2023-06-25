@@ -38,10 +38,14 @@
 
                     <div class="col-span-6 sm:col-span-3">
                         @foreach ($roles as $role)
-                            <div class="m-4" wire:key="{{ $role->id }}">
+                            <div class="m-4 flex items-center gap-2" wire:key="{{ $role->id }}">
+
+                                <x-badge outline label="{{$role->name}}" />
+
                                 <x-checkbox 
                                     id="left-label" 
-                                    left-label="{{$role->name}}" 
+                                    {{-- left-label="{{$role->name}}"  --}}
+                                    md
                                     value="{{$role->id}}" 
                                     wire:model.defer="selectedRoles"
                                     :checked="in_array($role->id, $selectedRoles)"/>

@@ -29,7 +29,7 @@ class SituacionRevistaMotivoTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Nombre", "nombre")
@@ -41,15 +41,18 @@ class SituacionRevistaMotivoTable extends DataTableComponent
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
                 })->collapseOnTablet(),
-               
-            LinkColumn::make('Acciones')
+        ];
+    
+        if (Gate::allows('admin.revistas-motivos.edit')) {
+            $columns[] = LinkColumn::make('Acciones')
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.revistas-motivos.edit', ['motivo' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-                    'style' => !Gate::allows('admin.revistas-motivos.edit') ? 'display:none' : ''
-                ])
-        ];
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                ]);
+        }
+    
+        return $columns;
     }
 
     public function deleteMotivo()

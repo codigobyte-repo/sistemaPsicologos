@@ -21,7 +21,7 @@ class AreaTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Localidad", "location.location")
@@ -34,15 +34,20 @@ class AreaTable extends DataTableComponent
             Column::make("Código Postal", "codigopostal")
                 ->sortable()
                 ->searchable()
-                ->collapseOnTablet(),
-            LinkColumn::make('Acciones')
-                ->title(fn() => 'Editar')
-                ->location(fn($row) => route('admin.areas.edit', ['area' => $row->id]))
-                ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-                    'style' => !Gate::allows('admin.areas.edit') ? 'display:none' : ''
-                ])
+                ->collapseOnTablet()
         ];
+
+        if (Gate::allows('admin.areas.edit')) {
+            $columns[] = LinkColumn::make('Acciones')
+            ->title(fn() => 'Editar')
+            ->location(fn($row) => route('admin.areas.edit', ['area' => $row->id]))
+            ->attributes(fn() => [
+                'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                'style' => !Gate::allows('admin.areas.edit') ? 'display:none' : ''
+            ]);
+        }
+
+        return $columns;
     }
 
     public function builder(): Builder

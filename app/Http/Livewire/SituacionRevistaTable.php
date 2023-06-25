@@ -31,7 +31,7 @@ class SituacionRevistaTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Nombre", "nombre")
@@ -42,15 +42,19 @@ class SituacionRevistaTable extends DataTableComponent
                 ->format(function ($value) {
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
-                })->collapseOnTablet(),
-            LinkColumn::make('Acciones')
+                })->collapseOnTablet()
+        ];
+
+        if (Gate::allows('admin.revistas.edit')) {
+            $columns[] = LinkColumn::make('Acciones')
                 ->title(fn() => 'Editar')
                 ->location(fn($row) => route('admin.revistas.edit', ['revista' => $row->id]))
                 ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-                    'style' => !Gate::allows('admin.revistas.edit') ? 'display:none' : ''
-                ])
-        ];
+                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                ]);
+        }
+
+        return $columns;
     }
 
     public function deleteSituacion()

@@ -32,7 +32,7 @@ class LocationTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Localidad", "location")
@@ -46,15 +46,20 @@ class LocationTable extends DataTableComponent
                 ->format(function ($value) {
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
-                })->collapseOnTablet(),
-            LinkColumn::make('Acciones')
-                ->title(fn() => 'Editar')
-                ->location(fn($row) => route('admin.localidades.edit', ['localidad' => $row->id]))
-                ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-                    'style' => !Gate::allows('admin.localidades.edit') ? 'display:none' : ''
-                ])
+                })->collapseOnTablet()
         ];
+
+        if (Gate::allows('admin.localidades.edit')) {
+            $columns[] = LinkColumn::make('Acciones')
+            ->title(fn() => 'Editar')
+            ->location(fn($row) => route('admin.localidades.edit', ['localidad' => $row->id]))
+            ->attributes(fn() => [
+                'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                'style' => !Gate::allows('admin.localidades.edit') ? 'display:none' : ''
+            ]);
+        }
+
+        return $columns;
     }
 
     public function deleteLocation()

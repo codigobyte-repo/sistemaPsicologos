@@ -32,7 +32,7 @@ class UserTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable(),
             Column::make("Nombre/s", "name")
@@ -52,15 +52,20 @@ class UserTable extends DataTableComponent
                 ->searchable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
-                })->collapseOnTablet(),
-            LinkColumn::make('Acciones')
-                ->title(fn() => 'Editar')
-                ->location(fn($row) => route('admin.users.edit', ['user' => $row->id]))
-                ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
-                    'style' => !Gate::allows('admin.users.edit') ? 'display:none' : ''
-                ])
+                })->collapseOnTablet()            
         ];
+
+        if (Gate::allows('admin.users.edit')) {
+            $columns[] = LinkColumn::make('Acciones')
+            ->title(fn() => 'Editar')
+            ->location(fn($row) => route('admin.users.edit', ['user' => $row->id]))
+            ->attributes(fn() => [
+                'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                'style' => !Gate::allows('admin.users.edit') ? 'display:none' : ''
+            ]);
+        }
+
+        return $columns;
     }
 
     public function deleteUser()
