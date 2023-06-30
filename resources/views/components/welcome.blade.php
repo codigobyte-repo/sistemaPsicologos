@@ -2,14 +2,16 @@
     <x-application-logo class="block h-12 w-auto" />
 
     <h1 class="mt-8 text-2xl font-medium text-gray-900">
-        Welcome to your Jetstream application!
+        ¡Bienvenido al sistema de gestión para matriculados!
     </h1>
 
     <p class="mt-6 text-gray-500 leading-relaxed">
-        Laravel Jetstream provides a beautiful, robust starting point for your next Laravel application. Laravel is designed
-        to help you build your application using a development environment that is simple, powerful, and enjoyable. We believe
-        you should love expressing your creativity through programming, so we have spent time carefully crafting the Laravel
-        ecosystem to be a breath of fresh air. We hope you love it.
+        Nuestro sistema te ofrece una variedad de características y funcionalidades 
+        que te permitirán realizar tus trámites de manera eficiente.  
+        <br> Aquí tienes algunas de las cosas que podrás hacer: proceso de matrícula fácil,
+        pagos automatizados, recordatorios de pagos, ppción de transferencia bancaria, 
+        <br>Estas son solo algunas de las características que nuestro sistema tiene para ofrecerte. 
+        <br>Estamos comprometidos en simplificar y agilizar tus trámites como matriculado, brindándote una experiencia fluida y eficiente.
     </p>
 </div>
 

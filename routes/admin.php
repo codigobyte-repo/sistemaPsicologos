@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\ControlPagos;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\MatriculadoController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\ConfiguracionMatriculaController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\SituacionRevistaController;
 use App\Http\Controllers\SituacionRevistaMotivoController;
@@ -55,3 +57,11 @@ Route::get('revistas/{revista}/edit', [SituacionRevistaController::class, 'edit'
 Route::get('revistas-motivos', [SituacionRevistaMotivoController::class, 'index'])->middleware('can:admin.revistas-motivos.index')->name('admin.revistas-motivos.index');
 Route::get('revistas-motivos/create', [SituacionRevistaMotivoController::class, 'create'])->middleware('can:admin.revistas-motivos.create')->name('admin.revistas-motivos.create');
 Route::get('revistas-motivos/{motivo}/edit', [SituacionRevistaMotivoController::class, 'edit'])->middleware('can:admin.revistas-motivos.edit')->name('admin.revistas-motivos.edit');
+
+/* Configuración Matriculas */ /* AGREAGAR CAN:PERMISOS */
+Route::get('configuracion-matricula', [ConfiguracionMatriculaController::class, 'index'])->name('admin.configuracion-matricula.index');
+Route::get('configuracion-matricula/create', [ConfiguracionMatriculaController::class, 'create'])->name('admin.configuracion-matricula.create');
+Route::get('configuracion-matricula/{configuracion}/edit', [ConfiguracionMatriculaController::class, 'edit'])->name('admin.configuracion-matricula.edit');
+
+Route::get('control-pagos', [ControlPagos::class, 'index'])->name('control-pagos');
+Route::get('control-pagos/{pago}/edit', [ControlPagos::class, 'edit'])->name('admin.control-pagos.edit');

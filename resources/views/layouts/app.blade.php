@@ -37,6 +37,14 @@
                 </header>
             @endif
 
+            @if (isset($headerTwo))
+                <header class="bg-gradient-to-r from-purple-500 to-purple-900 shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $headerTwo }}
+                    </div>
+                </header>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

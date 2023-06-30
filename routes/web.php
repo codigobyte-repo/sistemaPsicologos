@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Matriculados\MisPagosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,16 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('mis-pagos', [MisPagosController::class, 'index'])->name('mis-pagos');
+
+});
+
+/* Route::get('/session-expired', function () {
+    return view('session-expired');
+})->middleware('auth')->name('session-expired'); */
+Route::get('/session-expired', function () {
+    return view('session-expired');
+})->name('session-expired');

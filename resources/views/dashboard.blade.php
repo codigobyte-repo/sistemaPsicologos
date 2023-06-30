@@ -1,14 +1,13 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-purple-800 leading-tight">
-            Inicio
-        </h2>
-    </x-slot>
+
+    {{-- Area de notificaciones --}}
+    @livewire('notifications')
+    {{-- Area de notificaciones --}}
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
+                <x-welcome-user />
             </div>
         </div>
     </div>

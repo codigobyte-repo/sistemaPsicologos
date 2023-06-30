@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DistritoMatriculasSeeder::class);
         $this->call(SituacionRevistasSeeder::class);
         $this->call(SituacionRevistasMotivosSeeder::class);
+        $this->call(ConfiguracionMatriculasSeeder::class);
     }
 }
