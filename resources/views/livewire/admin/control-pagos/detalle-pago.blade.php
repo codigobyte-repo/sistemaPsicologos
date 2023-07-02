@@ -49,19 +49,19 @@
                     </table>
                 </div>
 
-                @if ($pago['estado'] === 'rechazado')    
+                {{-- @if ($pago['estado'] === 'rechazado')   --}}  
                     <div class="mb-6 col-span-full">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">Comprobante</label>
                         <img src="{{ asset('comprobantes/'.$pago['comprobante_path']) }}" alt="Comprobante" class="w-80 h-45 object-cover object-center rounded-lg">
                     </div>
-                @endif
+                {{-- @endif --}}
 
                 
                 <div class="mt-4 col-span-3">
                     <div class="grid grid-cols-2 gap-4">
-                        @if ($pago['estado'] === 'rechazado')
+                        {{-- @if ($pago['estado'] === 'rechazado') --}}
                             <x-button wire:click="aprobarPago" spinner="aprobarPago" loading-delay="short" violet label="Aprobar pago" />
-                        @endif
+                        {{-- @endif --}}
                         <x-button wire:click="rechazarPago" spinner="rechazarPago" loading-delay="short" secondary label="Rechazar pago" />
                     </div>
                 </div> 

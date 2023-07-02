@@ -48,6 +48,7 @@ class MisPagos extends Component
         $pago->precio = $datos->precio_matricula;
         $pago->fecha_de_pago = $datos->fecha_vencimiento;
         $pago->estado = 'pendiente';
+        $pago->visto = false;
         if (isset($rutaImagen)) {
             $pago->comprobante_path = $rutaImagen;
         }

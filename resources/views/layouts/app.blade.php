@@ -19,6 +19,10 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        {{-- Hoja de estilos personaliza --}}
+        <link rel="stylesheet" type="text/css" href="{{ mix('/assets/css/estilos.css') }}">
+
+
         <!-- Styles -->
         @livewireStyles
     </head>

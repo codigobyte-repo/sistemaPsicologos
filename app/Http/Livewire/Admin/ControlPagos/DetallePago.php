@@ -22,14 +22,20 @@ class DetallePago extends Component
     public function aprobarPago()
     {
         $this->pago->estado = 'aprobado';
+        /* pasamos visto a 1 para que la notificación solo se muestre una vez */
+        $this->pago->visto = 1;
         $this->pago->save();
+        return redirect()->route('control-pagos')->with('message', 'Comprobante de pago validado correctamente.');
     }
 
     public function pagoRechazado()
     {
         $this->pago->estado = 'rechazado';
+        /* pasamos visto a 1 para que la notificación solo se muestre una vez */
+        $this->pago->visto = 1;
         $this->pago->motivos = $this->motivos;
         $this->pago->save();
+        return redirect()->route('control-pagos')->with('message', 'Comprobante de pago rechazado correctamente.');
     }
 
     public function rechazarPago()
