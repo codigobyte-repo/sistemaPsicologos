@@ -53,11 +53,11 @@ return new class extends Migration
             $table->string('registrado_folio')->nullable();
             $table->enum('categoria', [Matriculado::A, Matriculado::B, Matriculado::C])->nullable();
             $table->longText('observaciones')->nullable();
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->index('matricula');
 
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('distrito_matriculas_id')->references('id')->on('distrito_matriculas')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('universities_id')->references('id')->on('universities')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('nationalities_id')->references('id')->on('nationalities')->onDelete('CASCADE')->onUpdate('CASCADE');

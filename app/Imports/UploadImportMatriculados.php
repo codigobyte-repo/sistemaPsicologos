@@ -164,7 +164,7 @@ class UploadImportMatriculados implements ToModel, WithHeadingRow, WithBatchInse
         /* Categoria */
 
         $matriculado->observaciones = $row['observaciones'];
-        $matriculado->users_id = $user->id;
+        $matriculado->user_id = $user->id;
         $matriculado->save();
 
     }

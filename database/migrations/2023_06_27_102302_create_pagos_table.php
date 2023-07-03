@@ -22,7 +22,9 @@ return new class extends Migration
             $table->enum('estado', ['pendiente', 'aprobado', 'rechazado', 'en_proceso'])->default('en_proceso');
             $table->string('comprobante_path')->nullable();
             $table->string('motivos')->nullable();
+            $table->enum('tipo_de_pago', ['presencial', 'digital'])->nullable();
             $table->boolean('visto')->default(false);
+            $table->string('descripcion');
             
             $table->timestamps();
         });

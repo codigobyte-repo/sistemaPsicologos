@@ -71,7 +71,7 @@
                             spinner="update"
                             loading-delay="short"
                             violet
-                            label="Actualizar matriculado"
+                            label="Crear nuevo usuario"
                         />
                     </div>
                 </div>

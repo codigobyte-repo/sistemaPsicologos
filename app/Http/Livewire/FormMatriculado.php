@@ -176,7 +176,7 @@ class FormMatriculado extends Component
             'categoria' => $this->categoria,
             'observaciones' => $this->observaciones,
             'matricula' => $this->user->matricula,
-            'users_id' => $this->user->id,
+            'user_id' => $this->user->id,
         ]);
 
         return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.');

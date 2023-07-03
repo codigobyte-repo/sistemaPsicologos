@@ -49,6 +49,8 @@ class MisPagos extends Component
         $pago->fecha_de_pago = $datos->fecha_vencimiento;
         $pago->estado = 'pendiente';
         $pago->visto = false;
+        $pago->tipo_de_pago = 'digital';
+        $pago->descripcion = 'Cuota de matrícula mensual';
         if (isset($rutaImagen)) {
             $pago->comprobante_path = $rutaImagen;
         }

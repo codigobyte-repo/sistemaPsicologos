@@ -68,7 +68,7 @@ class Matriculado extends Model
         'registrado_folio',
         'categoria',
         'observaciones',
-        'users_id',
+        'user_id',
     ];
 
     public function distritoMatricula()
@@ -108,7 +108,7 @@ class Matriculado extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

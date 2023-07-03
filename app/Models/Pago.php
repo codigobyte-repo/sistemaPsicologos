@@ -9,7 +9,7 @@ class Pago extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'precio', 'fecha_de_pago', 'estado', 'comprobante_path', 'motivos', 'visto'];
+    protected $fillable = ['user_id', 'precio', 'fecha_de_pago', 'estado', 'comprobante_path', 'motivos', 'visto', 'tipo_de_pago', 'descripcion'];
     
     public function user()
     {
