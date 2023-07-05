@@ -16,17 +16,17 @@
             @csrf
 
             <div class="mb-4">
-                <x-label for="matricula" label="Matricula" />
+                <x-label for="matricula" label="MATRÍCULA o DNI" />
                 <x-input id="matricula" class="block mt-1 w-full" type="text" name="matricula" :value="old('matricula')" pattern="[0-9]+" autofocus autocomplete="tel" />
             </div>
 
-            <div>
+            {{-- <div>
                 <x-label for="email" label="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autocomplete="username" />
-            </div>
+            </div> --}}
 
             <div class="mt-4">
-                <x-label for="password" label="{{ __('Password') }}" />
+                <x-label for="password" label="CONTRASEÑA" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 

@@ -22,7 +22,8 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'matricula' => ['required', 'integer'],
+            'matricula' => ['required_without:dni', 'numeric'], // requerido si no se proporciona el DNI
+            'dni' => ['required_without:matricula', 'numeric'], // requerido si no se proporciona la MATRÍCULA
             'email' => ['string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
@@ -32,6 +33,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'lastname' => $input['lastname'],
             'matricula' => $input['matricula'],
+            'dni' => $input['dni'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);

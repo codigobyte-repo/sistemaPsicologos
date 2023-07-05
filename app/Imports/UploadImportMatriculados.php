@@ -63,6 +63,7 @@ class UploadImportMatriculados implements ToModel, WithHeadingRow, WithBatchInse
         $user->name = $row['nombres'];
         $user->lastname = $row['apellido'];
         $user->matricula = $row['matricula'];
+        $user->dni = $row['documento_nro'];
         $user->email = $row['email'];
         $user->password = Hash::make('psicologia');
         $user->save();
