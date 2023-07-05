@@ -17,12 +17,14 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('dato_id');
             $table->unsignedBigInteger('pago_id');
+            $table->unsignedBigInteger('matriculado_id');
             $table->string('numero_factura');
             $table->date('fecha_emision');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('dato_id')->references('id')->on('datos')->onDelete('cascade');
             $table->foreign('pago_id')->references('id')->on('pagos')->onDelete('cascade');
+            $table->foreign('matriculado_id')->references('id')->on('matriculados')->onDelete('cascade');
 
             $table->timestamps();
         });

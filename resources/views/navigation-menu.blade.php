@@ -22,11 +22,11 @@
                         </x-nav-link>
                     @endcan
 
-                    <x-nav-link colorTexto="gray" href="{{ route('mis-pagos') }}" :active="request()->routeIs('mis-pagos')">
+                    <x-nav-link colorTexto="gray" href="{{ route('mis-comprobantes') }}" :active="request()->routeIs('mis-comprobantes')">
                         Mis pagos
                     </x-nav-link>
 
-                    <x-nav-link colorTexto="gray" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link colorTexto="gray" href="{{ route('mis-datos') }}" :active="request()->routeIs('mis-datos')">
                         Mis datos
                     </x-nav-link>
 
@@ -174,13 +174,13 @@
                     </svg>
                     <span class="text-sm md:text-lg text-white group-hover:text-purple-600 dark:group-hover:text-blue-500">Inicio</span>
                 </a>
-                <a href="{{ route('dashboard') }}" class="inline-flex flex-col items-center justify-center px-5 group">
+                <a href="{{ route('cuentas') }}" class="inline-flex flex-col items-center justify-center px-5 group">
                     <svg class="w-6 h-6 mb-1 text-white group-hover:text-purple-600 dark:group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>              
                     <span class="text-sm md:text-lg text-white group-hover:text-purple-600 dark:group-hover:text-blue-500">Estado de cuenta</span>
                 </a>
-                <a href="{{ route('dashboard') }}" class="inline-flex flex-col items-center justify-center px-5 group">
+                <a href="{{ route('mis-comprobantes') }}" class="inline-flex flex-col items-center justify-center px-5 group">
                     <svg class="w-6 h-6 mb-1 text-white group-hover:text-purple-600 dark:group-hover:text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
                     </svg>                      

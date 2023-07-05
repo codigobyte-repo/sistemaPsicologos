@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Matriculados\MisPagosController;
+use App\Http\Livewire\Matriculados\Cuentas;
+use App\Http\Livewire\Matriculados\MisDatos;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
+Route::view('/', 'auth.login');
 
 Route::middleware([
     'auth:sanctum',
@@ -34,6 +38,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('mis-pagos', [MisPagosController::class, 'index'])->name('mis-pagos');
+    Route::get('mis-comprobantes', [MisPagosController::class, 'show'])->name('mis-comprobantes');
+    Route::get('/generar-pdf/{facturaId}', [MisPagosController::class, 'generarPdf']);
+    Route::get('/mis-datos', MisDatos::class)->name('mis-datos');
+    Route::get('/cuentas', Cuentas::class)->name('cuentas');
 
 });
 
@@ -42,10 +50,3 @@ Route::post('/marcar-como-visto', function () {
     $estadoPago->visto = 0;
     $estadoPago->save();
 });
-
-/* Route::get('/session-expired', function () {
-    return view('session-expired');
-})->middleware('auth')->name('session-expired'); */
-/* Route::get('/session-expired', function () {
-    return view('session-expired');
-})->name('session-expired'); */

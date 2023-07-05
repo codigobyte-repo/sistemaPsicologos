@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Factura;
 use App\Models\Pago;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ControlPagos extends Controller
 {
@@ -16,5 +18,17 @@ class ControlPagos extends Controller
     public function edit(Pago $pago)
     {
         return view('admin.control-pagos.edit', compact('pago'));
+    }
+
+    public function verComprobantes()
+    {
+        return view('admin.control-pagos.verComprobantes');
+    }
+
+    public function generarPdf($facturaId)
+    {
+        $factura = Factura::with('user', 'pago', 'dato', 'matriculado')->find($facturaId);
+        $pdf = Pdf::loadView('matriculados.mis-pagos.comprobante', compact('factura'));
+        return $pdf->stream('comprobante.pdf');
     }
 }

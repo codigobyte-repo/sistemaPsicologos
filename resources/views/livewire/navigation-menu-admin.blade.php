@@ -21,11 +21,11 @@
                       </div>
                    </div>
 
-                    @can('importMatriculados')
+                    {{-- @can('importMatriculados')
                         <x-nav-link href="{{ url('admin/importarExcel') }}" colorTexto="white">
                             IMPORTAR EXCEL
                         </x-nav-link>
-                    @endcan
+                    @endcan --}}
 
                     <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false">
                       <div>
@@ -39,6 +39,7 @@
                       <div x-show="dropdown" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         <a href="{{ url('admin/configuracion-matricula') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Fechas e Importes</a>
                         <a href="{{ url('admin/control-pagos') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Control de pagos</a>
+                        <a href="{{ url('admin/comprobantes') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-white hover:bg-violet-600 dark:hover:bg-gray-600 dark:focus:bg-gray-800 focus:shadow-outline" role="menuitem" tabindex="-1" id="user-menu-item-0">Comprobantes</a>
                       </div>
                   </div>
 

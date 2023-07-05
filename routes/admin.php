@@ -65,3 +65,5 @@ Route::get('configuracion-matricula/{configuracion}/edit', [ConfiguracionMatricu
 
 Route::get('control-pagos', [ControlPagos::class, 'index'])->name('control-pagos');
 Route::get('control-pagos/{pago}/edit', [ControlPagos::class, 'edit'])->name('admin.control-pagos.edit');
+Route::get('comprobantes', [ControlPagos::class, 'verComprobantes'])->name('admin.comprobantes');
+Route::get('/generar-pdf/{facturaId}', [ControlPagos::class, 'generarPdf'])->name('admin.generarPdf');

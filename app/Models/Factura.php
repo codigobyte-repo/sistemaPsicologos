@@ -13,6 +13,7 @@ class Factura extends Model
         'pago_id',
         'user_id',
         'dato_id',
+        'matriculado_id',
         'numero_factura',
         'fecha_emision',
     ];
@@ -30,5 +31,10 @@ class Factura extends Model
     public function dato()
     {
         return $this->belongsTo(Dato::class);
+    }
+
+    public function matriculado()
+    {
+        return $this->belongsTo(Matriculado::class);
     }
 }
