@@ -65,5 +65,15 @@ class RolSeeder extends Seeder
         Permission::create(['name' => 'admin.revistas-motivos.create', 'description' => 'Crear nueva revita motivo'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.revistas-motivos.edit', 'description' => 'Editar revita motivo'])->syncRoles([$role1]);
         Permission::create(['name' => 'Eliminar.Datatable.Revista-Motivos', 'description' => 'Eliminar revita motivo'])->syncRoles([$role1]);
+
+        /* Seccion Admin Configuración Matriculas */
+        Permission::create(['name' => 'admin.configuracion-matricula', 'description' => 'Ver fechas y precios matricula'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.configuracion-matricula.edit', 'description' => 'Configurar fechas y precios matricula'])->syncRoles([$role1]);
+
+        /* Seccion Admin Revistas Motivos */
+        Permission::create(['name' => 'admin.control-pagos.index', 'description' => 'Ver control de pagos'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.control-pagos.edit', 'description' => 'Cambiar estados de pagos'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.comprobantes', 'description' => 'Ver comprobantes de pago'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.generar-pdf', 'description' => 'Generar comprobantes de pago'])->syncRoles([$role1, $role2]);
     }
 }
