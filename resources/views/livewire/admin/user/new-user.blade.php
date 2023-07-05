@@ -39,13 +39,25 @@
 
                     <div class="col-span-6 sm:col-span-3">
                         <x-inputs.maskable
-                            label="Matrícula"
+                            label="Matrícula (Si no usa MATRÍCULA debe usar DNI)"
                             placeholder="Ingresa número de matrícula"
                             icon="clipboard"
                             mask="####################"
                             hint="Sólo números sin puntos ni guiones"
                             right-icon="pencil"
                             wire:model.defer="matricula"
+                        />
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <x-inputs.maskable
+                            label="Número de identidad (Si no usa DNI debe usar MATRÍCULA)"
+                            placeholder="Ingresa número de dni"
+                            icon="clipboard"
+                            mask="####################"
+                            hint="Sólo números sin puntos ni guiones"
+                            right-icon="pencil"
+                            wire:model.defer="dni"
                         />
                     </div>
                     
@@ -64,6 +76,8 @@
                             id="password_confirmation"
                             wire:model.defer="password_confirmation" />
                     </div>
+
+                    <br/>
 
                     <div class="col-span-6 sm:col-span-3">
                         <x-button

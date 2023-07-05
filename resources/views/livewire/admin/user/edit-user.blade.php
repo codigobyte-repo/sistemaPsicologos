@@ -28,6 +28,12 @@
                             hint="Sólo números sin puntos ni guiones" mask="####################" right-icon="pencil"
                             wire:model.defer="matricula" />
                     </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <x-inputs.maskable label="Dni" placeholder="Ingresa número de documento" icon="clipboard"
+                            hint="Sólo números sin puntos ni guiones" mask="####################" right-icon="pencil"
+                            wire:model.defer="dni" />
+                    </div>
                     
                 </div>
 

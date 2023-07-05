@@ -52,6 +52,12 @@ class UserTable extends DataTableComponent
                 ->searchable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
+                })->collapseOnTablet(),
+            Column::make("Dni", "dni")
+                ->sortable()
+                ->searchable()
+                ->format(function ($value) {
+                    return $this->formatIcon($value);
                 })->collapseOnTablet()            
         ];
 

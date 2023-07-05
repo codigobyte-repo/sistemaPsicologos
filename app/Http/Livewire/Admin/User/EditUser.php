@@ -9,7 +9,7 @@ use Livewire\Component;
 class EditUser extends Component
 {
     public $user;
-    public $name, $lastname, $email, $matricula;
+    public $name, $lastname, $email, $matricula, $dni;
     
     public $selectedRoles = [];
     public function mount(User $user)
@@ -19,6 +19,7 @@ class EditUser extends Component
         $this->lastname = $user->lastname;
         $this->email = $user->email;
         $this->matricula = $user->matricula;
+        $this->dni = $user->dni;
 
         $this->selectedRoles = $user->roles->pluck('id')->toArray();
     }
@@ -29,13 +30,13 @@ class EditUser extends Component
             'name' => 'required',
             'lastname' => 'required',
             'email' => 'required|email',
-            'matricula' => 'required',
+            'matricula' => ['required_without:dni'], // requerido si no se proporciona el DNI
+            'dni' => ['required_without:matricula'], // requerido si no se proporciona la matrícula
         ], [
             'name.required' => 'El campo nombre es obligatorio.',
             'lastname.required' => 'El campo apellido es obligatorio.',
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo electrónico válida.',
-            'matricula.required' => 'El campo matrícula es obligatorio.',
         ]);
 
         User::where('id', $this->user->id)->update($validatedData);
