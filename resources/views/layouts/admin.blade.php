@@ -17,7 +17,7 @@
         @wireUiScripts
 
         <!-- Scripts -->
-        @vite(['resources/admin/css/app.css', 'resources/admin/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @stack('css')
 

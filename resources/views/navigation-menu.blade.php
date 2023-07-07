@@ -111,6 +111,7 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -132,6 +133,20 @@
                 <!-- Account Management -->
                 <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                @can('admin.dashboard')
+                    <x-responsive-nav-link href="{{ url('admin/dashboard') }}" :active="request()->routeIs('dashboard')">
+                        Administrador
+                    </x-responsive-nav-link>
+                @endcan
+
+                <x-responsive-nav-link href="{{ route('mis-comprobantes') }}" :active="request()->routeIs('mis-comprobantes')">
+                    Mis pagos
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link href="{{ route('mis-datos') }}" :active="request()->routeIs('mis-datos')">
+                    Mis datos
                 </x-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
