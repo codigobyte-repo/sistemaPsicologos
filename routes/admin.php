@@ -17,7 +17,7 @@ Route::get('dashboard', [HomeController::class, 'index'])->middleware('can:admin
 
 /* Funcionalidad para IMPORTAR EXCEL */
 /* Deshabilitada para no pisar por equivocación los datos que ya están cargados */
-/* Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados'])->middleware('can:importMatriculados'); */
+Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados'])->middleware('can:importMatriculados');
 
 /* Matriculados */
 Route::get('matriculados', [MatriculadoController::class, 'index'])->middleware('can:admin.matriculados.index')->name('admin.matriculados');
