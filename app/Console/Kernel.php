@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                 $configuracionMatricula->save();
             }
             /* daily() Ejecuta la tarea una vez al día a las 00:00 (medianoche) */
-        })->everyMinute();
+        })->daily();
         /* 
         
         En Laravel, el método everyMinute() se utiliza para programar una tarea que se ejecuta cada minuto. Sin embargo, hay varias opciones adicionales disponibles para programar tareas en diferentes intervalos. A continuación, te muestro algunas de las opciones más comunes:
