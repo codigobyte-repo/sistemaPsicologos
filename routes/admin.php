@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ConfiguracionMatriculaController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SituacionRevistaController;
 use App\Http\Controllers\SituacionRevistaMotivoController;
 use App\Http\Controllers\UniversityController;
@@ -17,7 +18,7 @@ Route::get('dashboard', [HomeController::class, 'index'])->middleware('can:admin
 
 /* Funcionalidad para IMPORTAR EXCEL */
 /* Deshabilitada para no pisar por equivocación los datos que ya están cargados */
-Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados'])->middleware('can:importMatriculados');
+/* Route::get('importarExcel', [MatriculadoController::class, 'importMatriculados'])->middleware('can:importMatriculados'); */
 
 /* Matriculados */
 Route::get('matriculados', [MatriculadoController::class, 'index'])->middleware('can:admin.matriculados.index')->name('admin.matriculados');
@@ -67,3 +68,8 @@ Route::get('control-pagos', [ControlPagos::class, 'index'])->middleware('can:adm
 Route::get('control-pagos/{pago}/edit', [ControlPagos::class, 'edit'])->middleware('can:admin.control-pagos.edit')->name('admin.control-pagos.edit');
 Route::get('comprobantes', [ControlPagos::class, 'verComprobantes'])->middleware('can:admin.comprobantes')->name('admin.comprobantes');
 Route::get('/generar-pdf/{facturaId}', [ControlPagos::class, 'generarPdf'])->middleware('can:admin.generar-pdf')->name('admin.generarPdf');
+
+/* Mensajes */
+Route::get('messages', [MessageController::class, 'index'])->name('admin.messages.index');
+Route::get('messages/{message}', [MessageController::class, 'show'])->name('admin.messages.show');
+Route::post('messages', [MessageController::class, 'store'])->name('admin.messages.store');

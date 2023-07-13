@@ -11,6 +11,7 @@ use App\Models\SituacionRevista;
 use App\Models\SituacionRevistaMotivo;
 use App\Models\TituloUniversitario;
 use App\Models\University;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -128,5 +129,20 @@ class SelectController extends Controller
         });
 
         return response()->json($municipios);
+    }
+
+    public function getUsers(Request $request)
+    {
+        $search = $request->search;
+
+        $users = Cache::remember('users:' . $search, 60, function () use ($search) {
+            return User::where('name', 'like', "%{$search}%")
+                    ->orWhere('lastname', 'like', "%{$search}%")
+                    ->orWhere('matricula', 'like', "%{$search}%")
+                    ->orWhere('dni', 'like', "%{$search}%")
+                    ->get();
+        });
+
+        return response()->json($users);     
     }
 }

@@ -69,41 +69,6 @@
 
         @livewireScripts
 
-        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-
-        {{-- Evento livewire que enviamos de app/Http/Livewire/MatriculadosTable.php--}}
-       {{--  <script>
-            Livewire.on('error', function(message) {
-                Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: message,
-                })
-            })
-        </script>
-
-        <script>
-            Livewire.on('delete', function(message) {
-                Swal.fire({
-                title: '¿Seguro que desea eliminar los datos del matriculado?',
-                text: message,
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, eliminar!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                        'Eliminado!',
-                        'Datos eliminados.',
-                        'success'
-                        )
-                    }
-                })
-            })
-        </script> --}}
-
         @stack('js')
 
     </body>

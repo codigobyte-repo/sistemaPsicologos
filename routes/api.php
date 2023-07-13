@@ -30,4 +30,6 @@ Route::get('/universities', [SelectController::class, 'universities'])->name('ap
 Route::get('/localidades', [SelectController::class, 'localidades'])->name('api.localidades');
 Route::get('/municipios', [SelectController::class, 'municipios'])->name('api.municipios');
 
+Route::get('/getUsers', [SelectController::class, 'getUsers'])->name('api.getUsers');
+
 
