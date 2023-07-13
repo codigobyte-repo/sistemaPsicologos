@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Matriculados\MisPagosController;
+use App\Http\Controllers\MessageController;
 use App\Http\Livewire\Matriculados\Cuentas;
 use App\Http\Livewire\Matriculados\MisDatos;
 use App\Models\Pago;
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/generar-pdf/{facturaId}', [MisPagosController::class, 'generarPdf']);
     Route::get('/mis-datos', MisDatos::class)->name('mis-datos');
     Route::get('/cuentas', Cuentas::class)->name('cuentas');
+    Route::get('messages/{message}', [MessageController::class, 'show'])->name('messages.show');
 
 });
 

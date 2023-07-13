@@ -58,5 +58,19 @@
         @stack('modals')
 
         @livewireScripts
+
+
+        @auth
+            <script>
+                window.onload=function () {
+                    Echo.private('App.Models.User.' + {{ Auth::user()->id }})
+                        .notification((notification) => {
+                            Livewire.emit('notification');
+                    });
+                }
+            </script>
+        @endauth
+
+
     </body>
 </html>

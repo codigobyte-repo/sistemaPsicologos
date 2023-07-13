@@ -8,10 +8,11 @@ class NotificationComponent extends Component
 {
     public $notifications, $count;
 
+    protected $listeners = ['notification'];
+
     public function mount()
     {
-        $this->notifications = auth()->user()->notifications;
-        $this->count = auth()->user()->unreadNotifications->count();
+        $this->notification();
     }
     
     public function render()
@@ -19,6 +20,14 @@ class NotificationComponent extends Component
         return view('livewire.admin.notification-component');
     }
 
+    public function notification()
+    {
+        $this->notifications = auth()->user()->notifications;
+        $this->count = auth()->user()->unreadNotifications->count();
+    }
+
+
+    /* Los siguientes métodos dan error pero funcionan bien */
     public function resetNotificationCount()
     {
         $user = auth()->user()->notification = 0;

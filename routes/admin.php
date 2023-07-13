@@ -71,5 +71,4 @@ Route::get('/generar-pdf/{facturaId}', [ControlPagos::class, 'generarPdf'])->mid
 
 /* Mensajes */
 Route::get('messages', [MessageController::class, 'index'])->name('admin.messages.index');
-Route::get('messages/{message}', [MessageController::class, 'show'])->name('admin.messages.show');
 Route::post('messages', [MessageController::class, 'store'])->name('admin.messages.store');
