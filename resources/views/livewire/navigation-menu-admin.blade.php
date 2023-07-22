@@ -21,11 +21,11 @@
                       </div>
                    </div>
 
-                    <!--@can('importMatriculados')
+                    @can('importMatriculados')
                         <x-nav-link href="{{ url('admin/importarExcel') }}" colorTexto="white">
                             IMPORTAR EXCEL
                         </x-nav-link>
-                    @endcan*/-->
+                    @endcan
 
                     <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false">
                       <div>
