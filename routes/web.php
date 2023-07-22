@@ -34,8 +34,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/marcar-como-visto', function () {
     $estadoPago = Pago::where('user_id', auth()->user()->id)->first();
-    if ($estadoPago) {
+    if($estadoPago){
         $estadoPago->visto = 0;
         $estadoPago->save();
     }
 });
+
+/* Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']); */
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->middleware('can:admin.dashboard');
