@@ -30,7 +30,7 @@
                     <div class="ml-3 mt-5 relative" x-data="{ dropdown: false }" x-on:mouseover="dropdown = true" x-on:mouseleave="dropdown = false">
                       <div>
                         <x-nav-link x-on:click="dropdown = !dropdown" colorTexto="white" class="cursor-pointer">
-                          Administración de cobros Test
+                          Administración de cobros
                           <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                           </svg>
