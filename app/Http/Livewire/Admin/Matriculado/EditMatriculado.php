@@ -3,9 +3,14 @@
 namespace App\Http\Livewire\Admin\Matriculado;
 
 use App\Models\Area;
+use App\Models\DistritoMatricula;
+use App\Models\DistritoRevista;
 use App\Models\Location;
 use App\Models\Matriculado;
 use App\Models\Nationality;
+use App\Models\SituacionRevista;
+use App\Models\SituacionRevistaMotivo;
+use App\Models\User;
 use Livewire\Component;
 
 class EditMatriculado extends Component
@@ -57,32 +62,58 @@ class EditMatriculado extends Component
     public $municipiosProfesional = [];
     public $domicilio_profesional_codigo_postal;
 
+    public $nacionalidades;
+    public $datos_usuario;
+    public $distrito_matriculas;
+    public $distrito_revistas;
+    public $situacion_revistas;
+    public $situacion_revistas_motivos;
+    public $situacion_revistas_fechas;
+    
+    public $localidades;
+
     public function mount(Matriculado $matriculado)
     {
         $this->matriculado = $matriculado;
 
-        $this->fecha_matriculacion = $matriculado->fecha_matriculacion;
+        $this->datos_usuario = User::where('matricula', $matriculado->matricula)->first();
         $this->matricula = $matriculado->matricula;
+        $this->fecha_matriculacion = $matriculado->fecha_matriculacion;
+        
+        $this->distrito_matriculas = DistritoMatricula::all();
         $this->distrito_matriculas_id = $matriculado->distrito_matriculas_id;
+
+        $this->distrito_revistas = DistritoRevista::all();
         $this->distrito_revistas_id = $matriculado->distrito_revistas_id;
+
+        $this->estado_observacion = $matriculado->estado_observacion;
+
+        $this->situacion_revistas = SituacionRevista::all();
+        $this->situacion_revistas_id = $matriculado->situacion_revistas_id;
+
+        $this->situacion_revistas_motivos = SituacionRevistaMotivo::all();
+        $this->situacion_revista_motivos_id = $matriculado->situacion_revista_motivos_id;
+        
+        $this->situacion_de_revista_fecha = $matriculado->situacion_de_revista_fecha;
+
         $this->genero = $matriculado->genero;
         $this->fecha_nacimiento = $matriculado->fecha_nacimiento;
-        $this->estado_observacion = $matriculado->estado_observacion;
-        $this->situacion_revistas_id = $matriculado->situacion_revistas_id;
-        $this->situacion_revista_motivos_id = $matriculado->situacion_revista_motivos_id;
-        $this->situacion_de_revista_fecha = $matriculado->situacion_de_revista_fecha;
         
+        $this->nacionalidades = Nationality::all();
         $this->nationalities_id = $matriculado->nationalities_id;
-        
+
         $this->tipo_documento = $matriculado->tipo_documento;
         $this->documento_nro = $matriculado->documento_nro;
         $this->cuit = $matriculado->cuit;
-        $this->domicilio_particular = $matriculado->domicilio_particular;
-        $this->domicilio_particular_telefonos = $matriculado->domicilio_particular_telefonos;
+
+
+        $this->domicilio_particular_telefonos = $matriculado->domicilio_particular_telefonos;        
         $this->domicilio_particular_telefonos_alternativo = $matriculado->domicilio_particular_telefonos_alternativo;
         $this->domicilio_profesional_telefonos_alternativo = $matriculado->domicilio_profesional_telefonos_alternativo;
+        
         $this->domicilio_profesional = $matriculado->domicilio_profesional;
         $this->domicilio_profesional_telefonos = $matriculado->domicilio_profesional_telefonos;
+        
         $this->titulo_universitarios_id = $matriculado->titulo_universitarios_id;
         $this->universities_id = $matriculado->universities_id;
         $this->fecha_expedicion_titulo = $matriculado->fecha_expedicion_titulo;
@@ -98,19 +129,28 @@ class EditMatriculado extends Component
         $this->observaciones = $matriculado->observaciones;
         $this->users_id = $matriculado->users_id;
 
+        /* DOMICILIO PARTICULAR */
+
+        $this->domicilio_particular = $matriculado->domicilio_particular;
         $this->domicilio_particular_localidad = $matriculado->domicilio_particular_localidad;
+
         $locationParticular = Location::with('areas')->where('location', $matriculado->domicilio_particular_localidad)->first();
         $this->municipios = $locationParticular ? $locationParticular->areas->toArray() : [];
 
         $this->domicilio_particular_municipio = $matriculado->domicilio_particular_municipio;
         $this->domicilio_particular_codigo_postal = $matriculado->domicilio_particular_codigo_postal;
 
+        /* DOMICILIO PARTICULAR */
+
+
+        /* DOMICILIO PROFESIONAL */
         $this->domicilio_profesional_localidad = $matriculado->domicilio_profesional_localidad;
         $locationProfesional = Location::with('areas')->where('location', $matriculado->domicilio_profesional_localidad)->first();
         $this->municipiosProfesional = $locationProfesional ? $locationProfesional->areas->toArray() : [];
 
         $this->domicilio_profesional_municipio = $matriculado->domicilio_profesional_municipio;
         $this->domicilio_profesional_codigo_postal = $matriculado->domicilio_profesional_codigo_postal;
+        /* DOMICILIO PROFESIONAL */
 
     }
 
@@ -159,7 +199,8 @@ class EditMatriculado extends Component
 
     public function save()
     {
-        $validatedData = $this->validate([
+        dd( $this->nationalities_id);
+        /* $validatedData = $this->validate([
             'fecha_matriculacion' => 'required',
             'distrito_matriculas_id' => 'required',
             'distrito_revistas_id' => 'required',
@@ -186,6 +227,6 @@ class EditMatriculado extends Component
 
         Matriculado::where('id', $this->matriculado->id)->update($validatedData);
 
-        return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.');
+        return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.'); */
     }
 }

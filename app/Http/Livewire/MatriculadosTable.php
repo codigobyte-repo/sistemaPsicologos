@@ -15,6 +15,8 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Illuminate\Support\Facades\Gate;
 
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+
 class MatriculadosTable extends DataTableComponent
 {
     protected $model = Matriculado::class;
@@ -43,16 +45,16 @@ class MatriculadosTable extends DataTableComponent
 
     public function columns(): array
     {
-        return [
+        $columns = [
             Column::make("Id", "id")
                 ->sortable()->collapseOnTablet(),
-            Column::make("Fecha matriculacion", "fecha_matriculacion")
+            Column::make("Fecha matriculación", "fecha_matriculacion")
                 ->sortable()
                 ->format(function ($value) {
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
                 })->collapseOnTablet(),
-            Column::make("Matricula", "matricula")
+            Column::make("Matrícula", "matricula")
                 ->sortable()
                 ->searchable(),
             Column::make("Distrito Matriculación", "distritoMatricula.nombre")
@@ -83,7 +85,7 @@ class MatriculadosTable extends DataTableComponent
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
                 })->collapseOnTablet(),
-            Column::make("Estado observacion", "estado_observacion")
+            Column::make("Estado observación", "estado_observacion")
                 ->sortable()
                 ->format(function ($value) {
                     switch ($value) {
@@ -92,12 +94,13 @@ class MatriculadosTable extends DataTableComponent
                         case Matriculado::OTRO:
                             return 'OTRO';
                     }
+                    return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Situacion revista", "situacionRevista.nombre")
+            Column::make("Situación revista", "situacionRevista.nombre")
                 ->sortable()->collapseOnTablet(),
-            Column::make("Situacion revista motivo", "situacionRevistaMotivo.nombre")
+            Column::make("Situación revista motivo", "situacionRevistaMotivo.nombre")
                 ->sortable()->collapseOnTablet(),
-            Column::make("Situacion de revista fecha", "situacion_de_revista_fecha")
+            Column::make("Situación de revista fecha", "situacion_de_revista_fecha")
                 ->sortable()
                 ->format(function ($value) {
                     if($value === null){
@@ -139,7 +142,7 @@ class MatriculadosTable extends DataTableComponent
                 })->collapseOnTablet(),
             Column::make("Domicilio particular", "domicilio_particular")
                 ->sortable()->collapseOnTablet(),
-            Column::make("Domicilio particular codigo postal", "domicilio_particular_codigo_postal")
+            Column::make("Domicilio particular código postal", "domicilio_particular_codigo_postal")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
@@ -148,17 +151,17 @@ class MatriculadosTable extends DataTableComponent
                 ->sortable()->collapseOnTablet(),
             Column::make("Domicilio particular municipio", "domicilio_particular_municipio")
                 ->sortable()->collapseOnTablet(),
-            Column::make("Domicilio particular telefonos", "domicilio_particular_telefonos")
+            Column::make("Domicilio particular teléfonos", "domicilio_particular_telefonos")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Domicilio particular telefonos alternativo", "domicilio_particular_telefonos_alternativo")
+            Column::make("Domicilio particular teléfonos alternativo", "domicilio_particular_telefonos_alternativo")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Domicilio profesional telefonos alternativo", "domicilio_profesional_telefonos_alternativo")
+            Column::make("Domicilio profesional teléfonos alternativo", "domicilio_profesional_telefonos_alternativo")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
@@ -168,7 +171,7 @@ class MatriculadosTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Domicilio profesional codigo postal", "domicilio_profesional_codigo_postal")
+            Column::make("Domicilio profesional código postal", "domicilio_profesional_codigo_postal")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
@@ -183,7 +186,7 @@ class MatriculadosTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Domicilio profesional telefonos", "domicilio_profesional_telefonos")
+            Column::make("Domicilio profesional teléfonos", "domicilio_profesional_telefonos")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
@@ -203,7 +206,7 @@ class MatriculadosTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Fecha expedicion titulo", "fecha_expedicion_titulo")
+            Column::make("Fecha expedición titulo", "fecha_expedicion_titulo")
                 ->sortable()
                 ->format(function ($value) {
                     $date = Carbon::parse($value);
@@ -215,28 +218,28 @@ class MatriculadosTable extends DataTableComponent
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
                 })->collapseOnTablet(),
-            Column::make("Fecha terminacion estudios", "fecha_terminacion_estudios")
+            Column::make("Fecha terminación estudios", "fecha_terminacion_estudios")
                 ->sortable()
                 ->format(function ($value) {
                     $date = Carbon::parse($value);
                     return $date->format('d/m/Y');
                 })->collapseOnTablet(),
-            Column::make("Actuacion gp cdd", "actuacion_gp_cdd")
+            Column::make("Actuación gp cdd", "actuacion_gp_cdd")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Actuacion gp cs", "actuacion_gp_cs")
+            Column::make("Actuación gp cs", "actuacion_gp_cs")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Actuacion gp tdd", "actuacion_gp_tdd")
+            Column::make("Actuación gp tdd", "actuacion_gp_tdd")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Actuacion gp tsd", "actuacion_gp_tsd")
+            Column::make("Actuación gp tsd", "actuacion_gp_tsd")
                 ->sortable()
                 ->format(function ($value) {
                     return $this->formatIcon($value);
@@ -251,7 +254,7 @@ class MatriculadosTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
-            Column::make("Categoria", "categoria")
+            Column::make("Categoría", "categoria")
                 ->sortable()
                 ->format(function ($value) {
                     switch ($value) {
@@ -277,6 +280,18 @@ class MatriculadosTable extends DataTableComponent
                     'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                 ]) */
         ];
+
+        if (Gate::allows('admin.matriculados.index')) {
+            $columns[] = LinkColumn::make('Acciones')
+            ->title(fn() => 'Editar')
+            ->location(fn($row) => route('admin.matriculados.edit', ['matriculado' => $row->id]))
+            ->attributes(fn() => [
+                'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                'style' => !Gate::allows('admin.matriculados.index') ? 'display:none' : ''
+            ]);
+        }
+
+        return $columns;
     }
 
     public function builder(): Builder

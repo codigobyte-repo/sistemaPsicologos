@@ -24,7 +24,7 @@ Route::get('dashboard', [HomeController::class, 'index'])->middleware('can:admin
 Route::get('matriculados', [MatriculadoController::class, 'index'])->middleware('can:admin.matriculados.index')->name('admin.matriculados');
 Route::get('matriculados/create', [MatriculadoController::class, 'create'])->middleware('can:admin.matriculados.create')->name('admin.matriculados.create');
 Route::get('matriculados/form/{userId}', [MatriculadoController::class, 'form'])->middleware('can:admin.matriculados.form')->name('admin.matriculados.form');
-
+Route::get('matriculados/{matriculado}/edit', [MatriculadoController::class, 'edit'])->middleware('can:admin.matriculados.index')->name('admin.matriculados.edit');
 
 /* Usuarios */
 Route::get('users', [UserController::class, 'index'])->middleware('can:admin.users.index')->name('admin.users.index');
