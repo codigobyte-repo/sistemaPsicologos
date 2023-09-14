@@ -8,7 +8,7 @@
                 <x-errors class="mb-6" />
 
                 <div class="grid grid-cols-12 gap-6 m-2 md:m-8 p-6 bg-white border border-gray-200 rounded-lg shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <h1 class="text-gray-400 mx-auto dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">Datos de matriculación: <span class="text-gray-800 font-semibold"> {{ $datos_usuario->name }} {{ $datos_usuario->lastname }} </span></h1>
+                    <h1 class="text-gray-400 mx-auto dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">Datos de matriculación: <span class="text-gray-800 dark:text-white font-semibold"> {{ $datos_usuario->name }} {{ $datos_usuario->lastname }} </span></h1>
 
                     <div class="col-span-12 sm:col-span-6">
                         <x-input type="text" 
@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <span class="text-sm text-gray-800">Distrito de Matrículas</span>
-                        <select wire:model="distrito_matriculas_id" name="distrito" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Distrito de Matrículas</span>
+                        <select wire:model="distrito_matriculas_id" name="distrito" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
                             @foreach($distrito_matriculas as $distrito)
                                 <option value="{{ $distrito->id }}" @if($distrito->id == $distrito_matriculas_id) selected @endif>{{ $distrito->nombre }}</option>
                             @endforeach
@@ -41,8 +41,8 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <span class="text-sm text-gray-800">Distrito Revistas</span>
-                        <select wire:model="distrito_revistas_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Distrito Revistas</span>
+                        <select wire:model="distrito_revistas_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
                             @foreach($distrito_revistas as $revista)
                                 <option value="{{ $revista->id }}" @if($revista->id == $distrito_revistas_id) selected @endif>{{ $revista->nombre }}</option>
                             @endforeach
@@ -66,8 +66,8 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <span class="text-sm text-gray-800">Situación Revistas</span>
-                        <select wire:model="situacion_revistas_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Situación Revistas</span>
+                        <select wire:model="situacion_revistas_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
                             @foreach($situacion_revistas as $situacion)
                                 <option value="{{ $situacion->id }}" @if($situacion->id == $situacion_revistas_id) selected @endif>{{ $situacion->nombre }}</option>
                             @endforeach
@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <span class="text-sm text-gray-800">Motivo Situación Revista</span>
-                        <select wire:model="situacion_revista_motivos_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Motivo Situación Revista</span>
+                        <select wire:model="situacion_revista_motivos_id" name="revista" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
                             @foreach($situacion_revistas_motivos as $motivos)
                                 <option value="{{ $motivos->id }}" @if($motivos->id == $situacion_revista_motivos_id) selected @endif>{{ $motivos->nombre }}</option>
                             @endforeach
@@ -149,8 +149,8 @@
                     </div>
 
                     <div class="col-span-12 sm:col-span-4">
-                        <span>Nacionalidad</span>
-                        <select wire:model="nationalities_id" name="nacionalidad" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Nacionalidad</span>
+                        <select wire:model="nationalities_id" name="nacionalidad" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
                             @foreach($nacionalidades as $nacionalidad)
                                 <option value="{{ $nacionalidad->id }}" @if($nacionalidad->id == $nationalities_id) selected @endif>{{ $nacionalidad->pais }}</option>
                             @endforeach
@@ -200,15 +200,6 @@
                             wire:model="domicilio_particular_localidad"
                         />
                     </div>
-                    {{-- <div class="col-span-12 md:col-span-5">
-                        <span class="text-sm text-gray-800">Localidad Domicilio Particular</span>
-                        {{$domicilio_particular_localidad}}
-                        <select wire:model="domicilio_particular_localidad" name="revista" class="w-full h-10 rounded-lg border border-gray-200 focus:border-indigo-500">                            
-                            @foreach($localidades as $localidad)
-                                <option>{{ $localidad->location }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
 
                     <div class="col-span-12 md:col-span-5">
                         <x-select 

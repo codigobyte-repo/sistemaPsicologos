@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <x-input class="pr-28" label="Email" placeholder="Ingrese correo electrónico" icon="mail" suffix="@mail.com" wire:model.defer="correo_electronico" />
+                        <x-input class="pr-28" label="Email" placeholder="Ingrese correo electrónico" icon="mail" right-icon="pencil" wire:model.defer="correo_electronico" />
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">

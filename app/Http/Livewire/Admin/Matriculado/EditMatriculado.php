@@ -69,8 +69,6 @@ class EditMatriculado extends Component
     public $situacion_revistas;
     public $situacion_revistas_motivos;
     public $situacion_revistas_fechas;
-    
-    public $localidades;
 
     public function mount(Matriculado $matriculado)
     {
@@ -199,9 +197,9 @@ class EditMatriculado extends Component
 
     public function save()
     {
-        dd( $this->nationalities_id);
-        /* $validatedData = $this->validate([
+        $validatedData = $this->validate([
             'fecha_matriculacion' => 'required',
+            'matricula' => 'required|unique:matriculados,matricula,' . $this->matriculado->id,
             'distrito_matriculas_id' => 'required',
             'distrito_revistas_id' => 'required',
             'genero' => 'required',
@@ -216,6 +214,10 @@ class EditMatriculado extends Component
             'domicilio_particular_codigo_postal' => 'required',
             'domicilio_particular_localidad' => 'required',
             'domicilio_particular_municipio' => 'required',
+            'domicilio_profesional' => 'required',
+            'domicilio_profesional_localidad' => 'required',
+            'domicilio_profesional_municipio' => 'required',
+            'domicilio_profesional_codigo_postal' => 'required',
             'titulo_universitarios_id' => 'required',
             'universities_id' => 'required',
             'fecha_expedicion_titulo' => 'required',
@@ -227,6 +229,6 @@ class EditMatriculado extends Component
 
         Matriculado::where('id', $this->matriculado->id)->update($validatedData);
 
-        return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.'); */
+        return redirect()->route('admin.matriculados')->with('message', 'Los datos del usuario se actualizaron correctamente.');
     }
 }
