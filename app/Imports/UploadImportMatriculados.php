@@ -69,7 +69,6 @@ class UploadImportMatriculados implements ToModel, WithHeadingRow, WithBatchInse
         $user->save();
 
         $matriculado = new Matriculado();
-
         $matriculado->fecha_matriculacion = $this->transformDate($row['fecha_matriculacion']);
         $matriculado->matricula = $row['matricula'];
         $matriculado->distrito_matriculas_id = $this->distritoMatriculas[$row['distrito_matriculacion']];
