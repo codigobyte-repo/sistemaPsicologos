@@ -189,11 +189,12 @@
                             label="Domicilio Particular"/>
                     </div>
 
+                    {{-- Se cambio Localidad por el nombre Provincia a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
                         <x-select 
-                            label="Localidad Domicilio Particular"
+                            label="Provincia Domicilio Particular"
                             icon="globe-alt"
-                            placeholder="Selecciona una localidad"
+                            placeholder="Selecciona una provincia"
                             :async-data="route('api.localidades')"
                             option-label="location"
                             option-value="location"
@@ -201,11 +202,12 @@
                         />
                     </div>
 
+                    {{-- Se cambio Municipio por el nombre Localidad a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
                         <x-select 
-                            label="Municipio Domicilio Particular"
+                            label="Localidad Domicilio Particular"
                             icon="globe-alt"
-                            placeholder="Selecciona un municipio"
+                            placeholder="Selecciona una localidad"
                             :options="$municipios"
                             option-label="name"
                             option-value="name"
@@ -230,11 +232,12 @@
                             label="Domicilio Profesional"/>
                     </div>
 
+                    {{-- Se cambio Localidad por el nombre Provincia a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
                         <x-select
-                            label="Localidad Domicilio Profesional"
+                            label="Provincia Domicilio Profesional"
                             icon="globe-alt"
-                            placeholder="Selecciona una localidad"
+                            placeholder="Selecciona una provincia"
                             :async-data="route('api.localidades')"
                             option-label="location"
                             option-value="location"
@@ -242,11 +245,12 @@
                             />
                     </div>
 
+                    {{-- Se cambio Municipio por el nombre Localidad a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
                         <x-select
-                            label="Municipio Domicilio Profesional"
+                            label="Localidad Domicilio Profesional"
                             icon="globe-alt"
-                            placeholder="Selecciona un municipio"
+                            placeholder="Selecciona una localidad"
                             :options="$municipiosProfesional"
                             option-label="name"
                             option-value="name"

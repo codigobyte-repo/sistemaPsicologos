@@ -1,4 +1,4 @@
-<x-action-section>
+{{-- <x-action-section>
     <x-slot name="title">
         {{ __('Delete Account') }}
     </x-slot>
@@ -50,4 +50,4 @@
             </x-slot>
         </x-dialog-modal>
     </x-slot>
-</x-action-section>
+</x-action-section> --}}
