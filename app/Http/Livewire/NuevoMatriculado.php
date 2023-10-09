@@ -34,7 +34,7 @@ class NuevoMatriculado extends Component
         $user->lastname = $validatedData['apellido_matriculado'];
         $user->matricula = $this->numero_matriculado;
         $user->email = $validatedData['correo_electronico'];
-        $user->password = Hash::make('password');
+        $user->password = Hash::make('psicologia');
         $user->save();
 
         // Obtener el ID del usuario recién creado
