@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:remove-images-cron')
-              ->everyMinute();
+              ->daily();
         /*         
         En Laravel, el método everyMinute() se utiliza para programar una tarea que se ejecuta cada minuto. Sin embargo, hay varias opciones adicionales disponibles para programar tareas en diferentes intervalos. A continuación, te muestro algunas de las opciones más comunes:
         everyMinute(): Ejecuta la tarea cada minuto
