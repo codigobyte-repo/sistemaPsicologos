@@ -71,9 +71,9 @@ Route::get('control-pagos/{pago}/edit', [ControlPagos::class, 'edit'])->middlewa
 Route::get('comprobantes', [ControlPagos::class, 'verComprobantes'])->middleware('can:admin.comprobantes')->name('admin.comprobantes');
 Route::get('/generar-pdf/{facturaId}', [ControlPagos::class, 'generarPdf'])->middleware('can:admin.generar-pdf')->name('admin.generarPdf');
 
-/* VER PERMISOS PARA PRECIOS SERVICIOS */
-Route::get('precio-servicios', [PrecioServicioController::class, 'index'])->name('admin.precio-servicios');
-Route::get('precio-servicios/{precio}/edit', [PrecioServicioController::class, 'edit'])->name('admin.precio-servicios.edit');
+/* Precios de servicios */
+Route::get('precio-servicios', [PrecioServicioController::class, 'index'])->middleware('can:admin.precio-servicios')->name('admin.precio-servicios');
+Route::get('precio-servicios/{precio}/edit', [PrecioServicioController::class, 'edit'])->middleware('can:admin.precio-servicios.edit')->name('admin.precio-servicios.edit');
 
 
 /* Mensajes */
