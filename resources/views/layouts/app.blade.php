@@ -22,7 +22,6 @@
         {{-- Hoja de estilos personaliza --}}
         <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/estilos.css') }}">
 
-
         <!-- Styles -->
         @livewireStyles
     </head>

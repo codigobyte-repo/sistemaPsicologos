@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Matriculados;
 
 use App\Http\Controllers\Controller;
-use App\Models\Factura;
+use App\Models\DatosDePago;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -19,10 +19,10 @@ class MisPagosController extends Controller
         return view('matriculados.mis-pagos.show');
     }
 
-    public function generarPdf($facturaId)
+    public function generarPdf($pagoId)
     {
-        $factura = Factura::with('user', 'pago', 'dato', 'matriculado')->find($facturaId);
-        $pdf = Pdf::loadView('matriculados.mis-pagos.comprobante', compact('factura'));
+        $pago = DatosDePago::with('user', 'matriculado')->find($pagoId);
+        $pdf = Pdf::loadView('matriculados.mis-pagos.comprobante', compact('pago'));
         return $pdf->stream('comprobante.pdf');
     }
 }

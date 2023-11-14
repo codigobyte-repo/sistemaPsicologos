@@ -19,6 +19,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        {{-- Hoja de estilos personaliza --}}
+        <link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/estilos.css') }}">
+
         @stack('css')
 
         <!-- Styles -->

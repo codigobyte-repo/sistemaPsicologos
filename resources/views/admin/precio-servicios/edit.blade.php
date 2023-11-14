@@ -2,10 +2,10 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300 leading-tight">
-            Detalle de pago
+            Modificar precios
         </h2>
     </x-slot>
     
-    @livewire('admin.control-pagos.detalle-pago', ['pagoId' => $pago->id]) 
+    @livewire('admin.precio-servicios.modificar-precios', ['precio' => $precio])
     
 </x-admin-layout>

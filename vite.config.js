@@ -16,7 +16,7 @@ export default defineConfig({
     ],
     server: {
         hmr: {
-            host: 'localhost',
+            host: 'sistemapsicologia.test',
         },
         watch: {
             usePolling: true

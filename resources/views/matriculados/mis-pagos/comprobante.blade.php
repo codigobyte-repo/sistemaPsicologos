@@ -28,66 +28,98 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header text-center card-header-violet">
-                <strong>ORIGINAL</strong>
+                <strong>COMPROBANTE</strong>
             </div>
             <div class="card-body">
                 <div class="row mb-4">
-                    
-                    <div class="col-sm-12">
-                        <div>
-                            <div><strong>Razón social: </strong>{{ $factura->dato->razon_social }}</div>
-                        </div>
-                        <div><strong>Domicilio comercial: </strong>{{ $factura->dato->domicilio_comercial }}</div>
-                        <div><strong>Cuit: </strong>{{ $factura->dato->cuit }}</div>
-                        <div><strong>Condición frente al IVA: </strong>{{ $factura->dato->condicion_frente_al_iva }}</div>
-                        <div><strong>Ingresos brutos: </strong>{{ $factura->dato->ingresos_brutos }}</div>
-                        <div><strong>Fecha inicio actividad: </strong>{{ $factura->dato->fecha_inicio_actividades }}</div>
-                        <div><strong>Punto de venta: </strong>{{ $factura->dato->punto_venta }}</div>
-                        <div><strong>Comp. Nro: </strong>{{ $factura->dato->codigo }}</div>
-                    </div>
 
                     <div class="col-sm-12 mt-4">
                         <div>
-                            <strong>{{ $factura->user->name . ' ' . $factura->user->lastname }}</strong>
+                            <strong>{{ $pago->user->name . ' ' . $pago->user->lastname }}</strong>
                         </div>
-                        <div><strong>Email:</strong> {{ $factura->user->email }} </div>
+                        <div><strong>Email:</strong> {{ $pago->user->email }} </div>
 
-                        @if ($factura->matriculado && $factura->matriculado->cuit)
-                            <div><strong>Cuit:</strong> {{ $factura->matriculado->cuit }} </div>
+                        @if ($pago->matriculado && $pago->matriculado->cuit)
+                            <div><strong>Cuit:</strong> {{ $pago->matriculado->cuit }} </div>
                         @endif
 
-                        @if ($factura->matriculado && $factura->matriculado->documento_nro)
-                            <div><strong>Dni:</strong> {{ $factura->matriculado->documento_nro }} </div>
+                        @if ($pago->matriculado && $pago->matriculado->documento_nro)
+                            <div><strong>Dni:</strong> {{ $pago->matriculado->documento_nro }} </div>
                         @endif
                     </div>
 
                 </div>
 
-                <div class="table-responsive-sm">
-                    <table class="table table-striped">
-                        <thead>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full">
+                        <tbody class="divide-y divide-gray-200">
                             <tr>
-                                <th>Factura</th>
-                                <th>Descripción</th>
-
-                                <th class="right">Fecha de emisión</th>
-                                <th class="right">Total</th>
+                                <th class="px-4 py-2">Matrícula:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->matricula, 0, ',', '.') }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
-                                <td class="left strong tbody-violet">{{ $factura->numero_factura }}</td>
-                                <td class="left tbody-violet">{{ $factura->pago->descripcion }}</td>
-
-                                <td class="right tbody-violet">{{ \Carbon\Carbon::createFromFormat('Y-m-d', $factura->fecha_emision)->format('d-m-Y') }}</td>
-                                <td class="right tbody-violet">{{ number_format($factura->pago->precio, 2, ',', '.') }}</td>
+                                <th class="px-4 py-2">Matrícula anterior:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->matricula_anterior, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Multa:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->multa, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Multa por suspensión:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->multa_por_suspension, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Habilitaciones:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->habilitaciones, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Ioma:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->ioma, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Supervisiones:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->supervisiones, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Cursos:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->cursos, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Carpeta de especialidad:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->carpeta_especialidad, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Escuelas:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->escuelas, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Pagos cuentas:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->pago_cuentas, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Otros pagos:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->otros_pagos, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Pago enviado:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->pago_enviado, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Importe total:</th>
+                                <td class="px-4 py-2">$ {{ number_format($pago->importe_total, 0, ',', '.') }}</td>
+                            </tr>
+                            <tr>
+                                <th class="px-4 py-2">Fecha:</th>
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->created_at)->format('d-m-Y') }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4 col-sm-5">
 
+                <div class="row">
+
+                    <div class="col-lg-4 col-sm-5">
                     </div>
 
                     <div class="col-lg-4 col-sm-5 ml-auto">
@@ -97,14 +129,14 @@
                                     <td class="left">
                                         <strong>Subtotal</strong>
                                     </td>
-                                    <td class="right">{{ number_format($factura->pago->precio, 2, ',', '.') }}</td>
+                                    <td class="right">$ {{ number_format($pago->importe_total, 0, ',', '.') }}</td>
                                 </tr>
                                 <tr>
                                     <td class="left">
                                         <strong>Total</strong>
                                     </td>
                                     <td class="right">
-                                        <strong>{{ number_format($factura->pago->precio, 2, ',', '.') }}</strong>
+                                        <strong>$ {{ number_format($pago->importe_total, 0, ',', '.') }}</strong>
                                     </td>
                                 </tr>
                             </tbody>

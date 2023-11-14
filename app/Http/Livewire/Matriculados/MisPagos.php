@@ -3,60 +3,286 @@
 namespace App\Http\Livewire\Matriculados;
 
 use Livewire\Component;
-use App\Models\ConfiguracionMatricula;
-use Livewire\WithFileUploads;
-use App\Models\Pago;
-
-use Illuminate\Support\Facades\File;
+use App\Models\DatosDePago;
+use App\Models\Image;
+use App\Models\Matriculado;
+use App\Models\NotificacionesDePago;
+use App\Models\precio_servicio;
+use App\Models\RemoveImages;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class MisPagos extends Component
 {
-    use WithFileUploads;
+    public $image_path;
 
-    public $comprobante;
+    public $matriculado, $matriculadoCategoria;
 
-    protected $rules = [
-        'comprobante' => 'required|image|max:4096'
-    ];
+    public $importeSupervisiones;
+
+    public $userId, $precioServicios;
+
+    public $matriculaA,
+    $matriculaB,
+    $matriculaC,
+    $matriculaFid,
+    $multa,
+    $habilitaciones,
+    $supervisiones_menos_5_anos,
+    $supervisiones_mas_5_anos,
+    $supervisiones_forenses,
+    $resultadoMatriculaA,
+    $resultadoMatriculaB,
+    $resultadoMatriculaC;
+
+    //Funcionalidad
+    public $isCheckedMatricula = false;
+    public $inputMatriculaAnterior;
+    public $isCheckedMulta = false;
+    public $inputMultaPorSuspension;
+    public $isCheckedHabilitaciones = false;
+    public $inputHabilitaciones;
+    public $inputIoma;
+    public $isCheckedSupervisiones = false;
+    public $inputSupervisiones;
+    public $inputCursos;
+    public $inputCarpetaEspecialidad;
+    public $inputEscuelas;
+    public $inputPagoACuentas;
+    public $inputOtrosPagos;
+    public $importeTotal = 0;
+    public $pagoEnviado;
+
+
+    public function mount()
+    {
+        $this->image_path = Session::get('image_path');
+
+        $this->userId = auth()->user()->id;
+
+        //traemos el valor de los servicios
+        $this->precioServicios = precio_servicio::first();
+
+        //cargamos cada valor de la tabla de los servicios para mostrar en la vista
+        $this->matriculaA = $this->precioServicios->matricula_actual_categoria_a;
+        $this->matriculaB = $this->precioServicios->matricula_actual_categoria_b;
+        $this->matriculaC = $this->precioServicios->matricula_actual_categoria_c;
+        $this->matriculaFid = $this->precioServicios->matricula_actual_fid;
+        $this->multa = $this->precioServicios->multa;
+        $this->habilitaciones = $this->precioServicios->habilitaciones;
+        $this->supervisiones_menos_5_anos = $this->precioServicios->supervisiones_menos_5_anos;
+        $this->supervisiones_mas_5_anos = $this->precioServicios->supervisiones_mas_5_anos;
+        $this->supervisiones_forenses = $this->precioServicios->supervisiones_forenses;
+
+        $this->resultadoMatriculaA = number_format($this->matriculaA + $this->matriculaFid, 0, ',', '.');
+        $this->resultadoMatriculaB = number_format($this->matriculaB + $this->matriculaFid, 0, ',', '.');
+        $this->resultadoMatriculaC = number_format($this->matriculaC + $this->matriculaFid, 0, ',', '.');
+
+    }
 
     public function render()
     {
-        $datosMatricula = ConfiguracionMatricula::all();
-        return view('livewire.matriculados.mis-pagos', compact('datosMatricula'));
+        $this->cargarDatosMatriculado();
+        $this->verificarFechaMatriculacion();
+        return view('livewire.matriculados.mis-pagos');
     }
 
-    public function PagoTransferencia()
+    public function cargarDatosMatriculado()
     {
-        
-        $this->validate();
+        $this->matriculado = Matriculado::where('user_id', $this->userId)->first();
+        $this->matriculadoCategoria = $this->matriculado->categoria;
+    }
 
-        if ($this->comprobante) {
-            $rutaImagen = time() . '.' . $this->comprobante->getClientOriginalExtension();
-        
-            $this->comprobante->storeAs($rutaImagen);
-        
-            // Eliminar el archivo temporal
-            if (File::exists($this->comprobante->getRealPath())) {
-                File::delete($this->comprobante->getRealPath());
+    public function verificarFechaMatriculacion()
+    {
+        if ($this->matriculado) {
+            $fechaMatriculacion = Carbon::parse($this->matriculado->fecha_matriculacion);
+            $fechaActual = Carbon::now();
+            $diferencia = $fechaMatriculacion->diffInYears($fechaActual);
+            //mostramos en la vista los precios de menos de 5 años y mas de 5 años
+            if ($diferencia < 5) {
+                $this->importeSupervisiones = $this->supervisiones_menos_5_anos;
+            } else {
+                $this->importeSupervisiones = $this->supervisiones_mas_5_anos;
             }
-        }       
+        }
+    }
 
-        $datos = ConfiguracionMatricula::first();
+    public function updatedInputHabilitaciones(){
+        if($this->inputHabilitaciones != null){
+            $this->isCheckedHabilitaciones = false;
+        }
+    }
 
-        $pago = new Pago();
-        $pago->user_id = auth()->user()->id;
-        $pago->precio = $datos->precio_matricula;
-        $pago->fecha_de_pago = $datos->fecha_vencimiento;
-        $pago->estado = 'pendiente';
-        $pago->visto = false;
-        $pago->tipo_de_pago = 'digital';
-        $pago->descripcion = 'Cuota de matrícula mensual';
-        if (isset($rutaImagen)) {
-            $pago->comprobante_path = $rutaImagen;
+    /* FUNCIONES QUE CALCULAN EL IMPORTE TOTAL */
+
+    // Método para calcular el importe total
+    public function calcularTotal()
+    {
+        $this->importeTotal = 0;
+        
+        $campos = [
+            'inputMatriculaAnterior',
+            'inputMultaPorSuspension',
+            'inputHabilitaciones',
+            'inputIoma',
+            'inputSupervisiones',
+            'inputCursos',
+            'inputCarpetaEspecialidad',
+            'inputEscuelas',
+            'inputPagoACuentas',
+            'inputOtrosPagos',
+        ];
+
+        foreach ($campos as $campo) {
+            if (!empty($this->$campo) && is_numeric($this->$campo)) {
+                $this->importeTotal += (int)$this->$campo;
+            }
         }
 
-        $pago->save();
+        /* Los checks se suman desde aquí */
         
-        return redirect()->route('dashboard');
+        if ($this->isCheckedMatricula) {
+            if($this->matriculadoCategoria == 1){
+                $this->importeTotal += $this->matriculaA + $this->matriculaFid;
+            }elseif($this->matriculadoCategoria == 2){
+                $this->importeTotal += $this->matriculaB + $this->matriculaFid;
+            }else{
+                $this->importeTotal += $this->matriculaC + $this->matriculaFid;
+            }
+        }
+
+        if ($this->isCheckedMulta) {
+            $this->importeTotal += $this->multa;
+        }
+
+        if($this->isCheckedHabilitaciones){
+            $this->importeTotal +=  $this->habilitaciones;
+        }
+
+        if($this->isCheckedSupervisiones){
+            $this->importeTotal += $this->importeSupervisiones + $this->supervisiones_forenses;
+        }
+    }
+
+    // Se ejecuta cada vez que hay cambios en un campo
+    public function updated($campo)
+    {
+        if (in_array($campo, [
+            'isCheckedMatricula',
+            'inputMatriculaAnterior',
+            'isCheckedMulta',
+            'inputMultaPorSuspension',
+            'isCheckedHabilitaciones',
+            'inputHabilitaciones',
+            'inputIoma',
+            'isCheckedSupervisiones',
+            'inputSupervisiones',
+            'inputCursos',
+            'inputCarpetaEspecialidad',
+            'inputEscuelas',
+            'inputPagoACuentas',
+            'inputOtrosPagos',
+            'importeTotal'
+        ])) {
+            $this->calcularTotal();
+        }
+    }
+
+
+    /* FIN FUNCIONES QUE CALCULAN EL IMPORTE TOTAL */
+
+    protected $rules = [
+        'inputMatriculaAnterior' => 'nullable|numeric',
+        'inputMultaPorSuspension' => 'nullable|numeric|required_if:isCheckedMulta,1',
+        'inputIoma' => 'nullable|numeric',
+        'inputCursos' => 'nullable|numeric',
+        'inputCarpetaEspecialidad' => 'nullable|numeric',
+        'inputEscuelas' => 'nullable|numeric',
+        'inputPagoACuentas' => 'nullable|numeric',
+        'inputOtrosPagos' => 'nullable|numeric',
+        'importeTotal' => 'nullable|numeric',
+        'pagoEnviado' => 'nullable|numeric',
+    ];
+
+    public function datosDePagos()
+    {
+        $this->validate();
+        
+        $matriculado = Matriculado::where('user_id', auth()->user()->id)->first();
+
+        $pago = new DatosDePago();
+
+        if($this->isCheckedMatricula){    
+            $this->verCategoria($pago);
+        }
+
+        $pago->matricula_anterior = $this->inputMatriculaAnterior;
+
+        if($this->isCheckedMulta){
+            $pago->multa = $this->multa;
+        }
+
+        $pago->multa_por_suspension = $this->inputMultaPorSuspension;
+
+        if($this->isCheckedHabilitaciones){
+            $pago->habilitaciones = $this->habilitaciones;
+        }elseif($this->inputHabilitaciones){
+            $pago->habilitaciones = $this->inputHabilitaciones;
+        }
+
+        $pago->ioma = $this->inputIoma;
+        
+        if($this->isCheckedSupervisiones){
+            $pago->supervisiones = $this->importeSupervisiones + $this->supervisiones_forenses;
+        }elseif($this->inputSupervisiones){
+            $pago->supervisiones = $this->inputSupervisiones;
+        }
+
+        $pago->cursos = $this->inputCursos;
+        $pago->carpeta_especialidad = $this->inputCarpetaEspecialidad;
+        $pago->escuelas = $this->inputEscuelas;
+        $pago->pago_cuentas = $this->inputPagoACuentas;
+        $pago->otros_pagos = $this->inputOtrosPagos;
+        $pago->importe_total = $this->importeTotal;
+        $pago->pago_enviado = $this->pagoEnviado;
+        $pago->image_path = $this->image_path;
+
+        $pago->user_id = auth()->user()->id;
+        $pago->matriculado_id = $matriculado->id;
+
+        $pago->save();
+            
+        Image::create([
+            'path' => $this->image_path,
+            'pago_id' => $pago->id, 
+        ]);
+
+        // Este paso lo hacemos para asociar la imagen DO SPACES, y luego no eliminarla en la limpieza.
+        $imagen = RemoveImages::where('ruta', $this->image_path)->first();
+        $imagen->estado = 'asociada';
+        $imagen->save();
+
+        // En este paso guardamos el registro para mostrar notificaciones
+        $notificacion = new NotificacionesDePago();
+        $notificacion->user_id = auth()->user()->id;
+        $notificacion->tipo_notificacion = 'Nuevo pago';
+        $notificacion->fecha_notificacion = Carbon::now();
+        $notificacion->visto = 1;
+        $notificacion->save();
+
+        return redirect()->route('dashboard')->with('message', '¡Operación realizada con éxito!');
+
+    }
+
+    public function verCategoria($pago)
+    {
+        if($this->matriculadoCategoria == 1){
+            $pago->matricula = $this->matriculaA + $this->matriculaFid;
+        }elseif($this->matriculadoCategoria == 2){
+            $pago->matricula = $this->matriculaB + $this->matriculaFid;
+        }else{
+            $pago->matricula = $this->matriculaC + $this->matriculaFid;
+        }
     }
 }

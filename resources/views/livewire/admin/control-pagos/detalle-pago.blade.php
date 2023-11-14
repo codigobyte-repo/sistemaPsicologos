@@ -5,7 +5,21 @@
 
             <div class="grid grid-cols-6 gap-6 m-2 md:m-8 p-6 bg-white border border-gray-200 rounded-lg shadow-lg hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <h1 class="text-gray-400 text-center dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">
-                    DETALLE DEL PAGO: <span class="font-semibold">{{ $pago['estado'] }}</span>
+                    DETALLE DEL PAGO: 
+                    <span class="font-semibold">
+                        @if ($pago['estado'] === 'pendiente') 
+                            <span style="background-color: #4C51BF;" class="px-2 py-1 rounded-md text-white">Pendiente</span>
+                        @endif
+                        @if ($pago['estado'] === 'aprobado') 
+                            <span style="background-color: #34D399;" class="px-2 py-1 rounded-md text-white">Aprobado</span>
+                        @endif
+                        @if ($pago['estado'] === 'rechazado') 
+                            <span style="background-color: #EF4444;" class="px-2 py-1 rounded-md text-white">Rechazado</span>
+                        @endif
+                        @if ($pago['estado'] === 'en_proceso') 
+                            <span style="background-color: #000000;" class="px-2 py-1 rounded-md text-white">En proceso</span>
+                        @endif
+                    </span>
                 </h1>
 
                 <h1 class="text-gray-400 text-center dark:text-white col-span-full text-lg pt-2 pb-8">
@@ -16,17 +30,49 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    ID
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    N°
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    PRECIO DE COBRO
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Estado
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    FECHA DEL PAGO
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Matrícula
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    ESTADO
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Matrícula anterior
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Multa
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Multa por suspension
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Habilitaciones
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Ioma
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Supervisiones
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Cursos
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Carpeta especialidad
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Escuelas
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Pago cuentas
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Otros pagos
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Importe total
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Pago enviado
+                                </th>
+                                </th><th scope="col" class="px-6 py-3 text-left">
+                                    Fecha
                                 </th>
                             </tr>
                         </thead>
@@ -35,33 +81,102 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $pago['id'] }}
                                 </th>
-                                <td class="px-6 py-4">
-                                    ${{ $pago['precio'] }}
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($pago['estado'] == 'en_proceso')
+                                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">En proceso</span>
+                                    @endif
+
+                                    @if($pago['estado'] == 'aprobado')
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Aprobado</span>
+                                    @endif
+                                    
+                                    @if($pago['estado'] == 'rechazado')
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Rechazado</span>
+                                    @endif
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ $pago['created_at'] }}
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['matricula'], 0, ',', '.') }}
                                 </td>
-                                <td class="px-6 py-4 uppercase">
-                                    {{ $pago['estado'] }}
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['matricula_anterior'], 0, ',', '.') }}
+                                </td>                              
+                                    
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['multa'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['multa_por_suspension'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['habilitaciones'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['ioma'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['supervisiones'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['cursos'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['carpeta_especialidad'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['escuelas'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['pago_cuentas'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['otros_pagos'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['importe_total'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['pago_enviado'], 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago['created_at'])->format('d-m-Y') }}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                {{-- @if ($pago['estado'] === 'rechazado')   --}}  
-                    <div class="mb-6 col-span-full">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">COMPROBANTE</label>
-                        <img src="{{ asset('comprobantes/'.$pago['comprobante_path']) }}" alt="Comprobante" class="w-80 h-45 object-cover object-center rounded-lg">
+                <div class="mb-6 col-span-full">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">COMPROBANTE</label>
+                    <div class="cursor-pointer">
+                        <a href="{{ Storage::url($pago['image_path']) }}" target="_blank">
+                            <img src="{{ Storage::url($pago['image_path']) }}" class="picture" >
+                        </a>
                     </div>
-                {{-- @endif --}}
+                </div>
 
                 
                 <div class="mt-4 col-span-3">
                     <div class="grid grid-cols-2 gap-4">
                         @if ($pago['estado'] != 'aprobado')
                             <x-button wire:click="aprobarPago" spinner="aprobarPago" loading-delay="short" violet label="Aprobar pago" />
-                            <x-button wire:click="rechazarPago" spinner="rechazarPago" loading-delay="short" secondary label="Rechazar pago" />
+                            
+                            @if($pago['estado'] != 'rechazado')
+                                <x-button wire:click="rechazarPago" spinner="rechazarPago" loading-delay="short" secondary label="Rechazar pago" />
+                            @endif
                         @endif
                     </div>
                 </div> 

@@ -9,7 +9,7 @@ class NotificacionesDePago extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'tipo_notificacion', 'fecha_notificacion'];
+    protected $fillable = ['user_id', 'tipo_notificacion', 'fecha_notificacion', 'visto'];
     
     public function user()
     {

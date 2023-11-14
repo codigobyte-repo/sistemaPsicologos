@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-600 dark:text-gray-300 leading-tight">
-            Control de pagos
+            Precio de servicios
         </h2>
     </x-slot>
 
@@ -19,16 +19,6 @@
         </div>
     @endif
     
-    @livewire('datos-de-pago-table')
+    @livewire('admin.precio-servicios.list-precios')
     
 </x-admin-layout>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/admin/marcar-notificacion-pago-como-visto');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-        xhr.send();
-    });
-</script>

@@ -10,9 +10,11 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ConfiguracionMatriculaController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PrecioServicioController;
 use App\Http\Controllers\SituacionRevistaController;
 use App\Http\Controllers\SituacionRevistaMotivoController;
 use App\Http\Controllers\UniversityController;
+use App\Models\NotificacionesDePago;
 
 Route::get('dashboard', [HomeController::class, 'index'])->middleware('can:admin.dashboard')->name('admin.dashboard');
 
@@ -69,6 +71,17 @@ Route::get('control-pagos/{pago}/edit', [ControlPagos::class, 'edit'])->middlewa
 Route::get('comprobantes', [ControlPagos::class, 'verComprobantes'])->middleware('can:admin.comprobantes')->name('admin.comprobantes');
 Route::get('/generar-pdf/{facturaId}', [ControlPagos::class, 'generarPdf'])->middleware('can:admin.generar-pdf')->name('admin.generarPdf');
 
+/* VER PERMISOS PARA PRECIOS SERVICIOS */
+Route::get('precio-servicios', [PrecioServicioController::class, 'index'])->name('admin.precio-servicios');
+Route::get('precio-servicios/{precio}/edit', [PrecioServicioController::class, 'edit'])->name('admin.precio-servicios.edit');
+
+
 /* Mensajes */
 Route::get('messages', [MessageController::class, 'index'])->name('admin.messages.index');
 Route::post('messages', [MessageController::class, 'store'])->name('admin.messages.store');
+
+
+
+Route::post('/marcar-notificacion-pago-como-visto', function () {
+    NotificacionesDePago::where('visto', 1)->update(['visto' => 0]);
+});
