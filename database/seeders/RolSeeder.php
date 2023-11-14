@@ -15,6 +15,12 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
+        /* AGREGAR NUEVOS ROLES */
+        /* FIRSTORCREATE Esto lo que hace es que al crear un nuevo rol no se tenga que sobrescribir todo de nuevo 
+        FirstOrCreate verifica si existe y si esta no lo pisa y agrega el nuevo rol: el comando para ejecutar sólo este seeder 
+        es: sail artisan db:seed --class=RolSeeder*/
+        
+
         /* Nombres de los roles Admin, Coordinador, Matriculado */
         $role1 = Role::firstOrCreate(['name' => 'Administrador']);
         $role2 = Role::firstOrCreate(['name' => 'Coordinador']);
