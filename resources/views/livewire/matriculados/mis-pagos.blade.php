@@ -276,6 +276,15 @@
 
                     <div class="mt-10 mb-6 font-semibold text-gray-700 text-lg">
                         Importe total: $ {{ number_format($importeTotal, 0, ',', '.') }}.-
+                        <br>
+                        
+                        @if($saldoFavor)
+                            Saldo a favor: ${{ $saldoFavor }}.-
+                        @elseif($saldoNegativo)
+                            Saldo negativo:  <span class="text-red-600">- $ {{ $saldoNegativo }} .-</span>  
+                        @elseif ($saldoMayor)
+                        <span class="text-red-600 font-semibold">{{ $saldoMayor }}</span>
+                        @endif
                     </div>
 
                     <label for="react-option" class="inline-flex items-center justify-between w-full p-5 mt-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
@@ -296,7 +305,7 @@
                     </label>
 
                     <div class="mt-8">
-                        <x-button wire:click="datosDePagos" spinner="datosDePagos" loading-delay="short" violet label="Enviar datos de pagos" />
+                       <x-button wire:click="datosDePagos" spinner="datosDePagos" loading-delay="short" violet label="Enviar datos de pagos" />
                     </div>
 
                 </form>

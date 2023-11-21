@@ -129,6 +129,27 @@ class DatosDePagoTable extends DataTableComponent
                 ->format(function ($value) {
                     return $this->formatIcon($value);
                 })->collapseOnTablet(),
+            Column::make("Saldo a favor", "saldo_a_favor")
+                ->sortable()
+                ->format(function ($value) {
+                    if ($value === null or $value === '') {
+                        return $this->formatIcon($value);
+                    }else{
+                        $html = '<span style="color: green;">' . $value . '</span>';
+                        return new HtmlString($html);
+                    }
+                })
+                ->collapseOnTablet(),
+            Column::make("Adeuda", "saldo_negativo")
+                ->sortable()
+                ->format(function ($value) {
+                    if ($value === null or $value === '') {
+                        return $this->formatIcon($value);
+                    }else{
+                        $html = '<span style="color: red;">' . $value . '</span>';
+                        return new HtmlString($html);
+                    }
+                })->collapseOnTablet(),
             Column::make("Fecha anunciada", "created_at")
                 ->sortable()
                 ->format(function ($value) {

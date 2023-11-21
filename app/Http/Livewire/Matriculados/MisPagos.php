@@ -50,8 +50,12 @@ class MisPagos extends Component
     public $inputEscuelas;
     public $inputPagoACuentas;
     public $inputOtrosPagos;
-    public $importeTotal = 0;
-    public $pagoEnviado;
+
+    public $pagoEnviado = 0.0;
+    public $importeTotal = 0.0;
+    public $saldoFavor = 0.0;
+    public $saldoNegativo = 0.0;
+    public $saldoMayor = '';
 
 
     public function mount()
@@ -77,7 +81,32 @@ class MisPagos extends Component
         $this->resultadoMatriculaA = number_format($this->matriculaA + $this->matriculaFid, 0, ',', '.');
         $this->resultadoMatriculaB = number_format($this->matriculaB + $this->matriculaFid, 0, ',', '.');
         $this->resultadoMatriculaC = number_format($this->matriculaC + $this->matriculaFid, 0, ',', '.');
+    }
 
+    /*Función: si pagoEnviado es mayor que imporTotal significa que tengo saldo a favor. Si no es mayor y es igual está bien, no se debe hacer nada. 
+    Si es menor, puede ser menor hasta 50 pesos menos de 50 debe mostrar un mensaje que no puede ser menor entre 0 y 50 debe mostrar que saldo es. */
+    public function updatedPagoEnviado()
+    {
+        $importeTotal = floatval(str_replace(',', '.', $this->importeTotal));
+        $pagoEnviado = floatval(str_replace(',', '.', $this->pagoEnviado));
+
+        if ($pagoEnviado > $importeTotal) {
+            $this->saldoFavor = $pagoEnviado - $importeTotal;
+            $this->saldoNegativo = 0.0;
+            $this->saldoMayor = '';
+        } elseif ($pagoEnviado < $importeTotal && ($importeTotal - $pagoEnviado) <= 50) {
+            $this->saldoNegativo = $importeTotal - $pagoEnviado;
+            $this->saldoFavor = 0.0;
+            $this->saldoMayor = '';
+        } elseif (($importeTotal - $pagoEnviado) > 50) {
+            $this->saldoMayor = "No puede deber un importe mayor a $50.-";
+            $this->saldoFavor = 0.0;
+            $this->saldoNegativo = 0.0;
+        } else {
+            $this->saldoFavor = 0.0;
+            $this->saldoNegativo = 0.0;
+            $this->saldoMayor = '';
+        }
     }
 
     public function render()
@@ -246,6 +275,8 @@ class MisPagos extends Component
         $pago->otros_pagos = $this->inputOtrosPagos;
         $pago->importe_total = $this->importeTotal;
         $pago->pago_enviado = $this->pagoEnviado;
+        $pago->saldo_a_favor = $this->saldoFavor;
+        $pago->saldo_negativo = $this->saldoNegativo;
         $pago->image_path = $this->image_path;
 
         $pago->user_id = auth()->user()->id;

@@ -36,25 +36,38 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
                                 Supervisiones
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Cursos
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Carpeta especialidad
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Escuelas
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Pago cuentas
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Otros pagos
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Importe total
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Pago enviado
                             </th>
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            <th scope="col" class="px-6 py-3 text-left">
+                                Saldo a favor
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
+                                Saldo negativo
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Fecha
                             </th>
-                            </th><th scope="col" class="px-6 py-3 text-left">
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Imprimir PDF
                             </th>
                         </tr>
@@ -136,6 +149,14 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago->pago_enviado, 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap text-green-600 font-semibold">
+                                    $ {{ number_format($pago->saldo_a_favor, 0, ',', '.') }}
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap text-red-600 font-semibold">
+                                    $ {{ number_format($pago->saldo_negativo, 0, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
