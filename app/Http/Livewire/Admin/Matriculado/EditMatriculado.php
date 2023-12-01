@@ -204,7 +204,7 @@ class EditMatriculado extends Component
             'distrito_revistas_id' => 'required',
             'genero' => 'required',
             'fecha_nacimiento' => 'required',
-            'estado_observacion' => 'required',
+            'estado_observacion' => 'nullable',
             'situacion_revistas_id' => 'required',
             'situacion_revista_motivos_id' => 'required',
             "situacion_de_revista_fecha" => 'required',
