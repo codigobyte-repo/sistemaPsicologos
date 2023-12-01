@@ -84,11 +84,11 @@
                     </div>
                     
                     <div class="col-span-12 md:col-span-6">
-                        <x-input type="date"  
-                            label="Fecha Situación Revista"
-                            without-time="false"
-                            placeholder="Seleccione fecha de revista" 
+                        <x-input type="date"
                             wire:model.defer="situacion_de_revista_fecha" 
+                            without-time="false"
+                            label="Fecha Situación Revista"
+                            placeholder="Seleccione fecha de revista" 
                         />
                     </div>
 
