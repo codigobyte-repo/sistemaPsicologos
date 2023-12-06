@@ -294,14 +294,6 @@ class MisPagos extends Component
         $imagen->estado = 'asociada';
         $imagen->save();
 
-        // En este paso guardamos el registro para mostrar notificaciones
-        $notificacion = new NotificacionesDePago();
-        $notificacion->user_id = auth()->user()->id;
-        $notificacion->tipo_notificacion = 'Nuevo pago';
-        $notificacion->fecha_notificacion = Carbon::now();
-        $notificacion->visto = 1;
-        $notificacion->save();
-
         return redirect()->route('dashboard')->with('message', '¡Operación realizada con éxito!');
 
     }

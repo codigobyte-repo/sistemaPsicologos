@@ -45,4 +45,10 @@ class DatosDePago extends Model
     {
         return $this->hasMany(Image::class, 'pago_id');
     }
+
+    // Verificamos todos los nuevos regisrtos que hay con el estado en_proceso y asi mostrar la notificación en el menu admin
+    public static function getCountEnProceso()
+    {
+        return self::where('estado', 'en_proceso')->count();
+    }
 }

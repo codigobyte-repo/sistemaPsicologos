@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\DatosDePago;
 use App\Models\NotificacionesDePago;
 use Livewire\Component;
 
@@ -11,13 +12,9 @@ class NavigationMenuAdmin extends Component
 
     public function render()
     {
-        if ($this->nuevoPago == 0) {
-            $nuevosRegistros = NotificacionesDePago::where('visto', 1)->count();
-
-            if ($nuevosRegistros > 0) {
-                $this->nuevoPago = $nuevosRegistros;
-            }
-        }
-        return view('livewire.navigation-menu-admin');
+        //Usamos el modelo para contar los nuevos anuncios de pagos en proceso
+        $countEnProceso = DatosDePago::getCountEnProceso();
+        
+        return view('livewire.navigation-menu-admin', compact('countEnProceso'));
     }
 }
