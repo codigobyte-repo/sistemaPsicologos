@@ -275,9 +275,9 @@
                     </label>
 
                     <div class="mt-10 mb-6 font-semibold text-gray-700 text-lg">
-                        Importe total: $ {{ number_format($importeTotal, 0, ',', '.') }}.-
+                        Importe total: $ {{ number_format($importeTotal, 2, ",", ".") }}.-
                         <br>
-                        
+                        <br>
                         @if($saldoFavor)
                             Saldo a favor: ${{ $saldoFavor }}.-
                         @elseif($saldoNegativo)

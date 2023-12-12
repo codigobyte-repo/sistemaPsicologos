@@ -169,7 +169,7 @@ class DatosDePagoTable extends DataTableComponent
     public function builder(): Builder
     {
         return DatosDePago::query()
-                ->with('user', 'images');
+                ->with('user', 'images')->latest();
     }
 
     /* Función personalizada que sirve para poner un icono en los espacios vacíos */
@@ -181,8 +181,10 @@ class DatosDePagoTable extends DataTableComponent
                     </svg>';
             $html = '<span class="text-red-600 flex items-center justify-center h-6 w-6">' . $icon . '</span>';
             return new HtmlString($html);
+        }else{
+            return '$ ' . number_format($value, 2, ',', '.');
         }
 
-        return $value;
+        /* return $value; */
     }
 }

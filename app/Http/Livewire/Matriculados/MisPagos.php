@@ -165,7 +165,7 @@ class MisPagos extends Component
 
         foreach ($campos as $campo) {
             if (!empty($this->$campo) && is_numeric($this->$campo)) {
-                $this->importeTotal += (int)$this->$campo;
+                $this->importeTotal += (float)$this->$campo;
             }
         }
 
@@ -213,7 +213,7 @@ class MisPagos extends Component
             'inputPagoACuentas',
             'inputOtrosPagos',
             'importeTotal'
-        ])) {
+        ], true)) {
             $this->calcularTotal();
         }
     }
