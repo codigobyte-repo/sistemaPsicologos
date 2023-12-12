@@ -97,59 +97,59 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['matricula'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['matricula'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['matricula_anterior'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['matricula_anterior'], 2, ',', '.') }}
                                 </td>                              
                                     
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['multa'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['multa'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['multa_por_suspension'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['multa_por_suspension'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['habilitaciones'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['habilitaciones'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['ioma'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['ioma'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['supervisiones'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['supervisiones'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['cursos'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['cursos'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['carpeta_especialidad'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['carpeta_especialidad'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['escuelas'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['escuelas'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['pago_cuentas'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['pago_cuentas'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['otros_pagos'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['otros_pagos'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['importe_total'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['importe_total'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    $ {{ number_format($pago['pago_enviado'], 0, ',', '.') }}
+                                    $ {{ number_format($pago['pago_enviado'], 2, ',', '.') }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
