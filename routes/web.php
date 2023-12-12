@@ -37,4 +37,4 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->middleware('can:admin.dashboard');
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
