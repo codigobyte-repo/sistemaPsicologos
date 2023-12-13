@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\DatosDePagoExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
@@ -10,6 +11,8 @@ use App\Models\DatosDePago;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 
 class DatosDePagoTable extends DataTableComponent
@@ -19,6 +22,11 @@ class DatosDePagoTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+
+        $this->setBulkActions([
+            'deleteSelected' => 'Eliminar',
+            'exportSelected' => 'Exportar'
+        ]);
     }
 
     public function columns(): array
@@ -175,6 +183,7 @@ class DatosDePagoTable extends DataTableComponent
     /* Función personalizada que sirve para poner un icono en los espacios vacíos */
     public function formatIcon($value)
     {
+        /* Si el valor es nulo le pone le icono de X vacio. Sino al número le pone le formato de $ y con miles y decimales */
         if ($value === null or $value === '') {
             $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -184,7 +193,53 @@ class DatosDePagoTable extends DataTableComponent
         }else{
             return '$ ' . number_format($value, 2, ',', '.');
         }
+    }
 
-        /* return $value; */
+    public function deleteSelected()
+    {
+        if($this->getSelected()) {
+            DatosDePago::whereIn('id', $this->getSelected())->delete();
+            $this->emit('delete', 'Registro de pago eliminado correctamente');
+            $this->clearSelected();
+        }else{
+            $this->emit('error', 'No hay registros seleccionados');
+        }   
+    }
+
+    public function exportSelected()
+    {
+        if($this->getSelected()){
+			
+            /* Limpia las selecciones */
+            /* $this->clearSelected(); */
+
+			//Buscamos los matriculados en la db
+            $datosPago = DatosDePago::whereIn('id', $this->getSelected())->get();
+
+			//Usamos la funcionalidad de laravel excel
+            return Excel::download(new DatosDePagoExport($datosPago), 'DatosDePago.xlsx');
+
+        }else{
+            //exportamos lo que se esté viendo
+            return Excel::download(new DatosDePagoExport($this->getRows()), 'DatosDePago.xlsx');
+        }   
+    }
+
+    public function filters(): array
+    {
+        return [
+            SelectFilter::make('Estado')
+                ->options([
+                    '' => 'Todos',
+                    'RECHAZADO' => 'RECHAZADO',
+                    'APROBADO' => 'APROBADO',
+                    'EN_PROCESO' => 'EN PROCESO'
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value != '') {
+                        $query->where('estado', $value);
+                    }
+                }),
+        ];
     }
 }
