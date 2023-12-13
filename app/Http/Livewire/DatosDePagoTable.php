@@ -24,7 +24,7 @@ class DatosDePagoTable extends DataTableComponent
         $this->setPrimaryKey('id');
 
         $this->setBulkActions([
-            'deleteSelected' => 'Eliminar',
+            /* 'deleteSelected' => 'Eliminar', */
             'exportSelected' => 'Exportar'
         ]);
     }
@@ -195,7 +195,7 @@ class DatosDePagoTable extends DataTableComponent
         }
     }
 
-    public function deleteSelected()
+    /* public function deleteSelected()
     {
         if($this->getSelected()) {
             DatosDePago::whereIn('id', $this->getSelected())->delete();
@@ -204,7 +204,7 @@ class DatosDePagoTable extends DataTableComponent
         }else{
             $this->emit('error', 'No hay registros seleccionados');
         }   
-    }
+    } */
 
     public function exportSelected()
     {
