@@ -18,6 +18,8 @@
             </span>
         </div>
     @endif
+
+    @livewire('admin.balance-component')
     
     @livewire('datos-de-pago-table')
     

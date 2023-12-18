@@ -46,9 +46,31 @@ class DatosDePago extends Model
         return $this->hasMany(Image::class, 'pago_id');
     }
 
-    // Verificamos todos los nuevos regisrtos que hay con el estado en_proceso y asi mostrar la notificación en el menu admin
+    // Verificamos todos los nuevos registros que hay con el estado en_proceso y asi mostrar la notificación en el menu admin
     public static function getCountEnProceso()
     {
         return self::where('estado', 'en_proceso')->count();
+    }
+
+    /* Obtenemos los totales de cada estado. En estos métodos, utilizamos sum() para calcular los totales de importe_total para cada estado específico. 
+    El método getBalancePorEstado() devuelve un arreglo que contiene los totales para cada estado.*/
+    public static function getTotalPorEstado($estado)
+    {
+        return self::where('estado', $estado)->sum('importe_total');
+    }
+
+    public static function getBalancePorEstado()
+    {
+        return [
+            'en_proceso' => self::getTotalPorEstado('en_proceso'),
+            'rechazado' => self::getTotalPorEstado('rechazado'),
+            'aprobado' => self::getTotalPorEstado('aprobado'),
+        ];
+    }
+
+    // Función para contar registros por estado
+    public static function contarRegistrosPorEstado($estado)
+    {
+        return self::where('estado', $estado)->count();
     }
 }

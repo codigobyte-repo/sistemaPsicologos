@@ -13,6 +13,7 @@ use Illuminate\Support\HtmlString;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 
 
 class DatosDePagoTable extends DataTableComponent
@@ -215,13 +216,15 @@ class DatosDePagoTable extends DataTableComponent
 
 			//Buscamos los matriculados en la db
             $datosPago = DatosDePago::whereIn('id', $this->getSelected())->get();
+            $balancePorEstado = DatosDePago::getBalancePorEstado();
 
 			//Usamos la funcionalidad de laravel excel
-            return Excel::download(new DatosDePagoExport($datosPago), 'DatosDePago.xlsx');
+            return Excel::download(new DatosDePagoExport($datosPago, $balancePorEstado), 'DatosDePago.xlsx');
 
         }else{
             //exportamos lo que se esté viendo
-            return Excel::download(new DatosDePagoExport($this->getRows()), 'DatosDePago.xlsx');
+            $balancePorEstado = DatosDePago::getBalancePorEstado();
+            return Excel::download(new DatosDePagoExport($this->getRows(), $balancePorEstado), 'DatosDePago.xlsx');
         }   
     }
 
@@ -239,6 +242,15 @@ class DatosDePagoTable extends DataTableComponent
                     if ($value != '') {
                         $query->where('estado', $value);
                     }
+                }),
+            DateFilter::make('Fecha desde:')
+                ->filter(function ($query, $value) {
+                    $query->whereDate('datos_de_pagos.created_at', '>=', $value);
+                }),
+            
+            DateFilter::make('Fecha hasta:')
+                ->filter(function ($query, $value) {
+                    $query->whereDate('datos_de_pagos.created_at', '<=', $value);
                 }),
         ];
     }

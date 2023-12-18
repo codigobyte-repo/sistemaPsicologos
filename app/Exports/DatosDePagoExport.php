@@ -15,12 +15,18 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Reader\Xml\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class DatosDePagoExport implements FromCollection, WithCustomStartCell, WithMapping, WithHeadings, ShouldAutoSize, WithDrawings, WithStyles
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+
+class DatosDePagoExport implements FromCollection, WithCustomStartCell, WithMapping, WithHeadings, ShouldAutoSize, WithDrawings, WithStyles, WithEvents
 {
     public $datosDePago;
-    public function __construct($datosDePago)
+    public $balancePorEstado;
+    
+    public function __construct($datosDePago, $balancePorEstado)
     {
         $this->datosDePago = $datosDePago;
+        $this->balancePorEstado = $balancePorEstado;
     }
     public function collection()
     {
@@ -52,7 +58,7 @@ class DatosDePagoExport implements FromCollection, WithCustomStartCell, WithMapp
             'OTROS PAGOS',
             'IMPORTE TOTAL',
             'PAGO ENVIADO',
-            'FECHA'
+            'FECHA',
         ];
     }
 
@@ -108,6 +114,51 @@ class DatosDePagoExport implements FromCollection, WithCustomStartCell, WithMapp
         $drawing->setHeight(120);
         $drawing->setCoordinates('A2');
         return $drawing;
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                // Merge cells for SUMA in E5
+                $event->sheet->mergeCells('E5:E5');
+                $event->sheet->mergeCells('E6:E6');
+                $event->sheet->mergeCells('E7:E7');
+                
+                // Optionally, you can set the style for the merged cell
+                $event->sheet->getStyle('E5')->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]);
+
+                $event->sheet->getStyle('E6')->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]);
+
+                $event->sheet->getStyle('E7')->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]);
+                
+                // Optionally, you can set the value for the merged cell
+                $event->sheet->setCellValue('E5', 'Saldo total "APROBADO": $ ' . number_format($this->balancePorEstado['aprobado'], 2, ',', '.'));
+                $event->sheet->setCellValue('E6', 'Saldo total "EN PROCESO": $ ' . number_format($this->balancePorEstado['en_proceso'], 2, ',', '.'));
+                $event->sheet->setCellValue('E7', 'Saldo total "RECHAZADO": $ ' . number_format($this->balancePorEstado['rechazado'], 2, ',', '.'));
+            },
+        ];
     }
 
     public function styles(Worksheet $sheet)
