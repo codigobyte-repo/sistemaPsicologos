@@ -14,7 +14,7 @@
         </span>
     </section> --}}
 
-    <section class="my-2 mx-auto text-center text-gray-700 font-semibold px-8">
+    <section class="my-2 mx-auto text-center text-gray-700 dark:text-white font-semibold px-8">
         Pagos, en proceso:
         <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">
             {{ $en_proceso }}
