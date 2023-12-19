@@ -24,11 +24,17 @@ class RolSeeder extends Seeder
         /* Nombres de los roles Admin, Coordinador, Matriculado */
         $role1 = Role::firstOrCreate(['name' => 'Administrador']);
         $role2 = Role::firstOrCreate(['name' => 'Coordinador']);
+        $role3 = Role::firstOrCreate(['name' => 'Contabilidad']);
         
         /* Seccion Admin Dashboard */
-        Permission::firstOrCreate(['name' => 'admin.dashboard', 'description' => 'Ver dashboard'])->syncRoles([$role1, $role2]);
+        /* ROL GENERAL QUE MUESTRA O OCULTA EL ACCESSO A LA ADMINISTRACIÓN */
+        Permission::firstOrCreate(['name' => 'admin.dashboard', 'description' => 'Ver dashboard'])->syncRoles([$role1, $role2, $role3]);
         
         /* Seccion Admin Matriculados */
+        
+        /* ROL GENERAL QUE MUESTRA O OCULTA TODA LA SECCIÓN MATRICULADOS, USUARIOS Y ROLES */
+        Permission::firstOrCreate(['name' => 'admin.matriculados.usuarios.roles', 'description' => 'Ver sección de matriculados, usuarios y roles'])->syncRoles([$role1, $role2]);
+
         Permission::firstOrCreate(['name' => 'admin.matriculados.index', 'description' => 'Ver Listado de matriculados'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'admin.matriculados.create', 'description' => 'Crear nuevo matriculado'])->syncRoles([$role1]);
         Permission::firstOrCreate(['name' => 'admin.matriculados.form', 'description' => 'Editar matriculados'])->syncRoles([$role1, $role2]);
@@ -41,6 +47,10 @@ class RolSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'admin.users.create', 'description' => 'Crear nuevo usuario'])->syncRoles([$role1]);
         Permission::firstOrCreate(['name' => 'admin.users.edit', 'description' => 'Editar usuario'])->syncRoles([$role1]);
         Permission::firstOrCreate(['name' => 'Eliminar.Datatable.Usuario', 'description' => 'Eliminar usuario'])->syncRoles([$role1]);
+
+
+        /* ROL DE LA SECCION CONFIGURACIONES MUESTRA O OCULTA UNIVESIDADES, LOCALIDADES, MUNICIPIOS, REVSITAS, ETC */
+        Permission::firstOrCreate(['name' => 'admin.configuraciones', 'description' => 'Ver Configuraciones'])->syncRoles([$role1, $role2]);
 
         /* Seccion Admin Universidades */
         Permission::firstOrCreate(['name' => 'admin.universidades.index', 'description' => 'Ver listado de universidades'])->syncRoles([$role1, $role2]);
@@ -76,14 +86,19 @@ class RolSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'admin.configuracion-matricula', 'description' => 'Ver fechas y precios matricula'])->syncRoles([$role1]);
         Permission::firstOrCreate(['name' => 'admin.configuracion-matricula.edit', 'description' => 'Configurar fechas y precios matricula'])->syncRoles([$role1]);
 
-        /* Seccion Admin Revistas Motivos */
-        Permission::firstOrCreate(['name' => 'admin.control-pagos.index', 'description' => 'Ver control de pagos'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'admin.control-pagos.edit', 'description' => 'Cambiar estados de pagos'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'admin.comprobantes', 'description' => 'Ver comprobantes de pago'])->syncRoles([$role1, $role2]);
-        Permission::firstOrCreate(['name' => 'admin.generar-pdf', 'description' => 'Generar comprobantes de pago'])->syncRoles([$role1, $role2]);
+        /* Seccion Admin Control de pagos */
+        /* ROL GENERAL QUE MUESTRA O OCULTA TODA LA SECCIÓN DE PAGOS */
+        Permission::firstOrCreate(['name' => 'admin.control-pagos.index', 'description' => 'Ver control de pagos'])->syncRoles([$role1, $role2, $role3]);
+
+        Permission::firstOrCreate(['name' => 'admin.control-pagos.edit', 'description' => 'Cambiar estados de pagos'])->syncRoles([$role1, $role2, $role3]);
+        Permission::firstOrCreate(['name' => 'admin.comprobantes', 'description' => 'Ver comprobantes de pago'])->syncRoles([$role1, $role2, $role3]);
+        Permission::firstOrCreate(['name' => 'admin.generar-pdf', 'description' => 'Generar comprobantes de pago'])->syncRoles([$role1, $role2, $role3]);
 
         /* Seccion Admin Precios de servicios */
         Permission::firstOrCreate(['name' => 'admin.precio-servicios', 'description' => 'Ver precios de servicios'])->syncRoles([$role1, $role2]);
         Permission::firstOrCreate(['name' => 'admin.precio-servicios.edit', 'description' => 'Editar precios de servicios'])->syncRoles([$role1]);
+
+        /* Seccion de envio de notificaciones */
+        Permission::firstOrCreate(['name' => 'admin.messages', 'description' => 'Envía notificaciones'])->syncRoles([$role1, $role2]);
     }
 }

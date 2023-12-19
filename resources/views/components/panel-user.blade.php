@@ -7,9 +7,9 @@
 
     <p class="mt-6 text-gray-500 leading-relaxed">
         Nuestro sistema te ofrece una variedad de características y funcionalidades 
-        que te permitirán realizar tus trámites de manera eficiente.  
+        que te permitirán controlar tus trámites de manera eficiente.  
         <br> Aquí tienes algunas de las cosas que podrás hacer: proceso de matrícula fácil,
-        pagos automatizados, recordatorios de pagos, opción de transferencia bancaria, 
+        anuncios de pagos, recordatorios de pagos, ver sus datos, etc.
         <br>Estas son solo algunas de las características que nuestro sistema tiene para ofrecerte. 
         <br>Estamos comprometidos en simplificar y agilizar tus trámites como matriculado, brindándote una experiencia fluida y eficiente.
     </p>
