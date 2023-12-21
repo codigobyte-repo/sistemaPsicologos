@@ -14,7 +14,8 @@
         <link rel="shortcut icon" href="{{asset('assets/images/logo-icon-16x16.png')}}" type="image/x-icon">
 
         {{-- WIEREUI --}}
-        @wireUiScripts
+        {{-- @wireUiScripts --}}
+        <wireui:scripts />
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

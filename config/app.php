@@ -189,7 +189,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
-        'Pdf' => Barryvdh\DomPDF\Facade::class,
+        /* 'Pdf' => Barryvdh\DomPDF\Facade::class, */
     ])->toArray(),
 
 ];
