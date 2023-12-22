@@ -132,8 +132,8 @@ class EditMatriculado extends Component
         $this->domicilio_particular = $matriculado->domicilio_particular;
         $this->domicilio_particular_localidad = $matriculado->domicilio_particular_localidad;
 
-        $locationParticular = Location::with('areas')->where('location', $matriculado->domicilio_particular_localidad)->first();
-        $this->municipios = $locationParticular ? $locationParticular->areas->toArray() : [];
+        /* $locationParticular = Location::with('areas')->where('location', $matriculado->domicilio_particular_localidad)->first();
+        $this->municipios = $locationParticular ? $locationParticular->areas->toArray() : []; */
 
         $this->domicilio_particular_municipio = $matriculado->domicilio_particular_municipio;
         $this->domicilio_particular_codigo_postal = $matriculado->domicilio_particular_codigo_postal;
@@ -152,7 +152,7 @@ class EditMatriculado extends Component
 
     }
 
-    public function updatedDomicilioParticularLocalidad($localidad)
+    /* public function updatedDomicilioParticularLocalidad($localidad)
     {
         $location = Location::with('areas')->where('location', $localidad)->first();
 
@@ -188,7 +188,7 @@ class EditMatriculado extends Component
         if ($area) {
             $this->domicilio_profesional_codigo_postal = $area;
         }
-    }
+    } */
 
     public function render()
     {

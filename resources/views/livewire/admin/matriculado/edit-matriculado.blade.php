@@ -191,33 +191,25 @@
 
                     {{-- Se cambio Localidad por el nombre Provincia a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
-                        <x-select 
+                        <x-input type="text" 
                             label="Provincia Domicilio Particular"
                             icon="globe-alt"
-                            placeholder="Selecciona una provincia"
-                            :async-data="route('api.localidades')"
-                            option-label="location"
-                            option-value="location"
-                            wire:model="domicilio_particular_localidad"
+                            wire:model.defer="domicilio_particular_localidad"
                         />
                     </div>
 
                     {{-- Se cambio Municipio por el nombre Localidad a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
-                        <x-select 
+                        <x-input type="text" 
                             label="Localidad Domicilio Particular"
                             icon="globe-alt"
-                            placeholder="Selecciona una localidad"
-                            :options="$municipios"
-                            option-label="name"
-                            option-value="name"
-                            wire:model="domicilio_particular_municipio"
+                            wire:model.defer="domicilio_particular_municipio"
                         />
                     </div>
 
                     <div class="col-span-6  sm:col-span-2">
-                        <x-input disabled type="text" 
-                            wire:model="domicilio_particular_codigo_postal"
+                        <x-input type="text" 
+                            wire:model.defer="domicilio_particular_codigo_postal"
                             icon="pencil-alt"
                             label="Código Postal"/>
                     </div>
@@ -234,32 +226,24 @@
 
                     {{-- Se cambio Localidad por el nombre Provincia a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
-                        <x-select
+                        <x-input type="text" 
                             label="Provincia Domicilio Profesional"
                             icon="globe-alt"
-                            placeholder="Selecciona una provincia"
-                            :async-data="route('api.localidades')"
-                            option-label="location"
-                            option-value="location"
-                            wire:model="domicilio_profesional_localidad"
+                            wire:model.defer="domicilio_profesional_localidad"
                             />
                     </div>
 
                     {{-- Se cambio Municipio por el nombre Localidad a pedido del Colegio --}}
                     <div class="col-span-12 md:col-span-5">
-                        <x-select
+                        <x-input type="text" 
                             label="Localidad Domicilio Profesional"
                             icon="globe-alt"
-                            placeholder="Selecciona una localidad"
-                            :options="$municipiosProfesional"
-                            option-label="name"
-                            option-value="name"
-                            wire:model="domicilio_profesional_municipio"/>
+                            wire:model.defer="domicilio_profesional_municipio"/>
                     </div>
 
                     <div class="col-span-6 sm:col-span-2">
-                        <x-input type="text" disabled
-                            wire:model="domicilio_profesional_codigo_postal"
+                        <x-input type="text"
+                            wire:model.defer="domicilio_profesional_codigo_postal"
                             icon="pencil-alt"
                             label="Código Postal"/>
                     </div>
