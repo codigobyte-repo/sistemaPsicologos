@@ -303,27 +303,21 @@
                     <h1 class="text-gray-400 mx-auto dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">Datos universitarios</h1>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-select 
-                            label="Universidad"
-                            icon="library"
-                            placeholder="Selecciona una universidad"
-                            :async-data="route('api.universities')"
-                            option-label="nombre"
-                            option-value="id"
-                            wire:model.defer="universities_id" 
-                        />
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Universidades</span>
+                        <select wire:model="universities_id" name="nacionalidad" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
+                            @foreach($universidades as $universidad)
+                                <option value="{{ $universidad->id }}" @if($universidad->id == $universities_id) selected @endif>{{ $universidad->nombre }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-select 
-                            label="Título Universitario"
-                            icon="academic-cap"
-                            placeholder="Selecciona un título universitario"
-                            :async-data="route('api.titulos-universitarios')"
-                            option-label="nombre"
-                            option-value="id"
-                            wire:model.defer="titulo_universitarios_id" 
-                        />
+                        <span class="text-sm text-gray-800 dark:text-gray-400">Títulos Universitarios</span>
+                        <select wire:model="titulo_universitarios_id" name="titulo" class="w-full h-10 rounded-lg border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 focus:border-indigo-500">                            
+                            @foreach($titulos_universitarios as $titulos)
+                                <option value="{{ $titulos->id }}" @if($titulos->id == $titulo_universitarios_id) selected @endif>{{ $titulos->nombre }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-span-12 md:col-span-4">

@@ -10,6 +10,8 @@ use App\Models\Matriculado;
 use App\Models\Nationality;
 use App\Models\SituacionRevista;
 use App\Models\SituacionRevistaMotivo;
+use App\Models\TituloUniversitario;
+use App\Models\University;
 use App\Models\User;
 use Livewire\Component;
 
@@ -38,7 +40,9 @@ class EditMatriculado extends Component
     public $domicilio_profesional;
     public $domicilio_profesional_telefonos;
     public $titulo_universitarios_id;
+    public $titulos_universitarios;
     public $universities_id;
+    public $universidades;
     public $fecha_expedicion_titulo;
     public $fecha_ejercicio_desde;
     public $fecha_terminacion_estudios;
@@ -105,15 +109,19 @@ class EditMatriculado extends Component
         $this->cuit = $matriculado->cuit;
 
 
-        $this->domicilio_particular_telefonos = $matriculado->domicilio_particular_telefonos;        
+        $this->domicilio_particular_telefonos = $matriculado->domicilio_particular_telefonos;
         $this->domicilio_particular_telefonos_alternativo = $matriculado->domicilio_particular_telefonos_alternativo;
         $this->domicilio_profesional_telefonos_alternativo = $matriculado->domicilio_profesional_telefonos_alternativo;
         
         $this->domicilio_profesional = $matriculado->domicilio_profesional;
         $this->domicilio_profesional_telefonos = $matriculado->domicilio_profesional_telefonos;
         
-        $this->titulo_universitarios_id = $matriculado->titulo_universitarios_id;
+        $this->universidades = University::all();
         $this->universities_id = $matriculado->universities_id;
+
+        $this->titulos_universitarios = TituloUniversitario::all();
+        $this->titulo_universitarios_id = $matriculado->titulo_universitarios_id;
+
         $this->fecha_expedicion_titulo = $matriculado->fecha_expedicion_titulo;
         $this->fecha_ejercicio_desde = $matriculado->fecha_ejercicio_desde;
         $this->fecha_terminacion_estudios = $matriculado->fecha_terminacion_estudios;
@@ -143,8 +151,8 @@ class EditMatriculado extends Component
 
         /* DOMICILIO PROFESIONAL */
         $this->domicilio_profesional_localidad = $matriculado->domicilio_profesional_localidad;
-        $locationProfesional = Location::with('areas')->where('location', $matriculado->domicilio_profesional_localidad)->first();
-        $this->municipiosProfesional = $locationProfesional ? $locationProfesional->areas->toArray() : [];
+        /* $locationProfesional = Location::with('areas')->where('location', $matriculado->domicilio_profesional_localidad)->first();
+        $this->municipiosProfesional = $locationProfesional ? $locationProfesional->areas->toArray() : []; */
 
         $this->domicilio_profesional_municipio = $matriculado->domicilio_profesional_municipio;
         $this->domicilio_profesional_codigo_postal = $matriculado->domicilio_profesional_codigo_postal;
