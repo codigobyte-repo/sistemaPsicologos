@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-6">
-                        <x-input type="date" 
+                        <x-datetime-picker 
                             label="Fecha de Matriculación"
                             without-time="false"
                             placeholder="Seleccione fecha de matriculación" 
@@ -84,7 +84,7 @@
                     </div>
                     
                     <div class="col-span-12 md:col-span-6">
-                        <x-input type="date"
+                        <x-datetime-picker
                             wire:model.defer="situacion_de_revista_fecha" 
                             without-time="false"
                             label="Fecha Situación Revista"
@@ -98,7 +98,7 @@
                     <h1 class="text-gray-400 mx-auto dark:text-white col-span-full text-lg pt-2 pb-8 uppercase">Datos personales</h1>
                     
                     <div class="col-span-12 sm:col-span-4">
-                        <x-input type="date" 
+                        <x-datetime-picker 
                             wire:model.defer="fecha_nacimiento" 
                             label="Fecha Nacimiento"
                             without-time="false"
@@ -343,7 +343,7 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-4">
-                        <x-input type="date" 
+                        <x-datetime-picker 
                             label="Fecha Expedición Título"
                             wire:model.defer="fecha_expedicion_titulo" 
                             without-time="false"
@@ -352,7 +352,7 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-4">
-                        <x-input type="date" 
+                        <x-datetime-picker 
                             label="Fecha Ejercicio Desde"
                             wire:model.defer="fecha_ejercicio_desde" 
                             without-time="false"
@@ -361,7 +361,7 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-4">
-                        <x-input type="date" 
+                        <x-datetime-picker 
                             label="Fecha Terminación Estudios"
                             wire:model.defer="fecha_terminacion_estudios" 
                             without-time="false"
