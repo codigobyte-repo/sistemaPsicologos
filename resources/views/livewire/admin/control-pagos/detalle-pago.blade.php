@@ -26,7 +26,7 @@
                     Se debe verificar el comprobante y el pago, posteriomente puede cambiar el estado a APROBADO o RECHAZADO
                 </h1>
 
-                <div class="relative overflow-x-auto col-span-full">
+                {{-- <div class="relative overflow-x-auto col-span-full">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -38,6 +38,12 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left">
                                     Matrícula
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Otros Pagos de Matrícula
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Meses abonados
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left">
                                     Matrícula anterior
@@ -101,6 +107,19 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['otros_pagos_matricula'], 2, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if ($pago['meses'])
+                                        @foreach(json_decode($pago['meses']) as $mes)
+                                            {{ $mes }}
+                                        @endforeach
+                                    @else
+                                        No hay meses seleccionados.
+                                    @endif
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago['matricula_anterior'], 2, ',', '.') }}
                                 </td>                              
                                     
@@ -158,7 +177,260 @@
                             </tr>
                         </tbody>
                     </table>
+                </div> --}}
+
+                <div class="relative overflow-x-auto col-span-full">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    N°
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Campo
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left">
+                                    Valor
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    1
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Estado
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($pago['estado'] == 'en_proceso')
+                                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">En proceso</span>
+                                    @endif
+                
+                                    @if($pago['estado'] == 'aprobado')
+                                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Aprobado</span>
+                                    @endif
+                
+                                    @if($pago['estado'] == 'rechazado')
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">Rechazado</span>
+                                    @endif
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    2
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Matrícula
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['matricula'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    3
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Otros Pagos de Matrícula
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['otros_pagos_matricula'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    4
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Meses abonados
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if ($pago['meses'])
+                                        @foreach(json_decode($pago['meses']) as $mes)
+                                            {{ $mes }}
+                                        @endforeach
+                                    @else
+                                        No hay meses seleccionados.
+                                    @endif
+                                </td>
+                            </tr>
+                            
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    5
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Matrícula anterior
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['matricula_anterior'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    6
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Multa
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['multa'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    7
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Multa por suspensión
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['multa_por_suspension'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    8
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Habilitaciones
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['habilitaciones'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    9
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Ioma
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['ioma'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    10
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Supervisiones
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['supervisiones'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    11
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Cursos
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['cursos'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    12
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Carpeta de especialidad
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['carpeta_especialidad'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    13
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Escuelas
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['escuelas'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    14
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Pago de cuentas
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['pago_cuentas'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    15
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Otros pagos
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['otros_pagos'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    16
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Importe total
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['importe_total'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    17
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Pago enviado
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    $ {{ number_format($pago['pago_enviado'], 2, ',', '.') }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    18
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    Fecha
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago['created_at'])->format('d-m-Y') }}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
+
                 <div class="mb-6 col-span-full">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">COMPROBANTE</label>
                     <div class="cursor-pointer">

@@ -47,6 +47,31 @@
                         
                     </label>
 
+                    {{-- OTROS PAGOS DE MATRICULA --}}
+                    <label for="otros-pagos-matricula" class="inline-flex items-center justify-between w-full p-5 mt-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
+                        <div class="block">
+                            <!-- ... Otros pagos UI ... -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                            </svg>
+                            <div class="w-full text-lg font-semibold">Otros pagos de matrícula</div>
+                            <input type="number" wire:model="inputOtrosPagosMatricula" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <!-- ... Otros pagos UI ... -->
+                    
+                            <div class="mt-4">
+                                <p class="text-lg font-semibold">Meses:</p>
+                                @foreach($meses as $mes)
+                                    <x-checkbox wire:model="selectedMeses" value="{{ $mes }}" label="{{ $mes }}" />
+                                @endforeach
+                            </div>
+                    
+                            @error('inputOtrosPagosMatricula')
+                                <div class="text-xs text-red-500 font-semibold">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </label>
+                    {{-- OTROS PAGOS DE MATRICULA --}}
+
                     {{-- MATRICULA ANTERIOR --}}
                     <label for="react-option" class="inline-flex items-center justify-between w-full p-5 mt-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
                         <div class="block">                
@@ -55,7 +80,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Matrícula Anterior</div>
                     
-                            <input type="number" class="input-with-restrictions" wire:model="inputMatriculaAnterior" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputMatriculaAnterior" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
                             
@@ -89,7 +114,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Multa por suspensión</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputMultaPorSuspension" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputMultaPorSuspension" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
 
@@ -110,7 +135,7 @@
                             
                             {{-- Si el check está tildado ocultamos el input --}}
                             @if($isCheckedHabilitaciones == null )
-                                <input type="number" class="input-with-restrictions" wire:model.lazy="inputHabilitaciones" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                                <input type="number" wire:model.lazy="inputHabilitaciones" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                                 <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe si ha abonado más de una habilitación.</p>
 
@@ -137,7 +162,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Gastos Ioma</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputIoma" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:caret-blue-500 focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputIoma" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:caret-blue-500 focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
 
@@ -160,7 +185,7 @@
                             MAS DE 5 AÑOS DE MATRICULACION:  12 UP ($ 5.256)
                             SUPERVISIONES FORENSES: 20 UP ($ 8.760), CON UNA OPCION LIBRE POR SI SE EXTIENDE LA SUPERVISION. --}}
                             @if($isCheckedSupervisiones == null )    
-                                <input type="number" class="input-with-restrictions" wire:model.lazy="inputSupervisiones" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                                <input type="number" wire:model.lazy="inputSupervisiones" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                                 <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado si extiende la supervisión.</p>
 
@@ -190,7 +215,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Cursos</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputCursos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputCursos" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
                             
@@ -209,7 +234,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Carpetas de especialidad</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputCarpetaEspecialidad" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputCarpetaEspecialidad" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
                             
@@ -228,7 +253,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Escuelas</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputEscuelas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputEscuelas" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
 
@@ -246,7 +271,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Pagos a cuentas</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputPagoACuentas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputPagoACuentas" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
 
@@ -264,7 +289,7 @@
                             </svg>
                             <div class="w-full text-lg font-semibold">Otros pagos</div>
 
-                            <input type="number" class="input-with-restrictions" wire:model="inputOtrosPagos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
+                            <input type="number" wire:model="inputOtrosPagos" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Escriba el importe abonado.</p>
 

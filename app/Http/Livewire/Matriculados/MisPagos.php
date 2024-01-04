@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Session;
 
 class MisPagos extends Component
 {
+    public $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+    public $inputOtrosPagosMatricula;
+
+    public $selectedMeses = [];
+
     public $image_path;
 
     public $matriculado, $matriculadoCategoria;
@@ -152,6 +158,7 @@ class MisPagos extends Component
         
         $campos = [
             'inputMatriculaAnterior',
+            'inputOtrosPagosMatricula',
             'inputMultaPorSuspension',
             'inputHabilitaciones',
             'inputIoma',
@@ -200,6 +207,7 @@ class MisPagos extends Component
         if (in_array($campo, [
             'isCheckedMatricula',
             'inputMatriculaAnterior',
+            'inputOtrosPagosMatricula',
             'isCheckedMulta',
             'inputMultaPorSuspension',
             'isCheckedHabilitaciones',
@@ -232,6 +240,9 @@ class MisPagos extends Component
         'inputOtrosPagos' => 'nullable|numeric',
         'importeTotal' => 'nullable|numeric',
         'pagoEnviado' => 'nullable|numeric',
+
+        'inputOtrosPagosMatricula' => 'nullable|numeric|min:0',
+        'selectedMeses' => 'nullable|required_with:inputOtrosPagosMatricula|array',
     ];
 
     public function datosDePagos()
@@ -278,6 +289,10 @@ class MisPagos extends Component
         $pago->saldo_a_favor = $this->saldoFavor;
         $pago->saldo_negativo = $this->saldoNegativo;
         $pago->image_path = $this->image_path;
+        $pago->otros_pagos_matricula = $this->inputOtrosPagosMatricula;
+        
+        // Convierte el array de meses a una cadena JSON válida
+        $pago->meses = json_encode($this->selectedMeses);
 
         $pago->user_id = auth()->user()->id;
         $pago->matriculado_id = $matriculado->id;
