@@ -11,7 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <link rel="shortcut icon" href="{{asset('assets/images/logo-icon-16x16.png')}}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{asset('assets/icon.png')}}" type="image/png">
 
         {{-- WIEREUI --}}
         @wireUiScripts
