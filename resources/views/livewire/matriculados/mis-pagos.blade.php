@@ -287,7 +287,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
-                            <div class="w-full text-lg font-semibold">Otros pagos</div>
+                            <div class="w-full text-lg font-semibold">Otros pagos</div> 
+
+                            <input type="text" wire:model="inputOtrosPagosDescripcion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-96 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre del servicio">
+                            <p class="mt-2 mb-4 text-sm text-gray-500 dark:text-gray-400">Indique el nombre del servicio abonado.</p>
 
                             <input type="number" wire:model="inputOtrosPagos" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <p class="text-sm text-blue-800">(Sólo números sin puntos separadores de miles, ejemplo: 3986)</p>

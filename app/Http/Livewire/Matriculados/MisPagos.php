@@ -55,7 +55,7 @@ class MisPagos extends Component
     public $inputCarpetaEspecialidad;
     public $inputEscuelas;
     public $inputPagoACuentas;
-    public $inputOtrosPagos;
+    public $inputOtrosPagos, $inputOtrosPagosDescripcion;
 
     public $pagoEnviado = 0.0;
     public $importeTotal = 0.0;
@@ -237,7 +237,10 @@ class MisPagos extends Component
         'inputCarpetaEspecialidad' => 'nullable|numeric',
         'inputEscuelas' => 'nullable|numeric',
         'inputPagoACuentas' => 'nullable|numeric',
+        
         'inputOtrosPagos' => 'nullable|numeric',
+        'inputOtrosPagosDescripcion' => 'nullable|min:0|max:50',
+
         'importeTotal' => 'nullable|numeric',
         'pagoEnviado' => 'nullable|numeric',
 
@@ -284,6 +287,7 @@ class MisPagos extends Component
         $pago->escuelas = $this->inputEscuelas;
         $pago->pago_cuentas = $this->inputPagoACuentas;
         $pago->otros_pagos = $this->inputOtrosPagos;
+        $pago->otros_pagos_descripcion = $this->inputOtrosPagosDescripcion;        
         $pago->importe_total = $this->importeTotal;
         $pago->pago_enviado = $this->pagoEnviado;
         $pago->saldo_a_favor = $this->saldoFavor;

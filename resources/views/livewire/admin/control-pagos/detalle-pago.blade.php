@@ -396,6 +396,18 @@
                                     16
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    Descripción de otros pagos
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {{ $pago['otros_pagos_descripcion'] }}
+                                </td>
+                            </tr>
+
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    17
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     Importe total
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -405,7 +417,7 @@
 
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    17
+                                    18
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     Pago enviado
@@ -417,7 +429,7 @@
 
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    18
+                                    19
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     Fecha

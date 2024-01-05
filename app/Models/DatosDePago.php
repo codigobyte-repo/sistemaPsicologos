@@ -29,7 +29,10 @@ class DatosDePago extends Model
         'estado',
         'motivos',
         'visto',
-        'image_path'
+        'image_path',
+        'otros_pagos_matricula',
+        'meses',
+        'otros_pagos_descripcion'
     ];
 
     public function user() {
