@@ -12,10 +12,9 @@
                 <form wire:submit.prevent="datosDePagos" method="POST" enctype="multipart/form-data">
                 
                     {{-- MATRICULA --}}
-                    <label for="react-option" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
+                    {{-- <label for="react-option" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
                         <div class="block">
                             
-                            {{-- En la tabla tenemos los valores 1,2,3 representando A,B,C --}}
                             @if($matriculado->categoria == 1)
 
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -45,16 +44,16 @@
                             <label for="checkbox-matricula" class="w-full py-4 ml-2 mr-4 text-sm font-medium text-gray-900 dark:text-gray-300">Seleccionar</label>
                         </div>
                         
-                    </label>
+                    </label> --}}
 
                     {{-- OTROS PAGOS DE MATRICULA --}}
                     <label for="otros-pagos-matricula" class="inline-flex items-center justify-between w-full p-5 mt-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
                         <div class="block">
                             <!-- ... Otros pagos UI ... -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <div class="w-full text-lg font-semibold">Otros pagos de matrícula</div>
+                            <div class="w-full text-lg font-semibold">Pagos de Matrícula</div>
                             <input type="number" wire:model="inputOtrosPagosMatricula" class="input-with-restrictions bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Importe">
                             <!-- ... Otros pagos UI ... -->
                     

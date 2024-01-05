@@ -56,8 +56,11 @@
 
                     <x-validation-errors class="mb-4" />
 
-                    <div class="flex justify-center mx-auto">
+                    <p class="text-semibold text-gray-700 text-sm">
+                        El comprobante debe ser una imagen, formatos permitidos: PNG/JPG/JPEJ
+                    </p>
 
+                    <div class="flex justify-center mx-auto">
                         <label class="bg-white px-6 py-4 rounded-lg inline-flex cursor-pointer">
                             
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -66,6 +69,7 @@
                             </svg>
 
                             <span class="ml-2">CARGÁ TU COMPROBANTE AQUÍ</span>
+                            
                             <input type="file" accept="image/*" name="comprobante" class="hidden" onchange="previewImage(event, '#imgPreview')">
                         </label>
 
