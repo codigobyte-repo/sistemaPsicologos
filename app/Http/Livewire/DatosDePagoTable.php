@@ -169,9 +169,26 @@ class DatosDePagoTable extends DataTableComponent
             LinkColumn::make('Acciones')
                 ->title(fn() => 'Ver detalle')
                 ->location(fn($row) => route('admin.control-pagos.edit', ['pago' => $row->id]))
-                ->attributes(fn() => [
-                    'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                ])->collapseOnTablet(),
+                ->attributes(function ($row) {
+                    $estado = $row->estado;
+                    $color = '';
+            
+                    if ($estado === 'pendiente') {
+                        $color = '#4C51BF';
+                    } elseif ($estado === 'aprobado') {
+                        $color = '#34D399';
+                    } elseif ($estado === 'rechazado') {
+                        $color = '#EF4444';
+                    } elseif ($estado === 'en_proceso') {
+                        $color = '#000000';
+                    }
+            
+                    return [
+                        'class' => 'bg-blue-500 dark:bg-gray-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded',
+                        'style' => "background-color: $color;",
+                    ];
+                })
+                ->collapseOnTablet()
         ];
     }
 
