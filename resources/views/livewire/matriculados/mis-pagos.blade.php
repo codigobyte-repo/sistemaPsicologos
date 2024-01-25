@@ -11,40 +11,6 @@
             <x-card title="Selecciona los servicios abonados">
                 <form wire:submit.prevent="datosDePagos" method="POST" enctype="multipart/form-data">
                 
-                    {{-- MATRICULA --}}
-                    {{-- <label for="react-option" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">
-                        <div class="block">
-                            
-                            @if($matriculado->categoria == 1)
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <div class="w-full text-lg font-semibold">Matrícula A: $ {{ number_format($matriculaA, 0, ',', '.') }} + FID $ {{ number_format($matriculaFid, 0, ',', '.') }} = $ {{ $resultadoMatriculaA }}.-</div>
-
-                            @elseif ($matriculado->categoria == 2)
-                                
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                                <div class="w-full text-lg font-semibold">Matrícula B: $ {{ number_format($matriculaB, 0, ',', '.') }} + FID $ {{ number_format($matriculaFid, 0, ',', '.') }} = $ {{ $resultadoMatriculaB }}.-</div>
-
-                            @elseif ($matriculado->categoria == 3)
-                                
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-
-                                <div class="w-full text-lg font-semibold">Matrícula C: $ {{ number_format($matriculaC, 0, ',', '.') }} + FID $ {{ number_format($matriculaFid, 0, ',', '.') }} = $ {{ $resultadoMatriculaC }}.-</div>
-                            @endif
-                        </div>
-
-                        <div class="flex items-center m-8 pl-4 border border-gray-200 rounded hover:text-gray-600 hover:bg-gray-50">
-                            <input wire:model="isCheckedMatricula" id="checkbox-matricula" type="checkbox" value="" name="checkbox-matricula" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-matricula" class="w-full py-4 ml-2 mr-4 text-sm font-medium text-gray-900 dark:text-gray-300">Seleccionar</label>
-                        </div>
-                        
-                    </label> --}}
 
                     {{-- OTROS PAGOS DE MATRICULA --}}
                     <label for="otros-pagos-matricula" class="inline-flex items-center justify-between w-full p-5 mt-4 text-gray-500 bg-white border-2 border-gray-200 rounded-lg">

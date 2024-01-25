@@ -17,6 +17,9 @@
                                 Estado
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
+                                Motivo
+                            </th>
+                            {{-- <th scope="col" class="px-6 py-3 text-left">
                                 Matrícula
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
@@ -51,11 +54,11 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
                                 Otros pagos
-                            </th>
+                            </th> --}}
                             <th scope="col" class="px-6 py-3 text-left">
                                 Importe total
                             </th>
-                            <th scope="col" class="px-6 py-3 text-left">
+                            {{-- <th scope="col" class="px-6 py-3 text-left">
                                 Pago enviado
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
@@ -63,7 +66,7 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left">
                                 Saldo negativo
-                            </th>
+                            </th> --}}
                             <th scope="col" class="px-6 py-3 text-left">
                                 Fecha
                             </th>
@@ -96,6 +99,13 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
+                                    
+                                    @if($pago->estado == 'rechazado')
+                                        {{ $pago->motivos }}
+                                    @endif
+                                </td>
+
+                                {{-- <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago->matricula, 2, ',', '.') }}
                                 </td>
 
@@ -141,13 +151,13 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago->otros_pagos, 2, ',', '.') }}
-                                </td>
+                                </td> --}}
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago->importe_total, 2, ',', '.') }}
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                               {{--  <td class="px-6 py-4 whitespace-nowrap">
                                     $ {{ number_format($pago->pago_enviado, 2, ',', '.') }}
                                 </td>
 
@@ -157,7 +167,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-red-600 font-semibold">
                                     $ {{ number_format($pago->saldo_negativo, 2, ',', '.') }}
-                                </td>
+                                </td> --}}
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pago->created_at)->format('d-m-Y') }}
