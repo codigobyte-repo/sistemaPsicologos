@@ -15,7 +15,7 @@ class BalanceComponent extends Component
         /* $this->calcularBalancePorEstado(); */
         $this->aprobados = DatosDePago::contarRegistrosPorEstado('aprobado');
         $this->en_proceso = DatosDePago::contarRegistrosPorEstado('en_proceso');
-        $this->rechazados = DatosDePago::contarRegistrosPorEstado('rechazados');
+        $this->rechazados = DatosDePago::contarRegistrosPorEstado('rechazado');
     }
 
     /* public function calcularBalancePorEstado()

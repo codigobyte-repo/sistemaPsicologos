@@ -22,6 +22,12 @@
                     </span>
                 </h1>
 
+                @if ($pago['estado'] === 'rechazado') 
+                    <p class="text-gray-700 text-center dark:text-white font-semibold col-span-full text-[16px] pt-1 pb-2">
+                       Motivo de rechazo:  {{ $pago['motivos'] }}
+                    </p>
+                @endif
+
                 <h1 class="text-gray-400 text-center dark:text-white col-span-full text-lg pt-2 pb-8">
                     Se debe verificar el comprobante y el pago, posteriomente puede cambiar el estado a APROBADO o RECHAZADO
                 </h1>
