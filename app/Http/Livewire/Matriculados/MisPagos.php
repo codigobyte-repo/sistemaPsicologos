@@ -21,6 +21,7 @@ class MisPagos extends Component
     public $selectedMeses = [];
 
     public $image_path;
+    public $ImagePaths;
 
     public $matriculado, $matriculadoCategoria;
 
@@ -66,8 +67,8 @@ class MisPagos extends Component
 
     public function mount()
     {
-        $this->image_path = Session::get('image_path');
-
+        $this->ImagePaths = Session::get('uploaded_files');
+        
         $this->userId = auth()->user()->id;
 
         //traemos el valor de los servicios
@@ -292,7 +293,7 @@ class MisPagos extends Component
         $pago->pago_enviado = $this->pagoEnviado;
         $pago->saldo_a_favor = $this->saldoFavor;
         $pago->saldo_negativo = $this->saldoNegativo;
-        $pago->image_path = $this->image_path;
+        /* $pago->image_path = $this->ImagePaths; */
         $pago->otros_pagos_matricula = $this->inputOtrosPagosMatricula;
         
         // Convierte el array de meses a una cadena JSON válida
@@ -302,16 +303,18 @@ class MisPagos extends Component
         $pago->matriculado_id = $matriculado->id;
 
         $pago->save();
-            
-        Image::create([
-            'path' => $this->image_path,
-            'pago_id' => $pago->id, 
-        ]);
 
-        // Este paso lo hacemos para asociar la imagen DO SPACES, y luego no eliminarla en la limpieza.
-        $imagen = RemoveImages::where('ruta', $this->image_path)->first();
-        $imagen->estado = 'asociada';
-        $imagen->save();
+        foreach ($this->ImagePaths as $imagePath) {
+            Image::create([
+                'path' => $imagePath,
+                'pago_id' => $pago->id,
+            ]);
+
+            // Este paso lo hacemos para asociar la imagen DO SPACES, y luego no eliminarla en la limpieza.
+            $imagen = RemoveImages::where('ruta', $imagePath)->first();
+            $imagen->estado = 'asociada';
+            $imagen->save();
+        }
 
         return redirect()->route('dashboard')->with('message', '¡Operación realizada con éxito!');
 

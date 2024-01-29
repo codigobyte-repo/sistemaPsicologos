@@ -17,7 +17,7 @@ class DetallePago extends Component
 
     public function mount($pagoId)
     {
-        $this->pago = DatosDePago::find($pagoId);        
+        $this->pago = DatosDePago::find($pagoId);
     }
 
     public function render()

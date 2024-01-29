@@ -56,11 +56,14 @@
 
                     <x-validation-errors class="mb-4" />
 
-                    <p class="text-semibold text-gray-700 text-sm">
-                        El comprobante debe ser una imagen, formatos permitidos: PNG/JPG/JPEJ
+                    <p class="flex items-center">
+                        <div class="text-sm font-semibold text-gray-600">
+                            <p>Puede subir múltiples imágenes o fotos</p>
+                            <p>formatos permitidos: PDF/PNG/JPG/JPEG/GIF</p>
+                        </div>
                     </p>
 
-                    <div class="flex justify-center mx-auto">
+                    <div class="flex justify-center mx-auto mt-2">
                         <label class="bg-white px-6 py-4 rounded-lg inline-flex cursor-pointer">
                             
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -70,13 +73,13 @@
 
                             <span class="ml-2">CARGÁ TU COMPROBANTE AQUÍ</span>
                             
-                            <input type="file" accept="image/*" name="comprobante" class="hidden" onchange="previewImage(event, '#imgPreview')">
+                            <input type="file" accept="image/*,application/pdf" name="comprobante[]" class="hidden" multiple onchange="previewFiles(event, '#imgPreviewContainer')">
                         </label>
 
                     </div>
 
                     <div class="flex justify-center mx-auto pt-8">
-                        <img id="imgPreview">
+                        <div id="imgPreviewContainer" class="flex space-x-4"></div>
                     </div>
                     
                     <div class="flex justify-center mx-auto pt-8">
@@ -91,27 +94,56 @@
     </div>
     
     <script>
-        function previewImage(event, querySelector){
-
-            //Recuperamos el input que desencadeno la acción
+        function previewFiles(event, querySelector) {
+            // Recuperamos el input que desencadenó la acción
             const input = event.target;
-
-            //Recuperamos la etiqueta img donde cargaremos la imagen
-            $imgPreview = document.querySelector(querySelector);
-
-            // Verificamos si existe una imagen seleccionada
-            if(!input.files.length) return
-
-            //Recuperamos el archivo subido
-            file = input.files[0];
-
-            //Creamos la url
-            objectURL = URL.createObjectURL(file);
-
-            //Modificamos el atributo src de la etiqueta img
-            $imgPreview.src = objectURL;
-                    
+    
+            // Recuperamos el contenedor donde cargaremos las imágenes
+            const previewContainer = document.querySelector(querySelector);
+    
+            // Limpiamos el contenedor antes de agregar nuevas previsualizaciones
+            previewContainer.innerHTML = '';
+    
+            // Verificamos si existen archivos seleccionados
+            if (!input.files.length) return;
+    
+            // Recuperamos los archivos seleccionados
+            const files = input.files;
+    
+            // Iteramos sobre los archivos seleccionados
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+    
+                // Creamos la URL para la previsualización
+                const objectURL = URL.createObjectURL(file);
+    
+                // Creamos un elemento div para contener cada previsualización
+                const fileContainer = document.createElement('div');
+                fileContainer.classList.add('text-center');
+    
+                // Creamos un elemento img o embed para la previsualización (imagen o PDF)
+                const previewElement = file.type.startsWith('image/')
+                    ? document.createElement('img')
+                    : document.createElement('embed');
+    
+                previewElement.src = objectURL;
+                previewElement.classList.add('max-w-full', 'max-h-64', 'my-2'); // Ajusta el tamaño y el margen según sea necesario
+    
+                // Añadimos el elemento de previsualización al contenedor
+                fileContainer.appendChild(previewElement);
+    
+                // Creamos un elemento p para mostrar el nombre del archivo
+                const fileNameElement = document.createElement('p');
+                fileNameElement.textContent = file.name;
+    
+                // Añadimos el elemento del nombre del archivo al contenedor
+                fileContainer.appendChild(fileNameElement);
+    
+                // Añadimos el contenedor al contenedor principal
+                previewContainer.appendChild(fileContainer);
+            }
         }
     </script>
+    
 
 </x-app-layout>

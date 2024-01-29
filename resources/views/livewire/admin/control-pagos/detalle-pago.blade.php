@@ -448,16 +448,28 @@
                         </tbody>
                     </table>
                 </div>
-
+                
                 <div class="mb-6 col-span-full">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400">COMPROBANTE</label>
-                    <div class="cursor-pointer">
-                        <a href="{{ Storage::url($pago['image_path']) }}" target="_blank">
-                            <img src="{{ Storage::url($pago['image_path']) }}" class="picture" >
-                        </a>
+                    
+                    <label class="text-gray-400 mx-auto text-center dark:text-white col-span-full text-lg pt-2 pb-8">
+                        COMPROBANTES
+                    </label>
+
+                    <div class="cursor-pointer mt-4">
+                        @foreach($pago->images as $image)
+                            @if (pathinfo($image->path, PATHINFO_EXTENSION) == 'pdf')
+                                <!-- Mostrar el PDF -->
+                                <embed src="{{ Storage::url($image->path) }}" type="application/pdf" width="100%" height="600px">
+                                
+                            @else
+                                <!-- Mostrar la imagen -->
+                                <a href="{{ Storage::url($image->path) }}" target="_blank">
+                                    <img src="{{ Storage::url($image->path) }}" class="picture">
+                                </a>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
-
                 
                 <div class="mt-4 col-span-3">
                     <div class="grid grid-cols-2 gap-4">
